@@ -12,6 +12,7 @@ dependencies {
 
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation("ch.qos.logback:logback-classic:1.2.3")
+    implementation("com.google.guava:guava:27.1-jre")
 
     // Use JUnit test framework
     testImplementation("org.junit.jupiter:junit-jupiter:5.4.1")
