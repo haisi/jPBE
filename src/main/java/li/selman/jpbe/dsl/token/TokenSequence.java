@@ -33,6 +33,10 @@ public class TokenSequence implements DslElement, Iterable<Token> {
         return tokens;
     }
 
+    public int getNumberOfTokens() {
+        return tokens.size();
+    }
+
     /**
      * Is only called in {@link TokenSequence#union(TokenSequence)} and only if
      * the size of sequence is >= 0.
