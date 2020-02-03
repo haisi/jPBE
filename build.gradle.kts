@@ -7,14 +7,18 @@ repositories {
 }
 
 dependencies {
-    // This dependency is exported to consumers, that is to say found on their compile classpath.
-//    api("org.apache.commons:commons-math3:3.6.1")
-
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
-    implementation("ch.qos.logback:logback-classic:1.2.3")
-    implementation("com.google.guava:guava:27.1-jre")
+    implementation("com.google.guava:guava:28.1-jre")
 
-    // Use JUnit test framework
-    testImplementation("org.junit.jupiter:junit-jupiter:5.4.1")
-    testImplementation("org.assertj:assertj-core:3.11.1")
+    // Use JUnit Jupiter API for testing.
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
+	testImplementation("org.assertj:assertj-core:3.15.0")
+
+    // Use JUnit Jupiter Engine for testing.
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.0")
+}
+
+val test by tasks.getting(Test::class) {
+    // Use junit platform for unit tests
+    useJUnitPlatform()
 }
