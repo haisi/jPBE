@@ -55,11 +55,11 @@ class LookupExpressionBuilderTest {
         assertThat(actual).isNotEmpty();
         assertThat(actual.get()).isEqualTo("trois");
 
-        actual = expression.get(0).apply("dreissig");
+        actual = expression.get(0).apply("troisssig");
         assertThat(actual).isEmpty();
 
         actual = expression.get(0).apply("eins zwei oder drei");
         assertThat(actual).isNotEmpty();
-        assertThat(actual.get()).isEqualTo("trois");
+        assertThat(actual.get()).isEqualTo("une deux oder trois");
     }
 }
