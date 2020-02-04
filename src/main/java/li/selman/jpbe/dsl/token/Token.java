@@ -49,6 +49,12 @@ public enum Token {
             return "S";
         }
     },
+    LEADING_ZERO("(^)[0]+") {
+        @Override
+        public String toString() {
+            return "0+";
+        }
+    },
     SLASH("[\\\\]+") {
         @Override
         public String toString() {
@@ -77,6 +83,15 @@ public enum Token {
         @Override
         public String toString() {
             return "s+";
+        }
+    },
+    // TODO everything_else token
+    //  - Negated regex is wrong
+    //  - Dynamically generate depending on what is used
+    EVERYTHING_ELSE("[^\\^$a-zA-Z0-9\\s+_\\\\/-\\\\.()]") {
+        @Override
+        public String toString() {
+            return "ELSE";
         }
     };
 

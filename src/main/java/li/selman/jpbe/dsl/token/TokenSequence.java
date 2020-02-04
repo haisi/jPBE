@@ -37,6 +37,20 @@ public class TokenSequence implements DslElement, Iterable<Token> {
         return tokens.size();
     }
 
+    public boolean isEmpty() {
+        return tokens.isEmpty();
+    }
+
+    /**
+     * @return the last token or {@code null} if the sequence is empty
+     */
+    public Token getLastToken() {
+        if (!tokens.isEmpty()) {
+            return tokens.get(tokens.size() - 1);
+        }
+        return null;
+    }
+
     /**
      * Is only called in {@link TokenSequence#union(TokenSequence)} and only if
      * the size of sequence is >= 0.
