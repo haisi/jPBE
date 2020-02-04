@@ -15,7 +15,7 @@ public class Matcher {
         if (from >= to) throw new IllegalArgumentException("From >= To");
 
         List<MatchResult> matches = JPbeUtils.matches(r.getMergedPattern(), s);
-        if (matches.isEmpty()) throw new RuntimeException("No matches found");
+        if (matches.isEmpty()) throw new IllegalStateException("No matches found");
 
         int position = 1;
         for (MatchResult match : matches) {
@@ -29,7 +29,7 @@ public class Matcher {
             }
         }
 
-        throw new RuntimeException("No matches");
+        throw new IllegalStateException("No matches");
     }
 
     public static int totalNumberOfMatches(TokenSequence r, String s) {
