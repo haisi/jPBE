@@ -3,7 +3,7 @@ package li.selman.jpbe.algorithm.expressionbuilders;
 import li.selman.jpbe.dsl.expression.Expression;
 import li.selman.jpbe.dsl.expression.LookupExpression;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +19,7 @@ public class LookupExpressionBuilder implements ExpressionBuilder {
     private final List<List<String>> columns;
 
     public LookupExpressionBuilder(List<List<String>> columns) {
-        if (columns.size() >= 2) {
+        if (columns.size() < 2) {
             throw new IllegalArgumentException("A lookup table only makes sense with two or more columns.");
         }
         assertAllColumnsSameLength(columns);
@@ -29,8 +29,6 @@ public class LookupExpressionBuilder implements ExpressionBuilder {
 
     @Override
     public List<Expression> computeExpressions(String input, String substr) {
-        List<Expression> expressions = new ArrayList<>();
-
         for (int outputColIdx = 0; outputColIdx < columns.size(); outputColIdx++) {
             List<String> outputColumn = columns.get(outputColIdx);
             if (!outputColumn.contains(substr)) {
@@ -50,13 +48,13 @@ public class LookupExpressionBuilder implements ExpressionBuilder {
                 // Unlike with the substr, the element in the column must only be contained in the input
                 if (input.contains(element)) {
                     Map<String, String> lookupTable = combineListsIntoOrderedMap(inputColumn, outputColumn);
-                    expressions.add(new LookupExpression(lookupTable));
+                    return List.of(new LookupExpression(lookupTable));
                 }
 
             }
         }
 
-        return expressions;
+        return Collections.emptyList();
     }
 
     private Map<String, String> combineListsIntoOrderedMap(List<String> keys, List<String> values) {
