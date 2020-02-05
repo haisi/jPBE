@@ -1,8 +1,6 @@
 package li.selman.jpbe;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
@@ -11,36 +9,11 @@ import java.util.regex.Pattern;
 /**
  * @author Hasan Selman Kara
  */
+// TODO remove
 final public class JPbeUtils {
 
     private JPbeUtils() {
         throw new AssertionError("No JPbeUtils instances for you!");
-    }
-
-    /**
-     * Checks that the specified object reference is not {@code null} or empty!
-     *
-     * @param string  string
-     * @param message detail message to be used in the event that a {@code IllegalArgumentException} is thrown
-     * @return string
-     * @throws IllegalArgumentException if {@code string} is {@code null} or empty
-     */
-    public static String requireIsNotNullOrEmpty(String string, String message) {
-        if ((string == null || string.isEmpty())) {
-            throw new IllegalArgumentException(message);
-        }
-        return string;
-    }
-
-    public static List<MatchResult> matches(final Pattern p, final CharSequence input) {
-        final Matcher matcher = p.matcher(input);
-        final List<MatchResult> matchResults = new ArrayList<>();
-
-        while (matcher.find()) {
-            matchResults.add(matcher.toMatchResult());
-        }
-
-        return matchResults;
     }
 
     /**
@@ -50,6 +23,7 @@ final public class JPbeUtils {
      * @param input
      * @return
      */
+    // TODO never used. why did I write this again?
     public static Iterable<MatchResult> allMatches(
         final Pattern p, final CharSequence input) {
         return () -> new Iterator<MatchResult>() {

@@ -1,6 +1,7 @@
 package li.selman.jpbe.algorithm.expressionbuilders;
 
-import li.selman.jpbe.dsl.expression.Expression;
+import li.selman.jpbe.dsl.Expression;
+import li.selman.jpbe.dsl.lookup.LookupExpressionBuilder;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

@@ -1,6 +1,5 @@
 package li.selman.jpbe.dsl.position;
 
-import li.selman.jpbe.JPbeUtils;
 import li.selman.jpbe.dsl.token.TokenSequence;
 
 import java.util.List;
@@ -31,9 +30,9 @@ public class DynamicPosition implements Position {
 
     @Override
     public int evalToPosition(String s) {
-        List<MatchResult> prefixMatches = JPbeUtils.matches(prefix.getMergedPattern(), s);
+        List<MatchResult> prefixMatches = Matcher.matches(prefix.getMergedPattern(), s);
         if (prefixMatches.isEmpty()) throw new RuntimeException("No matches for prefix");
-        List<MatchResult> suffixMatches = JPbeUtils.matches(suffix.getMergedPattern(), s);
+        List<MatchResult> suffixMatches = Matcher.matches(suffix.getMergedPattern(), s);
         if (suffixMatches.isEmpty()) throw new RuntimeException("No matches for suffix");
 
         int c = occurrence;
