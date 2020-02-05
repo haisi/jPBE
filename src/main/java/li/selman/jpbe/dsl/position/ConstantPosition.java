@@ -11,11 +11,8 @@ public class ConstantPosition implements Position {
         this.constant = constant;
     }
 
-    /**
-     * @throws StringIndexOutOfBoundsException if abs {@link ConstantPosition#constant} is bigger than {@code s.length()}
-     */
     @Override
-    public int evalToPosition(String s) throws StringIndexOutOfBoundsException {
+    public int evalToPosition(String s) {
         if (constant == Integer.MIN_VALUE) {
             return s.length();
         }
