@@ -1,7 +1,8 @@
-package li.selman.jpbe.algorithm.expressionbuilders;
+package li.selman.jpbe.dsl.expression;
 
-import li.selman.jpbe.dsl.expression.Expression;
-import li.selman.jpbe.dsl.expression.SubstringExpression;
+import li.selman.jpbe.dsl.Expression;
+import li.selman.jpbe.dsl.ExpressionBuilder;
+import li.selman.jpbe.dsl.position.PositionBuilder;
 import li.selman.jpbe.dsl.position.Position;
 
 import java.util.ArrayList;

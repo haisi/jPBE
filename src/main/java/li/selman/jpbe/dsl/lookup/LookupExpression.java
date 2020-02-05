@@ -1,4 +1,6 @@
-package li.selman.jpbe.dsl.expression;
+package li.selman.jpbe.dsl.lookup;
+
+import li.selman.jpbe.dsl.Expression;
 
 import java.util.Map;
 import java.util.Optional;
@@ -12,7 +14,7 @@ import java.util.Optional;
  * LookupExpression <b>and</b> LookupExpressionBuilder.
  *
  * @author Hasan Selman Kara
- * @see li.selman.jpbe.algorithm.expressionbuilders.LookupExpressionBuilder
+ * @see LookupExpressionBuilder
  */
 public class LookupExpression implements Expression {
 

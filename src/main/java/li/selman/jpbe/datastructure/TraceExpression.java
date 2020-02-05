@@ -1,6 +1,7 @@
-package li.selman.jpbe.dsl.expression;
+package li.selman.jpbe.datastructure;
 
 import li.selman.jpbe.dsl.DslElement;
+import li.selman.jpbe.dsl.Expression;
 
 import java.util.List;
 import java.util.Optional;

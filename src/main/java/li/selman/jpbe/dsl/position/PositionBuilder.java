@@ -1,9 +1,5 @@
-package li.selman.jpbe.algorithm.expressionbuilders;
+package li.selman.jpbe.dsl.position;
 
-import li.selman.jpbe.algorithm.Matcher;
-import li.selman.jpbe.dsl.position.ConstantPosition;
-import li.selman.jpbe.dsl.position.DynamicPosition;
-import li.selman.jpbe.dsl.position.Position;
 import li.selman.jpbe.dsl.token.Token;
 import li.selman.jpbe.dsl.token.TokenSequence;
 import li.selman.jpbe.dsl.token.TokenSequenceBuilder;

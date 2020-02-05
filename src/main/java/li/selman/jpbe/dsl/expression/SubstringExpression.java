@@ -1,5 +1,6 @@
 package li.selman.jpbe.dsl.expression;
 
+import li.selman.jpbe.dsl.Expression;
 import li.selman.jpbe.dsl.position.Position;
 
 import java.util.Objects;

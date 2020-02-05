@@ -1,7 +1,7 @@
-package li.selman.jpbe.algorithm.expressionbuilders;
+package li.selman.jpbe.dsl.lookup;
 
-import li.selman.jpbe.dsl.expression.Expression;
-import li.selman.jpbe.dsl.expression.LookupExpression;
+import li.selman.jpbe.dsl.ExpressionBuilder;
+import li.selman.jpbe.dsl.Expression;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;

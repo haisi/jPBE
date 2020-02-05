@@ -1,6 +1,6 @@
 package li.selman.jpbe.datastructure;
 
-import li.selman.jpbe.dsl.expression.Expression;
+import li.selman.jpbe.dsl.Expression;
 
 import java.util.ArrayList;
 import java.util.HashSet;

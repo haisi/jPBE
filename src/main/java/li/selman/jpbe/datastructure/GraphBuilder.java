@@ -1,9 +1,7 @@
-package li.selman.jpbe.algorithm;
+package li.selman.jpbe.datastructure;
 
-import li.selman.jpbe.algorithm.expressionbuilders.ExpressionBuilder;
-import li.selman.jpbe.datastructure.Edge;
-import li.selman.jpbe.datastructure.Graph;
-import li.selman.jpbe.dsl.expression.Expression;
+import li.selman.jpbe.dsl.ExpressionBuilder;
+import li.selman.jpbe.dsl.Expression;
 
 import java.util.ArrayList;
 import java.util.List;

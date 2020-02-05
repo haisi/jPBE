@@ -1,4 +1,4 @@
-package li.selman.jpbe.algorithm;
+package li.selman.jpbe.dsl.position;
 
 import li.selman.jpbe.JPbeUtils;
 import li.selman.jpbe.dsl.token.TokenSequence;

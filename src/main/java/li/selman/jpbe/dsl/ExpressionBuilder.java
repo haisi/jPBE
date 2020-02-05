@@ -1,6 +1,4 @@
-package li.selman.jpbe.algorithm.expressionbuilders;
-
-import li.selman.jpbe.dsl.expression.Expression;
+package li.selman.jpbe.dsl;
 
 import java.util.List;
 
