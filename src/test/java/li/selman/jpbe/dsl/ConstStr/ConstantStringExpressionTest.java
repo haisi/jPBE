@@ -20,9 +20,9 @@ class ConstantStringExpressionTest {
         var constStrExp = new ConstantStringExpression(constant);
 
         assertAll(
-            () -> assertThat(constStrExp.apply("any string")).isNotEmpty().contains(constant),
-            () -> assertThat(constStrExp.apply("")).isNotEmpty().contains(constant),
-            () -> assertThat(constStrExp.apply(null)).isNotEmpty().contains(constant)
+            () -> assertThat(constStrExp.apply("any string")).isNotEmpty().containsSame(constant),
+            () -> assertThat(constStrExp.apply("")).isNotEmpty().containsSame(constant),
+            () -> assertThat(constStrExp.apply(null)).isNotEmpty().containsSame(constant)
         );
     }
 
