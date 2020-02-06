@@ -28,8 +28,11 @@ public class DynamicPosition implements Position {
         return prefix.getSize() * suffix.getSize();
     }
 
+    /**
+     * @throws NoPositionException if no position can be evaluated to
+     */
     @Override
-    public int evalToPosition(String s) {
+    public int evalToPosition(String s) throws NoPositionException {
         List<MatchResult> prefixMatches = Matcher.matches(prefix.getMergedPattern(), s);
         if (prefixMatches.isEmpty()) throw new RuntimeException("No matches for prefix");
         List<MatchResult> suffixMatches = Matcher.matches(suffix.getMergedPattern(), s);
@@ -63,7 +66,7 @@ public class DynamicPosition implements Position {
             }
         }
 
-        throw new RuntimeException("Could not find position");
+        throw new NoPositionException();
     }
 
     @Override

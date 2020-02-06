@@ -7,6 +7,16 @@ import li.selman.jpbe.dsl.DslElement;
  */
 public interface Position extends DslElement {
 
-    int evalToPosition(String s);
+    /**
+     *
+     * @param s
+     * @return the index
+     * @throws NoPositionException in certain implementations
+     */
+    // TODO make return optional?
+    //  As this is a hot path and in most cases a happy case,
+    //  wrapping each return in an Optional might be more expensive,
+    //  than a rare exception.
+    int evalToPosition(String s) throws NoPositionException;
 
 }
