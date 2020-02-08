@@ -12,6 +12,10 @@ import java.util.regex.Pattern;
  *
  * @author Hasan Selman Kara
  */
+// TODO I'm not happy with this solution
+//    - An Enum is not extensible, i.e. library consumer cannot add their own tokens
+//    -> An abstract Token class with multiple impls. with package-private constructors
+//    -> Abstract Token class has `public static final` factories, e.g. Token.ALPHA
 public enum Token {
     ALPHA("[a-zA-Z]+") {
         @Override

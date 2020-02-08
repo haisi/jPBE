@@ -10,6 +10,7 @@ public class TokenSequenceBuilder {
 
     private final int maxLength;
 
+    // TODO pass a list of all used tokens. See `Token computeTokenForChar(char c, Token lastToken)`
     public TokenSequenceBuilder(int maxLength) {
         this.maxLength = maxLength;
     }
@@ -62,6 +63,9 @@ public class TokenSequenceBuilder {
         }
     }
 
+    // TODO shouldn't I iterate over all used tokens and see which one applies
+    //  - Note that multiple tokens might match...
+    //  - Maybe add a abstract method `boolean charMatches(char c, Token lastToken)` to abstract Token class
     Token computeTokenForChar(char c, Token lastToken) {
         if ('0' == c && Token.START.equals(lastToken) ||
             '0' == c && Token.LEADING_ZERO.equals(lastToken)) {
