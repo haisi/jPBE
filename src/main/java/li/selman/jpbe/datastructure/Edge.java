@@ -48,4 +48,9 @@ public class Edge {
         result = 31 * result + expressions.hashCode();
         return result;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Edge{From=%d, To=%d, Expressions=%s", from, to, expressions);
+    }
 }

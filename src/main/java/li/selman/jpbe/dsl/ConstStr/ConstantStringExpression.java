@@ -33,4 +33,24 @@ public class ConstantStringExpression implements Expression {
     public int getSize() {
         return 1;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ConstantStringExpression that = (ConstantStringExpression) o;
+
+        return constant.equals(that.constant);
+    }
+
+    @Override
+    public int hashCode() {
+        return constant.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return String.format("ConStr('%s')", constant);
+    }
 }

@@ -30,4 +30,24 @@ public class ConstantPosition implements Position {
     public int getSize() {
         return 1;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ConstantPosition that = (ConstantPosition) o;
+
+        return constant == that.constant;
+    }
+
+    @Override
+    public int hashCode() {
+        return constant;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("CPos(%s)", constant);
+    }
 }

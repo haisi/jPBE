@@ -70,6 +70,26 @@ public class DynamicPosition implements Position {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DynamicPosition that = (DynamicPosition) o;
+
+        if (occurrence != that.occurrence) return false;
+        if (!prefix.equals(that.prefix)) return false;
+        return suffix.equals(that.suffix);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = prefix.hashCode();
+        result = 31 * result + suffix.hashCode();
+        result = 31 * result + occurrence;
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "DynamicPosition(" + prefix + ", " + suffix + ", " + occurrence + ')';
     }

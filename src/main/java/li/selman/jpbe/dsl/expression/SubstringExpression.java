@@ -52,4 +52,27 @@ public class SubstringExpression implements Expression {
     public int getSize() {
         return startPosition.getSize() * endPosition.getSize();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SubstringExpression that = (SubstringExpression) o;
+
+        if (!startPosition.equals(that.startPosition)) return false;
+        return endPosition.equals(that.endPosition);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = startPosition.hashCode();
+        result = 31 * result + endPosition.hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("SubStr(%s, %s)", startPosition, endPosition);
+    }
 }

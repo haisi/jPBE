@@ -50,4 +50,24 @@ public class LookupExpression implements Expression {
     public int getSize() {
         return 1;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        LookupExpression that = (LookupExpression) o;
+
+        return lookupTable.equals(that.lookupTable);
+    }
+
+    @Override
+    public int hashCode() {
+        return lookupTable.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Lookup(%s)", lookupTable);
+    }
 }

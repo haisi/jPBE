@@ -92,4 +92,23 @@ public class TokenSequence implements DslElement, Iterable<Token> {
         return tokens.iterator();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TokenSequence tokens1 = (TokenSequence) o;
+
+        return tokens.equals(tokens1.tokens);
+    }
+
+    @Override
+    public int hashCode() {
+        return tokens.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return String.format("TokenSeq(%s)", tokens);
+    }
 }
