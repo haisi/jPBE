@@ -14,6 +14,8 @@ public class Edge {
     private final Set<Expression> expressions;
 
     public Edge(int from, int to, Set<Expression> expressions) {
+        if (expressions.isEmpty()) throw new IllegalArgumentException("Expressions cannot be empty");
+
         this.from = from;
         this.to = to;
         this.expressions = expressions;
