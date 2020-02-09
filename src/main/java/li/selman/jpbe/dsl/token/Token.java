@@ -141,7 +141,7 @@ public abstract class Token {
 
     private static class SpaceToken extends Token {
         SpaceToken() {
-            super(Pattern.compile("[\\s]]+"));
+            super(Pattern.compile("[\\s]+"));
         }
     }
 
