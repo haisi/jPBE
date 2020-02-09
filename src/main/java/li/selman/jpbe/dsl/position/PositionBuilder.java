@@ -96,7 +96,8 @@ public class PositionBuilder {
 
     private Map<Integer, TokenSequence> computeRightTokenSeq(String input, int k) {
         Map<Integer, TokenSequence> rightTokenSeq = new HashMap<>();
-        for (int k2 = 0; k2 <= input.length(); k2++) {
+        // TODO check this out. It's the same in reference
+        for (int k2 = k; k2 <= input.length(); k2++) {
             var tokenSequence = tokenSequenceBuilder.computeTokenSequence(input, k, k2);
             if (!tokenSequence.isEmpty()) {
                 rightTokenSeq.put(k2, tokenSequence);

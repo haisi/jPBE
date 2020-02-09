@@ -26,7 +26,8 @@ public class SubstringExpressionBuilder implements ExpressionBuilder {
 
         for (Integer k : substringsStartIndices(input, substr)) {
             Set<Position> y1 = positionBuilder.computePositions(input, k);
-            Set<Position> y2 = positionBuilder.computePositions(input, k + input.length());
+            // in reference it's: k + input.length()   WARUM?!?!
+            Set<Position> y2 = positionBuilder.computePositions(input, input.length() - k);
 
             for (Position p1 : y1) {
                 for (Position p2 : y2) {
