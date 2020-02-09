@@ -17,6 +17,8 @@ public class TokenSequence implements DslElement, Iterable<Token> {
     private TokenSequence(List<Token> tokens) {
         this.tokens = tokens;
         // TODO what if regexPattern is empty?! Match everything or nothing?
+        // 'and' merge all regex pattern together, i.e. the whole pattern must match
+        // 'or' merge with an '|' pipe is wrong!
         final String regexPattern = tokens.stream().map(Token::getRegexPattern).collect(Collectors.joining());
         this.mergedPattern = Pattern.compile(regexPattern);
     }

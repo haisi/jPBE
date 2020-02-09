@@ -2,6 +2,8 @@ package li.selman.jpbe.dsl.token;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.BiFunction;
 
 /**
  * @author Hasan Selman Kara
@@ -9,10 +11,23 @@ import java.util.List;
 public class TokenSequenceBuilder {
 
     private final int maxLength;
+    private final BiFunction<Character, Token, Optional<Token>> computeTokenForCharHook;
+    private final Tokens tokens;
 
-    // TODO pass a list of all used tokens. See `Token computeTokenForChar(char c, Token lastToken)`
-    public TokenSequenceBuilder(int maxLength) {
+    private static final BiFunction<Character, Token, Optional<Token>> defaultHook = (character, token) -> Optional.empty();
+
+    public TokenSequenceBuilder(int maxLength, Tokens tokens) {
+        this(maxLength, defaultHook, tokens);
+    }
+
+    public TokenSequenceBuilder(int maxLength, BiFunction<Character, Token, Optional<Token>> computeTokenForCharHook, Tokens tokens) {
+        if (maxLength <= 0) throw new IllegalArgumentException("MaxLength cannot be smaller than 1");
+        if (computeTokenForCharHook == null) throw new IllegalArgumentException("Hook cannot be null. Use default hook!");
+        if (tokens == null) throw new IllegalArgumentException("Tokens cannot be null");
+
         this.maxLength = maxLength;
+        this.computeTokenForCharHook = computeTokenForCharHook;
+        this.tokens = tokens;
     }
 
     // TODO sleep and look at this again
@@ -63,37 +78,22 @@ public class TokenSequenceBuilder {
         }
     }
 
-    // TODO shouldn't I iterate over all used tokens and see which one applies
-    //  - Note that multiple tokens might match...
-    //  - Maybe add a abstract method `boolean charMatches(char c, Token lastToken)` to abstract Token class
     Token computeTokenForChar(char c, Token lastToken) {
+
+        Optional<Token> hookToken = computeTokenForCharHook.apply(c, lastToken);
+        if (hookToken.isPresent()) {
+            return hookToken.get();
+        }
+
         if ('0' == c && Token.START.equals(lastToken) ||
             '0' == c && Token.LEADING_ZERO.equals(lastToken)) {
             return Token.LEADING_ZERO;
         }
 
-        if (Character.isAlphabetic(c)) {
-            return Token.ALPHA;
-        }
-
-        if (Character.isDigit(c)) {
-            // TODO Token.NUMBER_NO_LEAD_ZEROS
-            return Token.NUMBER;
-        }
-
-        switch (c)
-        {
-            // TODO FIX
-            case ' ': return Token.SPACE;
-            case '.': return Token.DOT;
-//            case '\\': return Token.BACKSLASH;
-            case '/': return Token.SLASH;
-//            case '-': return Token.HYPHEN;
-            case '_': return Token.UNDERSCORE;
-//            case '(': return Token.OPEN_BRACE;
-//            case ')': return Token.CLOSE_BRACE;
-            default: return Token.EVERYTHING_ELSE;
-        }
+        return tokens.getTokens().stream()
+            .filter(token -> token.matches(c))
+            .findFirst()
+            .orElse(tokens.getElseToken());
     }
 
 }

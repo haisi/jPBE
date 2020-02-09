@@ -12,105 +12,47 @@ import java.util.regex.Pattern;
  *
  * @author Hasan Selman Kara
  */
-// TODO I'm not happy with this solution
-//    - An Enum is not extensible, i.e. library consumer cannot add their own tokens
-//    -> An abstract Token class with multiple impls. with package-private constructors
-//    -> Abstract Token class has `public static final` factories, e.g. Token.ALPHA
-public enum Token {
-    ALPHA("[a-zA-Z]+") {
-        @Override
-        public String toString() {
-            return "A";
-        }
-    },
-    NUMBER("[0-9]+") {
-        @Override
-        public String toString() {
-            return "N";
-        }
-    },
-    LOWER("[a-z]+") {
-        @Override
-        public String toString() {
-            return "L";
-        }
-    },
-    UPPER("[A-Z]+") {
-        @Override
-        public String toString() {
-            return "U";
-        }
-    },
-    ALPHA_NUM("[a-zA-Z0-9]+") {
-        @Override
-        public String toString() {
-            return "AN";
-        }
-    },
-    START("^") {
-        @Override
-        public String toString() {
-            return "S";
-        }
-    },
-    LEADING_ZERO("(^)[0]+") {
-        @Override
-        public String toString() {
-            return "0+";
-        }
-    },
-    SLASH("[\\\\]+") {
-        @Override
-        public String toString() {
-            return "\\";
-        }
-    },
-    DOT("[\\.]+") {
-        @Override
-        public String toString() {
-            return ".";
-        }
-    },
-    END("$") {
-        @Override
-        public String toString() {
-            return "-";
-        }
-    },
-    UNDERSCORE("[_]+") {
-        @Override
-        public String toString() {
-            return "_";
-        }
-    },
-    SPACE("[\\s]+") {
-        @Override
-        public String toString() {
-            return "s+";
-        }
-    },
-    // TODO everything_else token
-    //  - Negated regex is wrong
-    //  - Dynamically generate depending on what is used
-    EVERYTHING_ELSE("[^\\^$a-zA-Z0-9\\s+_\\\\/-\\\\.()]") {
-        @Override
-        public String toString() {
-            return "ELSE";
-        }
-    };
+public abstract class Token {
+
+    public final static Token START = new Token.StartToken();
+    public final static Token END = new Token.EndToken();
+
+    public final static Token ALPHA = new Token.AlphaToken();
+    public final static Token LOWER_ALPHA = new Token.LowerAlphaToken();
+    public final static Token UPPER_ALPHA = new Token.UpperAlphaToken();
+
+    public final static Token LEADING_ZERO = new Token.LeadingZeroToken();
+    public final static Token NUM = new Token.NumToken();
+    public final static Token ALPHA_NUM = new Token.AlphaNumToken();
+
+    public final static Token SPACE = new Token.SpaceToken();
+
+    public final static Token COLON = new Token.ColonToken();
+    public final static Token SEMI_COLON = new Token.SemiColonToken();
+
+    public final static Token DOT = new Token.DotToken();
+    public final static Token COMMA = new Token.CommaToken();
+
+    public final static Token HYPHEN = new Token.HyphenToken();
+    public final static Token UNDERSCORE = new Token.UnderscoreToken();
+
+    public final static Token BACK_SLASH = new Token.BackSlashToken();
+    public final static Token FORWARD_SLASH = new Token.ForwardSlashToken();
 
     private final Pattern pattern;
 
-    Token(String regex) {
-        this.pattern = Pattern.compile(regex);
-    }
+    public Token(Pattern pattern) {
+        if (pattern == null) throw new IllegalArgumentException("Pattern cannot be null");
 
-    public String getRegexPattern() {
-        return this.pattern.pattern();
+        this.pattern = pattern;
     }
 
     public Pattern getPattern() {
         return pattern;
+    }
+
+    public String getRegexPattern() {
+        return pattern.pattern();
     }
 
     /**
@@ -120,5 +62,134 @@ public enum Token {
     public boolean matches(String s) {
         return pattern.matcher(s).matches();
     }
-}
 
+    /**
+     * @param c to match
+     * @return {@code true} if the c matches the Regex
+     */
+    public boolean matches(char c) {
+        return matches(String.valueOf(c));
+    }
+
+    @Override
+    public String toString() {
+        return "Token{" + pattern + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Token token = (Token) o;
+
+        return pattern.equals(token.pattern);
+    }
+
+    @Override
+    public int hashCode() {
+        return pattern.hashCode();
+    }
+
+    private static class StartToken extends Token {
+        StartToken() {
+            super(Pattern.compile("^"));
+        }
+    }
+
+    private static class EndToken extends Token {
+        EndToken() {
+            super(Pattern.compile("$"));
+        }
+    }
+
+    private static class AlphaToken extends Token {
+        AlphaToken() {
+            super(Pattern.compile("[a-zA-Z]+"));
+        }
+    }
+
+    private static class LowerAlphaToken extends Token {
+        LowerAlphaToken() {
+            super(Pattern.compile("[a-z]+"));
+        }
+    }
+
+    private static class UpperAlphaToken extends Token {
+        UpperAlphaToken() {
+            super(Pattern.compile("[A-Z]+"));
+        }
+    }
+
+    private static class LeadingZeroToken extends Token {
+        LeadingZeroToken() {
+            super(Pattern.compile("(^)[0]+"));
+        }
+    }
+
+    private static class NumToken extends Token {
+        NumToken() {
+            super(Pattern.compile("[0-9]+"));
+        }
+    }
+
+    private static class AlphaNumToken extends Token {
+        AlphaNumToken() {
+            super(Pattern.compile("[a-zA-Z0-9]+"));
+        }
+    }
+
+    private static class SpaceToken extends Token {
+        SpaceToken() {
+            super(Pattern.compile("[\\s]]+"));
+        }
+    }
+
+    private static class DotToken extends Token {
+        DotToken() {
+            super(Pattern.compile("[\\.]+"));
+        }
+    }
+
+    private static class ColonToken extends Token {
+        ColonToken() {
+            super(Pattern.compile("[:]+"));
+        }
+    }
+
+    private static class CommaToken extends Token {
+        CommaToken() {
+            super(Pattern.compile("[\\,]+"));
+        }
+    }
+
+    private static class SemiColonToken extends Token {
+        SemiColonToken() {
+            super(Pattern.compile("[;]+"));
+        }
+    }
+
+    private static class BackSlashToken extends Token {
+        BackSlashToken() {
+            super(Pattern.compile("[\\\\]+"));
+        }
+    }
+
+    private static class ForwardSlashToken extends Token {
+        ForwardSlashToken() {
+            super(Pattern.compile("[/]+"));
+        }
+    }
+
+    private static class HyphenToken extends Token {
+        HyphenToken() {
+            super(Pattern.compile("[-]+"));
+        }
+    }
+
+    private static class UnderscoreToken extends Token {
+        UnderscoreToken() {
+            super(Pattern.compile("[_]+"));
+        }
+    }
+}

@@ -3,6 +3,7 @@ package li.selman.jpbe.dsl.position;
 import li.selman.jpbe.dsl.token.Token;
 import li.selman.jpbe.dsl.token.TokenSequence;
 import li.selman.jpbe.dsl.token.TokenSequenceBuilder;
+import li.selman.jpbe.dsl.token.Tokens;
 
 import java.util.*;
 
@@ -14,7 +15,15 @@ public class PositionBuilder {
 
     private int maxTokenSequenceLength = 2;
 
-    private final TokenSequenceBuilder tokenSequenceBuilder = new TokenSequenceBuilder(maxTokenSequenceLength);
+    private final Tokens tokens = new Tokens(List.of(
+        Token.START,
+        Token.END,
+        Token.ALPHA,
+        Token.NUM,
+        Token.COMMA,
+        Token.DOT
+    ));
+    private final TokenSequenceBuilder tokenSequenceBuilder = new TokenSequenceBuilder(maxTokenSequenceLength, tokens);
 
     private String lastString;
     private final Map<Integer, HashSet<Position>> cache = new HashMap<>();
