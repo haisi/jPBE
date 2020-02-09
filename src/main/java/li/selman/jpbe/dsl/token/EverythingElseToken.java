@@ -47,4 +47,9 @@ class EverythingElseToken extends Token {
             .map(Token::getPattern)
             .map(Pattern::pattern);
     }
+
+    @Override
+    public String toString() {
+        return "ELSE";
+    }
 }

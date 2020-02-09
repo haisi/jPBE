@@ -23,6 +23,7 @@ public abstract class Token {
 
     public final static Token LEADING_ZERO = new Token.LeadingZeroToken();
     public final static Token NUM = new Token.NumToken();
+    public final static Token NUM_NO_LEADING_ZEROS = new NumNoLeadingZerosToken();
     public final static Token ALPHA_NUM = new Token.AlphaNumToken();
 
     public final static Token SPACE = new Token.SpaceToken();
@@ -69,6 +70,14 @@ public abstract class Token {
      */
     public boolean matches(char c) {
         return matches(String.valueOf(c));
+    }
+
+    public boolean matches(String s, Token lastToken) {
+        return matches(s);
+    }
+
+    public boolean matches(char c, Token lastToken) {
+        return matches(c);
     }
 
     @Override
@@ -124,6 +133,48 @@ public abstract class Token {
     private static class LeadingZeroToken extends Token {
         LeadingZeroToken() {
             super(Pattern.compile("(^)[0]+"));
+        }
+
+        @Override
+        public boolean matches(String s, Token lastToken) {
+            return "0".equals(s) && Token.START.equals(lastToken) ||
+                "0".equals(s) && Token.LEADING_ZERO.equals(lastToken);
+        }
+
+        @Override
+        public boolean matches(char c, Token lastToken) {
+            return this.matches(String.valueOf(c), lastToken);
+        }
+    }
+
+    private static class NumNoLeadingZerosToken extends Token {
+        NumNoLeadingZerosToken() {
+            super(Pattern.compile("([1-9]+[0-9]*)"));
+        }
+
+        @Override
+        public boolean matches(String s, Token lastToken) {
+            if ("0".equals(s)) {
+                return !Token.LEADING_ZERO.equals(lastToken);
+            } else {
+                return isPositiveNumeric(s);
+            }
+        }
+
+        private static boolean isPositiveNumeric(String str) {
+            for (char c : str.toCharArray()) {
+                if (!Character.isDigit(c)) return false;
+            }
+            return true;
+        }
+
+        @Override
+        public boolean matches(char c, Token lastToken) {
+            if (c == '0') {
+                return !Token.LEADING_ZERO.equals(lastToken);
+            } else {
+                return Character.isDigit(c);
+            }
         }
     }
 

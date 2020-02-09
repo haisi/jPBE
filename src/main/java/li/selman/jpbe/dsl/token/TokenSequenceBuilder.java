@@ -41,6 +41,7 @@ public class TokenSequenceBuilder {
         Token last = null;
         for (char c : substr.toCharArray()) {
             if (last == null) {
+                // Handle first token
                 last = computeTokenForChar(c, getLastOrNull(tokens));
                 tokens.add(last);
             }
@@ -85,13 +86,8 @@ public class TokenSequenceBuilder {
             return hookToken.get();
         }
 
-        if ('0' == c && Token.START.equals(lastToken) ||
-            '0' == c && Token.LEADING_ZERO.equals(lastToken)) {
-            return Token.LEADING_ZERO;
-        }
-
         return tokens.getTokens().stream()
-            .filter(token -> token.matches(c))
+            .filter(token -> token.matches(c, lastToken))
             .findFirst()
             .orElse(tokens.getElseToken());
     }
