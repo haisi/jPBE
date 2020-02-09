@@ -100,6 +100,15 @@ public abstract class Token {
         return pattern.hashCode();
     }
 
+    // TODO do we need Token.EVERYTHING ?
+    //  When a token sequence is empty. It matches everything.
+    //  I.e. we could represent it with `TokenSequence.of(List.of(Token.EVERYTHING))`
+    private static class EverythingToken extends Token {
+        EverythingToken() {
+            super(Pattern.compile("(.*?)"));
+        }
+    }
+
     private static class StartToken extends Token {
         StartToken() {
             super(Pattern.compile("^"));
