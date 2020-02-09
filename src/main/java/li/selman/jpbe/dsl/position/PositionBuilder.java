@@ -64,22 +64,8 @@ public class PositionBuilder {
     private Set<Position> computeDynamicPositions(String input, int k) {
         Set<Position> dynamicPositions = new HashSet<>();
 
-        var leftTokenSeq = new HashMap<Integer, TokenSequence>();
-        var rightTokenSeq = new HashMap<Integer, TokenSequence>();
-
-        for (int k1 = 0; k1 <= k; k1++) {
-            var tokenSequence = tokenSequenceBuilder.computeTokenSequence(input, k1, k);
-            if (!tokenSequence.isEmpty()) {
-                leftTokenSeq.put(k1, tokenSequence);
-            }
-        }
-
-        for (int k2 = 0; k2 <= input.length(); k2++) {
-            var tokenSequence = tokenSequenceBuilder.computeTokenSequence(input, k, k2);
-            if (!tokenSequence.isEmpty()) {
-                rightTokenSeq.put(k2, tokenSequence);
-            }
-        }
+        Map<Integer, TokenSequence> leftTokenSeq = computeLeftTokenSeq(input, k);
+        Map<Integer, TokenSequence> rightTokenSeq = computeRightTokenSeq(input, k);
 
         for (var leftEntry : leftTokenSeq.entrySet()) {
             for (var rightEntry : rightTokenSeq.entrySet()) {
@@ -112,6 +98,28 @@ public class PositionBuilder {
         }
 
         return dynamicPositions;
+    }
+
+    private Map<Integer, TokenSequence> computeRightTokenSeq(String input, int k) {
+        Map<Integer, TokenSequence> rightTokenSeq = new HashMap<>();
+        for (int k2 = 0; k2 <= input.length(); k2++) {
+            var tokenSequence = tokenSequenceBuilder.computeTokenSequence(input, k, k2);
+            if (!tokenSequence.isEmpty()) {
+                rightTokenSeq.put(k2, tokenSequence);
+            }
+        }
+        return rightTokenSeq;
+    }
+
+    private Map<Integer, TokenSequence> computeLeftTokenSeq(String input, int k) {
+        Map<Integer, TokenSequence> leftTokenSeq = new HashMap<>();
+        for (int k1 = 0; k1 <= k; k1++) {
+            var tokenSequence = tokenSequenceBuilder.computeTokenSequence(input, k1, k);
+            if (!tokenSequence.isEmpty()) {
+                leftTokenSeq.put(k1, tokenSequence);
+            }
+        }
+        return leftTokenSeq;
     }
 
     private HashSet<Position> union(Set<Position> a, Set<Position> b) {
