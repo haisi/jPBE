@@ -82,6 +82,8 @@ public class PositionBuilder {
                     c = Matcher.positionOfRegex(r12, input, leftEntry.getKey(), rightEntry.getKey());
                 } catch (Exception ex) {
                     if (ex instanceof IllegalStateException) {
+                        // TODO check if this ever happens and whether we should return Optional in Matcher.positionOfRegex
+                        System.err.println("Matcher.positionOfRegex failed");
                         continue;
                     } else {
                         // TODO should not be need?
