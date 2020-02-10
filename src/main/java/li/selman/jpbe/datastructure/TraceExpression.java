@@ -78,4 +78,29 @@ public class TraceExpression implements Expression {
     public int getSize() {
         return expressions.stream().mapToInt(DslElement::getSize).sum();
     }
+
+    public List<Expression> getExpressions() {
+        return expressions;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TraceExpression that = (TraceExpression) o;
+
+        // TODO order of lists should be ignored when comparing
+        return expressions.equals(that.expressions);
+    }
+
+    @Override
+    public int hashCode() {
+        return expressions.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return String.format("TraceExpression(%s)", expressions);
+    }
 }
