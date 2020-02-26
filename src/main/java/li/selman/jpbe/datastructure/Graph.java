@@ -80,4 +80,17 @@ public class Graph {
     List<Edge> getEdges() {
         return edges;
     }
+
+    @Override
+    public String toString() {
+        var builder = new StringBuilder(String.format("Graph[%d]:\n", maxNode));
+        for (Edge edge : edges) {
+            builder
+                .append("\t")
+                .append(edge.from).append(" -{").append(edge.getExpressions().size()).append("}->").append(edge.to)
+                .append("\n");
+        }
+
+        return builder.toString();
+    }
 }
