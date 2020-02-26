@@ -1,6 +1,5 @@
 package li.selman.jpbe.datastructure;
 
-import li.selman.jpbe.dsl.DslElement;
 import li.selman.jpbe.dsl.Expression;
 
 import java.util.ArrayList;
@@ -76,7 +75,7 @@ public class TraceExpression implements Expression {
 
     @Override
     public int getSize() {
-        return expressions.stream().mapToInt(DslElement::getSize).sum();
+        return expressions.size();
     }
 
     public List<Expression> getExpressions() {
