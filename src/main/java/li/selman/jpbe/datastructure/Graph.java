@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Hasan Selman Kara
@@ -60,6 +62,7 @@ public class Graph {
             }
         }
 
+        // TODO finish intersect
         return null;
     }
 
@@ -71,6 +74,32 @@ public class Graph {
         if (toDict.get(edge.to) == null)
             toDict.set(edge.to, new ArrayList<>());
         toDict.get(edge.to).add(edge);
+    }
+
+    // TODO extract the searching the path algorithm
+    //  - So users can choose if they don't want to have the heuristics of getting the shortest path, i.e. a global min instead of a local
+
+    // TODO create class `TraceSet` that wrap List<TraceExpression> and has functions to get the best path
+    public List<TraceExpression> computeTraceSet() {
+        // TODO check if this state can actually happen? (I guess with an empty graph after intersection?)
+        if (edges == null || edges.isEmpty()) throw new IllegalStateException("Edges cannot be null or empty");
+
+        var directEdge = findDirectEdge();
+        return getAllTraceExpressions(directEdge);
+        // TODO handle intersect graph as well
+    }
+
+    private List<TraceExpression> getAllTraceExpressions(Stream<Edge> edges) {
+        return edges
+            .map(Edge::getExpressions)
+            // TODO check whether we should use Set or List
+            .map(expressions -> new TraceExpression(new ArrayList<>(expressions)))
+            .collect(Collectors.toList());
+    }
+
+    private Stream<Edge> findDirectEdge() {
+        return edges.stream()
+            .filter(edge -> edge.from == 0 && edge.to == maxNode);
     }
 
     int getMaxNode() {

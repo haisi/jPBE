@@ -4,12 +4,19 @@ import li.selman.jpbe.dsl.ConstStr.ConstStrExpressionBuilder;
 import li.selman.jpbe.dsl.ConstStr.ConstantStringExpression;
 import li.selman.jpbe.dsl.Expression;
 import li.selman.jpbe.dsl.ExpressionBuilder;
+import li.selman.jpbe.dsl.expression.SubstringExpression;
+import li.selman.jpbe.dsl.expression.SubstringExpressionBuilder;
+import li.selman.jpbe.dsl.position.ConstantPosition;
+import li.selman.jpbe.dsl.position.PositionBuilder;
+import li.selman.jpbe.dsl.token.TokenSequenceBuilder;
+import li.selman.jpbe.dsl.token.Tokens;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Set;
 
+import static li.selman.jpbe.dsl.token.Token.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
@@ -57,6 +64,32 @@ class GraphBuilderTest {
             new Edge(1, 3, Set.of(new ConstantStringExpression("BC"))),
             new Edge(0, 3, Set.of(new ConstantStringExpression("ABC")))
         );
+    }
+
+    @Test
+    void integrationTest() {
+        Tokens tokens = new Tokens(List.of(START, END, ALPHA, NUM, COMMA, DOT));
+        int maxTokenSeqLength = 2;
+        var positionBuilder = new PositionBuilder(new TokenSequenceBuilder(maxTokenSeqLength, tokens));
+
+        ExpressionBuilder constStrExpBuilder = new ConstStrExpressionBuilder();
+        ExpressionBuilder substringExpBuilder = new SubstringExpressionBuilder(positionBuilder);
+
+        var graphBuilder = new GraphBuilder(List.of(constStrExpBuilder, substringExpBuilder));
+
+        List<Expression> foo = List.of(
+            new ConstantStringExpression("Smith"),
+            new SubstringExpression(new ConstantPosition(6), new ConstantPosition(10))
+        );
+
+        Graph graph = graphBuilder.createAllPrograms("Peter,Smith,1990", "Smith");
+        List<TraceExpression> traceExpressions = graph.computeTraceSet();
+
+        assertThat(traceExpressions.get(0).getExpressions()).containsAll(foo);
+
+        for (TraceExpression traceExpression : traceExpressions) {
+            System.out.println(traceExpression.apply("Peter,Smith,1990"));
+        }
     }
 
 }

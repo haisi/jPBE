@@ -47,6 +47,7 @@ public class GraphBuilder {
 
                 // All expression for which `f(input) = substr` applies
                 Set<Expression> expressions = expressionBuilders.stream()
+                    // TODO creates too many SubstringExpressions
                     .map(expressionBuilder -> expressionBuilder.computeExpressions(input, substring))
                     .flatMap(List::stream)
                     .collect(Collectors.toSet());
