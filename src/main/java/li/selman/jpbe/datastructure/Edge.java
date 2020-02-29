@@ -14,6 +14,7 @@ public class Edge {
     private final Set<Expression> expressions;
 
     public Edge(int from, int to, Set<Expression> expressions) {
+        if (from >= to) throw new IllegalArgumentException(String.format("Edge cannot go from '%d' to '%d'", from, to));
         if (expressions.isEmpty()) throw new IllegalArgumentException("Expressions cannot be empty");
 
         this.from = from;
