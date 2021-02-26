@@ -3,10 +3,6 @@ buildscript {
         gradlePluginPortal()
         maven { setUrl("http://palantir.bintray.com/releases") }
     }
-    dependencies {
-        classpath("com.palantir.baseline:gradle-baseline-java:3.69.0")
-        classpath("gradle.plugin.org.inferred:gradle-processors:3.3.0")
-    }
 }
 
 repositories {
