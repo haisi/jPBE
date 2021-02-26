@@ -1,10 +1,23 @@
-plugins {
-    `java-library`
-    id("org.asciidoctor.convert") version "1.5.9.2"
+buildscript {
+    repositories {
+        gradlePluginPortal()
+        maven { setUrl("http://palantir.bintray.com/releases") }
+    }
+    dependencies {
+        classpath("com.palantir.baseline:gradle-baseline-java:3.69.0")
+        classpath("gradle.plugin.org.inferred:gradle-processors:3.3.0")
+    }
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
+    maven { setUrl("http://palantir.bintray.com/releases") }
+}
+
+plugins {
+    `java-library`
+    id("com.palantir.baseline") version "3.69.0"
+    id("org.asciidoctor.convert") version "1.5.9.2"
 }
 
 dependencies {
