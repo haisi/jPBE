@@ -1,9 +1,11 @@
+/*
+ * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ */
 package li.selman.jpbe.dsl.lookup;
-
-import li.selman.jpbe.dsl.Expression;
 
 import java.util.Map;
 import java.util.Optional;
+import li.selman.jpbe.dsl.Expression;
 
 /**
  * Note that not the whole input string has to match for the lookup expression to be applied.

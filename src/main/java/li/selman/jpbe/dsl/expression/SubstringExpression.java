@@ -1,11 +1,13 @@
+/*
+ * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ */
 package li.selman.jpbe.dsl.expression;
-
-import li.selman.jpbe.dsl.Expression;
-import li.selman.jpbe.dsl.position.NoPositionException;
-import li.selman.jpbe.dsl.position.Position;
 
 import java.util.Objects;
 import java.util.Optional;
+import li.selman.jpbe.dsl.Expression;
+import li.selman.jpbe.dsl.position.NoPositionException;
+import li.selman.jpbe.dsl.position.Position;
 
 /**
  * @author Hasan Selman Kara

@@ -1,10 +1,12 @@
+/*
+ * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ */
 package li.selman.jpbe.dsl.token;
-
-import li.selman.jpbe.dsl.DslElement;
 
 import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import li.selman.jpbe.dsl.DslElement;
 
 /**
  * Merges a list of tokens together to a new combined token.

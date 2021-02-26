@@ -1,9 +1,11 @@
+/*
+ * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ */
 package li.selman.jpbe.dsl.position;
-
-import li.selman.jpbe.dsl.token.TokenSequence;
 
 import java.util.List;
 import java.util.regex.MatchResult;
+import li.selman.jpbe.dsl.token.TokenSequence;
 
 /**
  * @author Hasan Selman Kara

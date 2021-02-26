@@ -1,8 +1,10 @@
+/*
+ * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ */
 package li.selman.jpbe.classifier;
 
-import li.selman.jpbe.dsl.token.TokenSequence;
-
 import java.util.regex.Matcher;
+import li.selman.jpbe.dsl.token.TokenSequence;
 
 /**
  * Matches if the TokenSequence {@code r} occurs {@code k} times in a given string or

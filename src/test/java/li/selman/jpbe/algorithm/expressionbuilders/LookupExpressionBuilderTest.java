@@ -1,14 +1,16 @@
+/*
+ * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ */
 package li.selman.jpbe.algorithm.expressionbuilders;
 
-import li.selman.jpbe.dsl.Expression;
-import li.selman.jpbe.dsl.lookup.LookupExpressionBuilder;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.assertj.core.api.Assertions.assertThat;
+import li.selman.jpbe.dsl.Expression;
+import li.selman.jpbe.dsl.lookup.LookupExpressionBuilder;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Hasan Selman Kara

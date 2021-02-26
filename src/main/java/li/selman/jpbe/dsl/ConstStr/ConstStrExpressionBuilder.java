@@ -1,9 +1,11 @@
+/*
+ * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ */
 package li.selman.jpbe.dsl.ConstStr;
 
-import li.selman.jpbe.dsl.ExpressionBuilder;
-import li.selman.jpbe.dsl.Expression;
-
 import java.util.List;
+import li.selman.jpbe.dsl.Expression;
+import li.selman.jpbe.dsl.ExpressionBuilder;
 
 /**
  * @author Hasan Selman Kara

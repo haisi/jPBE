@@ -1,10 +1,12 @@
+/*
+ * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ */
 package li.selman.jpbe.datastructure;
-
-import li.selman.jpbe.dsl.Expression;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import li.selman.jpbe.dsl.Expression;
 
 /**
  * Represents all paths on {@link Graph} that lead from start to finish.

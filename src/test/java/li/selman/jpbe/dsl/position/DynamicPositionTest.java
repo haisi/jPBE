@@ -1,10 +1,13 @@
+/*
+ * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ */
 package li.selman.jpbe.dsl.position;
-
-import li.selman.jpbe.dsl.token.TokenSequence;
-import org.junit.jupiter.api.Test;
 
 import static li.selman.jpbe.dsl.token.Token.*;
 import static org.assertj.core.api.Assertions.assertThat;
+
+import li.selman.jpbe.dsl.token.TokenSequence;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Hasan Selman Kara

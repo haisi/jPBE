@@ -1,3 +1,6 @@
+/*
+ * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ */
 package li.selman.jpbe.dsl.position;
 
 import li.selman.jpbe.dsl.DslElement;

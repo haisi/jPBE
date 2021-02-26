@@ -1,15 +1,17 @@
+/*
+ * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ */
 package li.selman.jpbe.datastructure;
-
-import li.selman.jpbe.dsl.ConstStr.ConstantStringExpression;
-import li.selman.jpbe.dsl.Expression;
-import org.junit.jupiter.api.Test;
-
-import java.util.List;
-import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import java.util.List;
+import java.util.Set;
+import li.selman.jpbe.dsl.ConstStr.ConstantStringExpression;
+import li.selman.jpbe.dsl.Expression;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Hasan Selman Kara

@@ -1,5 +1,13 @@
+/*
+ * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ */
 package li.selman.jpbe.datastructure;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
 import li.selman.jpbe.dsl.ConstStr.ConstantStringExpression;
 import li.selman.jpbe.dsl.expression.SubstringExpression;
 import li.selman.jpbe.dsl.position.ConstantPosition;
@@ -9,12 +17,6 @@ import li.selman.jpbe.dsl.token.Token;
 import li.selman.jpbe.dsl.token.TokenSequence;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Function;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Hasan Selman Kara

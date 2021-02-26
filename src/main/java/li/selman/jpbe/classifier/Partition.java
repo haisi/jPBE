@@ -1,3 +1,6 @@
+/*
+ * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ */
 package li.selman.jpbe.classifier;
 
 import java.util.ArrayList;

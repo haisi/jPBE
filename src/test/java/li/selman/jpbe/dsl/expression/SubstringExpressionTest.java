@@ -1,11 +1,13 @@
+/*
+ * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ */
 package li.selman.jpbe.dsl.expression;
 
-import li.selman.jpbe.dsl.position.ConstantPosition;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import li.selman.jpbe.dsl.position.ConstantPosition;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Hasan Selman Kara

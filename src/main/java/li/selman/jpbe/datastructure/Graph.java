@@ -1,10 +1,12 @@
+/*
+ * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ */
 package li.selman.jpbe.datastructure;
-
-import li.selman.jpbe.dsl.Expression;
 
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import li.selman.jpbe.dsl.Expression;
 
 /**
  * @author Hasan Selman Kara

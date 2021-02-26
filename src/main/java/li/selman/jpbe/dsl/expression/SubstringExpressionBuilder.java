@@ -1,13 +1,15 @@
+/*
+ * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ */
 package li.selman.jpbe.dsl.expression;
-
-import li.selman.jpbe.dsl.Expression;
-import li.selman.jpbe.dsl.ExpressionBuilder;
-import li.selman.jpbe.dsl.position.PositionBuilder;
-import li.selman.jpbe.dsl.position.Position;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import li.selman.jpbe.dsl.Expression;
+import li.selman.jpbe.dsl.ExpressionBuilder;
+import li.selman.jpbe.dsl.position.Position;
+import li.selman.jpbe.dsl.position.PositionBuilder;
 
 /**
  * @author Hasan Selman Kara
