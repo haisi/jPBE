@@ -1,5 +1,6 @@
 plugins {
     `java-library`
+    id("org.asciidoctor.convert") version "1.5.9.2"
 }
 
 repositories {

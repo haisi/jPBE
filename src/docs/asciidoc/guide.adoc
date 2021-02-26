@@ -1,0 +1,23 @@
+= Example Manual
+Hasan Selman Kara <hasan.selman.kara@gmail.com>
+2020-02-08
+:example-caption!:
+ifndef::imagesdir[:imagesdir: images]
+ifndef::sourcedir[:sourcedir: ../java]
+
+This is a user manual for an example project.
+
+== Introduction
+
+This project does something.
+We just haven't decided what that is yet.
+
+== Source Code
+
+[source,java]
+.Java code from project
+----
+class Foo {
+
+}
+----

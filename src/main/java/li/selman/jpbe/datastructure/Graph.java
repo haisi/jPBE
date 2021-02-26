@@ -2,10 +2,7 @@ package li.selman.jpbe.datastructure;
 
 import li.selman.jpbe.dsl.Expression;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -17,7 +14,10 @@ public class Graph {
     private final int maxNode;
     private final List<Edge> edges;
 
-    public Graph(int maxNode, List<Edge> edges) {
+    // TODO remove mutable state!
+    private List<Edge>[] outgoingEdges;
+
+    Graph(int maxNode, List<Edge> edges) {
         this.maxNode = maxNode;
         this.edges = edges;
     }
@@ -80,12 +80,38 @@ public class Graph {
     //  - So users can choose if they don't want to have the heuristics of getting the shortest path, i.e. a global min instead of a local
 
     // TODO create class `TraceSet` that wrap List<TraceExpression> and has functions to get the best path
-    public List<TraceExpression> computeTraceSet() {
+
+    /**
+     * Finds the optimal path from S to T.
+     *
+     * @return direct path of edges from start to end or an empty list.
+     */
+    public List<Edge> computeLocalOptimaPath() {
         // TODO check if this state can actually happen? (I guess with an empty graph after intersection?)
         if (edges == null || edges.isEmpty()) throw new IllegalStateException("Edges cannot be null or empty");
 
         var directEdge = findDirectEdge();
-        return getAllTraceExpressions(directEdge);
+        if (directEdge.isPresent()) {
+            return List.of(directEdge.get());
+        }
+
+        /*
+          Find the cheapest path from S to T
+         */
+        // init
+        int[] distance = new int[maxNode + 1];
+        distance[0] = 0;
+        for (int i = 1; i < distance.length; i++) {
+            distance[i] = Integer.MAX_VALUE;
+        }
+
+        // An array of edges (optimization!)
+        List<Edge>[] paths = new List[maxNode + 1];
+        paths[0] = new ArrayList<>();
+
+
+        throw new UnsupportedOperationException("Not done yet!");
+//        return getAllTraceExpressions(directEdge);
         // TODO handle intersect graph as well
     }
 
@@ -97,9 +123,10 @@ public class Graph {
             .collect(Collectors.toList());
     }
 
-    private Stream<Edge> findDirectEdge() {
+    private Optional<Edge> findDirectEdge() {
         return edges.stream()
-            .filter(edge -> edge.from == 0 && edge.to == maxNode);
+            .filter(edge -> edge.from == 0 && edge.to == maxNode)
+            .findFirst();
     }
 
     int getMaxNode() {

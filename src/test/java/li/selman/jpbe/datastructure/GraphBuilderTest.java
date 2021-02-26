@@ -11,6 +11,7 @@ import li.selman.jpbe.dsl.position.PositionBuilder;
 import li.selman.jpbe.dsl.token.TokenSequenceBuilder;
 import li.selman.jpbe.dsl.token.Tokens;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -66,6 +67,28 @@ class GraphBuilderTest {
         );
     }
 
+    @Nested
+    class FindingPaths {
+
+        @Test
+        void foo() {
+            Expression heavyExpression = mock(Expression.class, "Heavy Expression");
+            when(heavyExpression.getSize()).thenReturn(10000000);
+
+            var graph = new Graph(2, List.of(
+                // direct edge
+                new Edge(0, 2, Set.of(new ConstantStringExpression("AB"), heavyExpression)),
+                new Edge(0, 1, Set.of(new ConstantStringExpression("A"), heavyExpression)),
+                new Edge(1, 2, Set.of(new ConstantStringExpression("B"), heavyExpression))
+            ));
+
+            var actual = graph.computeLocalOptimaPath();
+
+            System.out.println(actual);
+        }
+
+    }
+
     @Test
     void integrationTest() {
         Tokens tokens = new Tokens(List.of(START, END, ALPHA, NUM, COMMA, DOT));
@@ -83,13 +106,13 @@ class GraphBuilderTest {
         );
 
         Graph graph = graphBuilder.createAllPrograms("Peter,Smith,1990", "Smith");
-        List<TraceExpression> traceExpressions = graph.computeTraceSet();
-
-        assertThat(traceExpressions.get(0).getExpressions()).containsAll(foo);
-
-        for (TraceExpression traceExpression : traceExpressions) {
-            System.out.println(traceExpression.apply("Peter,Smith,1990"));
-        }
+//        List<TraceExpression> traceExpressions = graph.computeLocalOptimaPath();
+//
+//        assertThat(traceExpressions.get(0).getExpressions()).containsAll(foo);
+//
+//        for (TraceExpression traceExpression : traceExpressions) {
+//            System.out.println(traceExpression.apply("Peter,Smith,1990"));
+//        }
     }
 
 }
