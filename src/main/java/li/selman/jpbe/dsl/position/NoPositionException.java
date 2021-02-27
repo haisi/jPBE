@@ -7,4 +7,9 @@ package li.selman.jpbe.dsl.position;
  * @author Hasan Selman Kara
  */
 public class NoPositionException extends RuntimeException {
+
+    public NoPositionException(String message) {
+        super(message);
+    }
+
 }

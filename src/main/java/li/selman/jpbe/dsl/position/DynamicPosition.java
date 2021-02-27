@@ -37,9 +37,9 @@ public class DynamicPosition implements Position {
     @Override
     public int evalToPosition(String s) throws NoPositionException {
         List<MatchResult> prefixMatches = Matcher.matches(prefix.getMergedPattern(), s);
-        if (prefixMatches.isEmpty()) throw new RuntimeException("No matches for prefix");
+        if (prefixMatches.isEmpty()) throw new NoPositionException("No matches for prefix");
         List<MatchResult> suffixMatches = Matcher.matches(suffix.getMergedPattern(), s);
-        if (suffixMatches.isEmpty()) throw new RuntimeException("No matches for suffix");
+        if (suffixMatches.isEmpty()) throw new NoPositionException("No matches for suffix");
 
         int c = occurrence;
         if (c > 0) {
@@ -69,7 +69,7 @@ public class DynamicPosition implements Position {
             }
         }
 
-        throw new NoPositionException();
+        throw new NoPositionException("Couldn't evaluate to a position on: " + s);
     }
 
     @Override
