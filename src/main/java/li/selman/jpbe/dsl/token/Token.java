@@ -87,7 +87,7 @@ public abstract class Token {
 
     @Override
     public String toString() {
-        return "Token{" + pattern + '}';
+        return pattern.toString();
     }
 
     @Override
@@ -202,11 +202,21 @@ public abstract class Token {
         AlphaNumToken() {
             super(Pattern.compile("[a-zA-Z0-9]+"));
         }
+
+        @Override
+        public String toString() {
+            return "AN";
+        }
     }
 
     private static class SpaceToken extends Token {
         SpaceToken() {
             super(Pattern.compile("[\\s]+"));
+        }
+
+        @Override
+        public String toString() {
+            return "s+";
         }
     }
 

@@ -50,6 +50,6 @@ class Conjunct {
     @Override
     public String toString() {
         String dnfString = predicates.stream().map(Object::toString).collect(Collectors.joining(" v "));
-        return "({" + dnfString + "})";
+        return "(" + dnfString + ")";
     }
 }

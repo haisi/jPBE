@@ -3,7 +3,10 @@
  */
 package li.selman.jpbe.classifier;
 
+import java.text.MessageFormat;
 import java.util.regex.Matcher;
+import java.util.stream.Collectors;
+import li.selman.jpbe.dsl.token.Token;
 import li.selman.jpbe.dsl.token.TokenSequence;
 
 /**
@@ -56,5 +59,12 @@ public final class Match implements Predicate {
             numberOfMatches++;
         }
         return numberOfMatches;
+    }
+
+    @Override
+    public String toString() {
+        String text = positive ? "P" : "N";
+        String tokenSeqStr = r.getTokens().stream().map(Token::toString).collect(Collectors.joining(", ", "{", "}"));
+        return MessageFormat.format("({0}, {1}, {2})", text, k, tokenSeqStr);
     }
 }

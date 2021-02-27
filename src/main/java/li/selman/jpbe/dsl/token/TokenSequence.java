@@ -121,6 +121,8 @@ public class TokenSequence implements DslElement, Iterable<Token> {
 
     @Override
     public String toString() {
-        return String.format("TokenSeq(%s)", tokens);
+        return tokens.stream()
+                .map(Token::toString)
+                .collect(Collectors.joining(", ", "{", "}"));
     }
 }
