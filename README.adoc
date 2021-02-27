@@ -1,5 +1,7 @@
 = jPBE - do as I showed
 
+image::https://github.com/haisi/jPBE/actions/workflows/gradle.yml/badge.svg[CI-State]
+
 This is the open source, java implementation of my https://selman.li/thesis[bachelor thesis].
 
 CAUTION: This repo is still a work in progress and not finished, yet alone stable!
