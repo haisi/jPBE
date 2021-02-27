@@ -12,7 +12,11 @@ import li.selman.jpbe.dsl.token.TokenSequence;
 /**
  * @author Hasan Selman Kara
  */
-class Matcher {
+final class Matcher {
+
+    private Matcher() {
+        // NO-OP
+    }
 
     static int positionOfRegex(TokenSequence r, String s, int from, int to) {
         if (from >= to) throw new IllegalArgumentException("From >= To");

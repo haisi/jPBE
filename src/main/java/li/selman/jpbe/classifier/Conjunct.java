@@ -3,8 +3,8 @@
  */
 package li.selman.jpbe.classifier;
 
-import com.google.common.base.Objects;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -29,7 +29,7 @@ class Conjunct {
     boolean matches(String s) {
         return predicates.stream()
             .map(predicate -> predicate.matches(s))
-            .noneMatch(aBoolean -> Objects.equal(aBoolean, Boolean.FALSE));
+            .noneMatch(aBoolean -> Objects.equals(aBoolean, Boolean.FALSE));
     }
 
     @Override

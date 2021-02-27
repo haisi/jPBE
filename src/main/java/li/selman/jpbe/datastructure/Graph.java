@@ -28,6 +28,7 @@ public class Graph {
         this.edges = edges;
     }
 
+    @SuppressWarnings("checkstyle:CyclomaticComplexity")
     public Graph intersect(Graph other) {
         int n1 = maxNode;
         int n2 = other.maxNode;

@@ -3,7 +3,8 @@
  */
 package li.selman.jpbe.datastructure;
 
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 /**
  * @author Hasan Selman Kara
@@ -23,7 +24,7 @@ public class PathFinder {
         // u = from
         // t = to
 
-        Stack<Integer> stack = new Stack<>();
+        Deque<Integer> stack = new ArrayDeque<>();
         int[] dist = new int[v];
 
         // Mark all the edges as not visited
@@ -41,7 +42,7 @@ public class PathFinder {
 
     }
 
-    private void topologicalSort(int i, boolean[] visited, Stack<Integer> stack) {
+    private void topologicalSort(int i, boolean[] visited, Deque<Integer> stack) {
         // Mark the current node as visited
         visited[i] = true;
 

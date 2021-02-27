@@ -33,6 +33,7 @@ public class DynamicPosition implements Position {
     /**
      * @throws NoPositionException if no position can be evaluated to
      */
+    @SuppressWarnings("checkstyle:CyclomaticComplexity")
     @Override
     public int evalToPosition(String s) throws NoPositionException {
         List<MatchResult> prefixMatches = Matcher.matches(prefix.getMergedPattern(), s);

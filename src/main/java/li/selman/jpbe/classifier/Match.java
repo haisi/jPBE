@@ -13,7 +13,7 @@ import li.selman.jpbe.dsl.token.TokenSequence;
  * @author Hasan Selman Kara
  * @see li.selman.jpbe.dsl.token.TokenSequence
  */
-public class Match implements Predicate {
+public final class Match implements Predicate {
 
     private final TokenSequence r;
     private final int k;

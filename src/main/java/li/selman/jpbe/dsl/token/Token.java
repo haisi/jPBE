@@ -151,8 +151,8 @@ public abstract class Token {
 
         @Override
         public boolean matches(String s, Token lastToken) {
-            return "0".equals(s) && Token.START.equals(lastToken)
-                || "0".equals(s) && Token.LEADING_ZERO.equals(lastToken);
+            return ("0".equals(s) && Token.START.equals(lastToken))
+                || ("0".equals(s) && Token.LEADING_ZERO.equals(lastToken));
         }
 
         @Override

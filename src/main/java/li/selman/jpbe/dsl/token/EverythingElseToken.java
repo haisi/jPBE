@@ -13,7 +13,7 @@ import java.util.stream.Stream;
  *
  * @author Hasan Selman Kara
  */
-class EverythingElseToken extends Token {
+final class EverythingElseToken extends Token {
 
     // both work
     // TODO(#optimization): check which regex negation is faster

@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
  */
 public class PositionBuilder {
 
-    private static final Logger logger = LoggerFactory.getLogger(PositionBuilder.class);
+    private static final Logger log = LoggerFactory.getLogger(PositionBuilder.class);
 
     private final TokenSequenceBuilder tokenSequenceBuilder;
 
@@ -91,7 +91,7 @@ public class PositionBuilder {
                     if (ex instanceof IllegalStateException) {
                         // TODO(#api): check if this ever happens and whether we should return Optional in Matcher
                         //  .positionOfRegex
-                        logger.error("Matcher.positionOfRegex failed", ex);
+                        log.error("Matcher.positionOfRegex failed", ex);
                         continue;
                     } else {
                         // TODO(#bug): should not be need?
