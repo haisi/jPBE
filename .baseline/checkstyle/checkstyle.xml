@@ -190,15 +190,15 @@
             <property name="sortStaticImportsAlphabetically" value="true"/>
         </module>
         <module name="Indentation"> <!-- Java Style Guide: Block indentation: +4 spaces -->
-            <property name="arrayInitIndent" value="8"/>
-            <property name="lineWrappingIndentation" value="8"/>
+            <property name="arrayInitIndent" value="4"/>
+            <property name="lineWrappingIndentation" value="4"/>
         </module>
         <module name="InnerAssignment"/> <!-- Java Coding Guidelines: Inner assignments: Not used -->
         <module name="LeftCurly"/> <!-- Java Style Guide: Nonempty blocks: K & R style -->
-        <module name="MemberName"> <!-- Java Style Guide: Non-constant field names -->
-            <property name="format" value="^[a-z][a-zA-Z0-9]+$"/>
-            <message key="name.invalidPattern" value="Member name ''{0}'' must match pattern ''{1}''."/>
-        </module>
+<!--        <module name="MemberName"> &lt;!&ndash; Java Style Guide: Non-constant field names &ndash;&gt;-->
+<!--            <property name="format" value="^[a-z][a-zA-Z0-9]+$"/>-->
+<!--            <message key="name.invalidPattern" value="Member name ''{0}'' must match pattern ''{1}''."/>-->
+<!--        </module>-->
         <module name="MethodName"> <!-- Java Style Guide: Method names -->
             <property name="format" value="^[a-z][a-zA-Z0-9_]+$"/>
             <message key="name.invalidPattern" value="Method name ''{0}'' must match pattern ''{1}''."/>
@@ -209,7 +209,7 @@
         <module name="ModifierOrder"/> <!-- Java Style Guide: Modifiers -->
         <module name="MultipleVariableDeclarations"/> <!-- Java Style Guide: One variable per declaration -->
         <module name="MutableException"/> <!-- Java Coding Guidelines: Exceptions: Always immutable -->
-        <module name="NeedBraces"/> <!-- Java Style Guide: Braces are used where optional -->
+<!--        <module name="NeedBraces"/> &lt;!&ndash; Java Style Guide: Braces are used where optional &ndash;&gt;-->
         <module name="NoClone"/> <!-- Java Coding Guidelines: Never override Object#finalize or Object#clone -->
         <module name="NoFinalizer"/> <!-- Java Coding Guidelines: Never override Object#finalize -->
         <module name="NoLineWrap"/> <!-- Java Style Guide: No line-wrapping -->
@@ -399,7 +399,7 @@
             <property name="processJavadoc" value="true"/>
         </module>
         <module name="UpperEll"/> <!-- Java Style Guide: Numeric Literals -->
-        <module name="VisibilityModifier"/> <!-- Java Coding Guidelines: Minimize mutability -->
+<!--        <module name="VisibilityModifier"/> &lt;!&ndash; Java Coding Guidelines: Minimize mutability &ndash;&gt;-->
         <module name="WhitespaceAfter"/> <!-- Java Style Guide: Horizontal whitespace -->
         <module name="WhitespaceAround"> <!-- Java Style Guide: Horizontal whitespace -->
             <property name="allowEmptyConstructors" value="true"/>
@@ -419,9 +419,9 @@
             <property name="target" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"/>
         </module>
         <module name="CyclomaticComplexity"/> <!-- Java Coding Guidelines: Reduce Cyclomatic Complexity -->
-        <module name="DesignForExtension"> <!-- Java Coding Guidelines: Design for extension -->
-            <property name="ignoredAnnotations" value="ParameterizedTest, Test, Before, BeforeEach, After, AfterEach, BeforeClass, BeforeAll, AfterClass, AfterAll"/>
-        </module>
+<!--        <module name="DesignForExtension"> &lt;!&ndash; Java Coding Guidelines: Design for extension &ndash;&gt;-->
+<!--            <property name="ignoredAnnotations" value="ParameterizedTest, Test, Before, BeforeEach, After, AfterEach, BeforeClass, BeforeAll, AfterClass, AfterAll"/>-->
+<!--        </module>-->
         <module name="JavadocMethod"> <!-- Java Style Guide: Where Javadoc is used -->
             <property name="scope" value="public"/>
             <property name="allowMissingParamTags" value="true"/>
@@ -433,12 +433,12 @@
             <property name="offset" value="0"/>
         </module>
         <module name="LocalFinalVariableName"/> <!-- Java Style Guide: Local variable names -->
-        <module name="LocalVariableName"> <!-- Java Style Guide: Local variable names -->
-            <property name="tokens" value="VARIABLE_DEF"/>
-            <property name="format" value="^[a-z][a-zA-Z0-9]+$"/>
-            <property name="allowOneCharVarInForLoop" value="true"/>
-            <message key="name.invalidPattern" value="Local variable name ''{0}'' must match pattern ''{1}''."/>
-        </module>
+<!--        <module name="LocalVariableName"> &lt;!&ndash; Java Style Guide: Local variable names &ndash;&gt;-->
+<!--            <property name="tokens" value="VARIABLE_DEF"/>-->
+<!--            <property name="format" value="^[a-z][a-zA-Z0-9]+$"/>-->
+<!--            <property name="allowOneCharVarInForLoop" value="true"/>-->
+<!--            <message key="name.invalidPattern" value="Local variable name ''{0}'' must match pattern ''{1}''."/>-->
+<!--        </module>-->
         <module name="MethodLength"/> <!-- Java Coding Guide: Methods and functions: focused, crisp, concise -->
         <module name="MethodTypeParameterName"> <!-- Java Style Guide: Type variable names -->
             <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
@@ -449,13 +449,13 @@
         </module>
         <module name="NestedTryDepth"/> <!-- Java Coding Guide: Try/catch blocks: never nested -->
         <module name="NonEmptyAtclauseDescription"/> <!-- Java Style Guide: At-clauses -->
-        <module name="ParameterName"> <!-- Java Style Guide: Parameter names -->
-            <property name="format" value="^_?[a-z][a-zA-Z0-9]+$"/>
-            <message key="name.invalidPattern" value="Parameter name ''{0}'' must match pattern ''{1}''."/>
-        </module>
-        <module name="SummaryJavadocCheck"> <!-- Java Coding Guidelines: Javadoc -->
-            <property name="forbiddenSummaryFragments" value="^@return the *|^This method returns |^A [{]@code [a-zA-Z0-9]+[}]( is a )"/>
-        </module>
+<!--        <module name="ParameterName"> &lt;!&ndash; Java Style Guide: Parameter names &ndash;&gt;-->
+<!--            <property name="format" value="^_?[a-z][a-zA-Z0-9]+$"/>-->
+<!--            <message key="name.invalidPattern" value="Parameter name ''{0}'' must match pattern ''{1}''."/>-->
+<!--        </module>-->
+<!--        <module name="SummaryJavadocCheck"> &lt;!&ndash; Java Coding Guidelines: Javadoc &ndash;&gt;-->
+<!--            <property name="forbiddenSummaryFragments" value="^@return the *|^This method returns |^A [{]@code [a-zA-Z0-9]+[}]( is a )"/>-->
+<!--        </module>-->
 
         <!-- Stricter checks end -->
     </module>
