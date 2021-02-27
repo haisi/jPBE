@@ -30,3 +30,13 @@ jobs:
               run: |
                   rm -f ~/.gradle/caches/modules-2/modules-2.lock
                   rm -f ~/.gradle/caches/modules-2/gc.properties
+            - name: 'Upload JavaDocs'
+              uses: actions/upload-artifact@v2
+              with:
+                name: artifact-javadocs
+                path: build/docs/javadoc/
+            - name: 'Upload Reports'
+              uses: actions/upload-artifact@v2
+              with:
+                name: artifact-reports
+                path: build/reports/
