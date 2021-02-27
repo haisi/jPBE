@@ -1,7 +1,7 @@
 /*
  * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
  */
-package li.selman.jpbe.algorithm.expressionbuilders;
+package li.selman.jpbe.dsl.lookup;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.List;
 import java.util.Optional;
 import li.selman.jpbe.dsl.Expression;
-import li.selman.jpbe.dsl.lookup.LookupExpressionBuilder;
 import org.junit.jupiter.api.Test;
 
 /**
