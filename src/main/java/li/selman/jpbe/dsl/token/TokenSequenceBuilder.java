@@ -17,15 +17,18 @@ public class TokenSequenceBuilder {
     private final BiFunction<Character, Token, Optional<Token>> computeTokenForCharHook;
     private final Tokens tokens;
 
-    private static final BiFunction<Character, Token, Optional<Token>> defaultHook = (character, token) -> Optional.empty();
+    private static final BiFunction<Character, Token, Optional<Token>> defaultHook =
+        (character, token) -> Optional.empty();
 
     public TokenSequenceBuilder(int maxLength, Tokens tokens) {
         this(maxLength, defaultHook, tokens);
     }
 
-    public TokenSequenceBuilder(int maxLength, BiFunction<Character, Token, Optional<Token>> computeTokenForCharHook, Tokens tokens) {
+    public TokenSequenceBuilder(int maxLength, BiFunction<Character, Token, Optional<Token>> computeTokenForCharHook,
+        Tokens tokens) {
         if (maxLength <= 0) throw new IllegalArgumentException("MaxLength cannot be smaller than 1");
-        if (computeTokenForCharHook == null) throw new IllegalArgumentException("Hook cannot be null. Use default hook!");
+        if (computeTokenForCharHook == null)
+            throw new IllegalArgumentException("Hook cannot be null. Use default hook!");
         if (tokens == null) throw new IllegalArgumentException("Tokens cannot be null");
 
         this.maxLength = maxLength;
@@ -33,11 +36,11 @@ public class TokenSequenceBuilder {
         this.tokens = tokens;
     }
 
-    // TODO sleep and look at this again
+    // TODO(#wip): sleep and look at this again
     public TokenSequence computeTokenSequence(String input, int from, int to) {
-        List<Token> tokens = new ArrayList<>();
+        List<Token> tmpTokens = new ArrayList<>();
         if (from == 0) {
-            tokens.add(Token.START);
+            tmpTokens.add(Token.START);
         }
 
         var substr = input.substring(from, to);
@@ -45,30 +48,30 @@ public class TokenSequenceBuilder {
         for (char c : substr.toCharArray()) {
             if (last == null) {
                 // Handle first token
-                last = computeTokenForChar(c, getLastOrNull(tokens));
-                tokens.add(last);
+                last = computeTokenForChar(c, getLastOrNull(tmpTokens));
+                tmpTokens.add(last);
             }
 
-            Token next = computeTokenForChar(c, getLastOrNull(tokens));
+            Token next = computeTokenForChar(c, getLastOrNull(tmpTokens));
             if (!last.equals(next)) {
                 last = next;
-                tokens.add(last);
+                tmpTokens.add(last);
             }
 
-            if (tokens.size() > maxLength) {
+            if (tmpTokens.size() > maxLength) {
                 // Already to long, preemptive cancellation
-                // TODO why return empty list and not `TokenSequence.of(tokens)`?
+                // TODO(#bug): why return empty list and not `TokenSequence.of(tokens)`?
                 return TokenSequence.of();
             }
         }
 
         if (to == input.length()) {
-            tokens.add(Token.END);
+            tmpTokens.add(Token.END);
         }
 
-        // TODO hmmm
-        if (tokens.size() > 0 && tokens.size() <= maxLength) {
-            return TokenSequence.of(tokens);
+        // TODO(#bug): hmmm
+        if (tmpTokens.size() > 0 && tmpTokens.size() <= maxLength) {
+            return TokenSequence.of(tmpTokens);
         }
 
         return TokenSequence.of();

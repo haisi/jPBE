@@ -3,7 +3,11 @@
  */
 package li.selman.jpbe.datastructure;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import li.selman.jpbe.dsl.Expression;
@@ -16,8 +20,8 @@ public class Graph {
     private final int maxNode;
     private final List<Edge> edges;
 
-    // TODO remove mutable state!
-    private List<Edge>[] outgoingEdges;
+    // TODO(#optimization): remove mutable state!
+//    private List<Edge>[] outgoingEdges;
 
     Graph(int maxNode, List<Edge> edges) {
         this.maxNode = maxNode;
@@ -37,14 +41,16 @@ public class Graph {
             for (Edge edge2 : other.edges) {
                 // as there are no loops,
                 // thus, the following nodes are impossible to lead from s to t
-                if (edge1.from == 0 && edge2.from != 0
-                    || edge1.from != 0 && edge2.from == 0
-                    || edge1.from == n1 && edge2.from != n2
-                    || edge1.from != n1 && edge2.from == n2
-                    || edge1.to == 0 && edge2.to != 0
-                    || edge1.to != 0 && edge2.to == 0
-                    || edge1.to == n1 && edge2.to != n2
-                    || edge1.to != n1 && edge2.to == n2) continue;
+                if ((edge1.from == 0 && edge2.from != 0)
+                    || (edge1.from != 0 && edge2.from == 0)
+                    || (edge1.from == n1 && edge2.from != n2)
+                    || (edge1.from != n1 && edge2.from == n2)
+                    || (edge1.to == 0 && edge2.to != 0)
+                    || (edge1.to != 0 && edge2.to == 0)
+                    || (edge1.to == n1 && edge2.to != n2)
+                    || (edge1.to != n1 && edge2.to == n2)) {
+                    continue;
+                }
 
                 final Set<Expression> intersect;
                 if (edge1.getExpressionsSize() <= edge2.getExpressionsSize()) {
@@ -55,7 +61,9 @@ public class Graph {
                     intersect.retainAll(edge1.getExpressions());
                 }
 
-                if (intersect.isEmpty()) continue;
+                if (intersect.isEmpty()) {
+                    continue;
+                }
                 int from = edge1.from + edge2.from * (n1 + 1);
                 int to = edge1.to + edge2.to * (n1 + 1);
                 Edge edge = new Edge(from, to, intersect);
@@ -64,7 +72,7 @@ public class Graph {
             }
         }
 
-        // TODO finish intersect
+        // TODO(#wip): finish intersect
         return null;
     }
 
@@ -78,18 +86,19 @@ public class Graph {
         toDict.get(edge.to).add(edge);
     }
 
-    // TODO extract the searching the path algorithm
-    //  - So users can choose if they don't want to have the heuristics of getting the shortest path, i.e. a global min instead of a local
+    // TODO(#api): extract the searching the path algorithm
+    //  - So users can choose if they don't want to have the heuristics of getting the shortest path,
+    //  i.e. a global min instead of a local
 
-    // TODO create class `TraceSet` that wrap List<TraceExpression> and has functions to get the best path
+    // TODO(#refactor): create class `TraceSet` that wrap List<TraceExpression> and has functions to get the best path
 
     /**
      * Finds the optimal path from S to T.
      *
-     * @return direct path of edges from start to end or an empty list.
+     * @return direct path of edges from start to end or an empty list
      */
     public List<Edge> computeLocalOptimaPath() {
-        // TODO check if this state can actually happen? (I guess with an empty graph after intersection?)
+        // TODO(#check): check if this state can actually happen? (I guess with an empty graph after intersection?)
         if (edges == null || edges.isEmpty()) throw new IllegalStateException("Edges cannot be null or empty");
 
         var directEdge = findDirectEdge();
@@ -114,13 +123,13 @@ public class Graph {
 
         throw new UnsupportedOperationException("Not done yet!");
 //        return getAllTraceExpressions(directEdge);
-        // TODO handle intersect graph as well
+        // TODO(#wip): handle intersect graph as well
     }
 
-    private List<TraceExpression> getAllTraceExpressions(Stream<Edge> edges) {
-        return edges
+    private List<TraceExpression> getAllTraceExpressions(Stream<Edge> edgeStream) {
+        return edgeStream
             .map(Edge::getExpressions)
-            // TODO check whether we should use Set or List
+            // TODO(#api): check whether we should use Set or List
             .map(expressions -> new TraceExpression(new ArrayList<>(expressions)))
             .collect(Collectors.toList());
     }

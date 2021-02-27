@@ -17,31 +17,31 @@ import java.util.regex.Pattern;
  */
 public abstract class Token {
 
-    public final static Token START = new Token.StartToken();
-    public final static Token END = new Token.EndToken();
+    public static final Token START = new Token.StartToken();
+    public static final Token END = new Token.EndToken();
 
-    public final static Token ALPHA = new Token.AlphaToken();
-    public final static Token LOWER_ALPHA = new Token.LowerAlphaToken();
-    public final static Token UPPER_ALPHA = new Token.UpperAlphaToken();
+    public static final Token ALPHA = new Token.AlphaToken();
+    public static final Token LOWER_ALPHA = new Token.LowerAlphaToken();
+    public static final Token UPPER_ALPHA = new Token.UpperAlphaToken();
 
-    public final static Token LEADING_ZERO = new Token.LeadingZeroToken();
-    public final static Token NUM = new Token.NumToken();
-    public final static Token NUM_NO_LEADING_ZEROS = new NumNoLeadingZerosToken();
-    public final static Token ALPHA_NUM = new Token.AlphaNumToken();
+    public static final Token LEADING_ZERO = new Token.LeadingZeroToken();
+    public static final Token NUM = new Token.NumToken();
+    public static final Token NUM_NO_LEADING_ZEROS = new NumNoLeadingZerosToken();
+    public static final Token ALPHA_NUM = new Token.AlphaNumToken();
 
-    public final static Token SPACE = new Token.SpaceToken();
+    public static final Token SPACE = new Token.SpaceToken();
 
-    public final static Token COLON = new Token.ColonToken();
-    public final static Token SEMI_COLON = new Token.SemiColonToken();
+    public static final Token COLON = new Token.ColonToken();
+    public static final Token SEMI_COLON = new Token.SemiColonToken();
 
-    public final static Token DOT = new Token.DotToken();
-    public final static Token COMMA = new Token.CommaToken();
+    public static final Token DOT = new Token.DotToken();
+    public static final Token COMMA = new Token.CommaToken();
 
-    public final static Token HYPHEN = new Token.HyphenToken();
-    public final static Token UNDERSCORE = new Token.UnderscoreToken();
+    public static final Token HYPHEN = new Token.HyphenToken();
+    public static final Token UNDERSCORE = new Token.UnderscoreToken();
 
-    public final static Token BACK_SLASH = new Token.BackSlashToken();
-    public final static Token FORWARD_SLASH = new Token.ForwardSlashToken();
+    public static final Token BACK_SLASH = new Token.BackSlashToken();
+    public static final Token FORWARD_SLASH = new Token.ForwardSlashToken();
 
     private final Pattern pattern;
 
@@ -51,15 +51,16 @@ public abstract class Token {
         this.pattern = pattern;
     }
 
-    public Pattern getPattern() {
+    public final Pattern getPattern() {
         return pattern;
     }
 
-    public String getRegexPattern() {
+    public final String getRegexPattern() {
         return pattern.pattern();
     }
 
     /**
+     * Check whether a string matches the pattern.
      * @param s to match
      * @return {@code true} if the s matches the Regex
      */
@@ -68,6 +69,7 @@ public abstract class Token {
     }
 
     /**
+     * Checks whether a single character matches the token.
      * @param c to match
      * @return {@code true} if the c matches the Regex
      */
@@ -103,7 +105,7 @@ public abstract class Token {
         return pattern.hashCode();
     }
 
-    // TODO do we need Token.EVERYTHING ?
+    // TODO(#idea): do we need Token.EVERYTHING ?
     //  When a token sequence is empty. It matches everything.
     //  I.e. we could represent it with `TokenSequence.of(List.of(Token.EVERYTHING))`
     private static class EverythingToken extends Token {
@@ -149,8 +151,8 @@ public abstract class Token {
 
         @Override
         public boolean matches(String s, Token lastToken) {
-            return "0".equals(s) && Token.START.equals(lastToken) ||
-                "0".equals(s) && Token.LEADING_ZERO.equals(lastToken);
+            return "0".equals(s) && Token.START.equals(lastToken)
+                || "0".equals(s) && Token.LEADING_ZERO.equals(lastToken);
         }
 
         @Override
@@ -173,13 +175,6 @@ public abstract class Token {
             }
         }
 
-        private static boolean isPositiveNumeric(String str) {
-            for (char c : str.toCharArray()) {
-                if (!Character.isDigit(c)) return false;
-            }
-            return true;
-        }
-
         @Override
         public boolean matches(char c, Token lastToken) {
             if (c == '0') {
@@ -187,6 +182,13 @@ public abstract class Token {
             } else {
                 return Character.isDigit(c);
             }
+        }
+
+        private static boolean isPositiveNumeric(String str) {
+            for (char c : str.toCharArray()) {
+                if (!Character.isDigit(c)) return false;
+            }
+            return true;
         }
     }
 

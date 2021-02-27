@@ -4,7 +4,7 @@
 package li.selman.jpbe.algorithm.expressionbuilders;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,7 +25,8 @@ class LookupExpressionBuilderTest {
 
     @Test
     void illegalInitTest() {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> new LookupExpressionBuilder(List.of()));
+        Exception exception = assertThrows(IllegalArgumentException.class,
+            () -> new LookupExpressionBuilder(List.of()));
         assertThat(exception).isNotNull();
 
         exception = assertThrows(IllegalArgumentException.class, () -> {

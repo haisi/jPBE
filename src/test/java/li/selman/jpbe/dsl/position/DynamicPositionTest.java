@@ -3,7 +3,9 @@
  */
 package li.selman.jpbe.dsl.position;
 
-import static li.selman.jpbe.dsl.token.Token.*;
+import static li.selman.jpbe.dsl.token.Token.ALPHA;
+import static li.selman.jpbe.dsl.token.Token.SPACE;
+import static li.selman.jpbe.dsl.token.Token.START;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import li.selman.jpbe.dsl.token.TokenSequence;
@@ -29,8 +31,7 @@ class DynamicPositionTest {
     }
 
     @Test
-    void secondOccurrenceFromLeftTest()
-    {
+    void secondOccurrenceFromLeftTest() {
         Position p;
         String s;
         int expectedIdx;

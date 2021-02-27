@@ -11,12 +11,12 @@ import li.selman.jpbe.dsl.DslElement;
 public interface Position extends DslElement {
 
     /**
-     *
-     * @param s
+     * Given an input, dynamically evaluate to an index inside for string manipulation operations.
+     * @param s input
      * @return the index
      * @throws NoPositionException in certain implementations
      */
-    // TODO make return optional?
+    // TODO(#api-design): make return optional?
     //  As this is a hot path and in most cases a happy case,
     //  wrapping each return in an Optional might be more expensive,
     //  than a rare exception.

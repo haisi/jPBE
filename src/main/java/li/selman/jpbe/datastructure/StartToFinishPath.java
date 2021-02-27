@@ -13,9 +13,9 @@ import li.selman.jpbe.dsl.Expression;
  *
  * @author Hasan Selman Kara
  */
-// TODO why is this so slow?
+// TODO(#optimization): why is this so slow?
 
-// TODO could be written as a Java 8 interface
+// TODO(#api): could be written as a Java 8 interface
 //  - Makes it extendable
 //  - No need to allocate data on the heap
 public class StartToFinishPath {

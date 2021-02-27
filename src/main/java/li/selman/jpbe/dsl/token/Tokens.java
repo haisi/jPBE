@@ -22,10 +22,10 @@ public class Tokens {
         this.tokens = combine(tokens, elseToken);
     }
 
-    private List<Token> combine(List<Token> tokens, Token elseToken) {
-        List<Token> tokensWithElseToken = new ArrayList<>(tokens.size() + 1);
-        tokensWithElseToken.addAll(tokens);
-        tokensWithElseToken.add(elseToken);
+    private List<Token> combine(List<Token> otherTokens, Token otherElseToken) {
+        List<Token> tokensWithElseToken = new ArrayList<>(otherTokens.size() + 1);
+        tokensWithElseToken.addAll(otherTokens);
+        tokensWithElseToken.add(otherElseToken);
         return tokensWithElseToken;
     }
 

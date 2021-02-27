@@ -23,6 +23,7 @@ class Conjunct {
     }
 
     /**
+     * Checks whether the conjuct matches.
      * @return {@code true} if all predicates match {@code s}, else {@code false}
      */
     boolean matches(String s) {

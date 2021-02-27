@@ -9,6 +9,7 @@ import li.selman.jpbe.dsl.Expression;
 /**
  * @author Hasan Selman Kara
  */
+// TODO(#api): turn into record
 public class Edge {
 
     public final int from;

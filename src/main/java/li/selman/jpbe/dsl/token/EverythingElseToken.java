@@ -16,11 +16,11 @@ import java.util.stream.Stream;
 class EverythingElseToken extends Token {
 
     // both work
-    // TODO check which regex negation is faster
+    // TODO(#optimization): check which regex negation is faster
 //    private final static String negationPrefix = "(?![";
 //    private final static String negationSuffix = "]).";
-    private final static String negationPrefix = "[^\\^";
-    private final static String negationSuffix = "]";
+    private static final String negationPrefix = "[^\\^";
+    private static final String negationSuffix = "]";
 
     private EverythingElseToken(Pattern pattern) {
         super(pattern);

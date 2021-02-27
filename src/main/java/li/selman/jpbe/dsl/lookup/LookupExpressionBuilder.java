@@ -70,9 +70,9 @@ public class LookupExpressionBuilder implements ExpressionBuilder {
         return map;
     }
 
-    private void assertAllColumnsSameLength(List<List<String>> columns) {
+    private void assertAllColumnsSameLength(List<List<String>> cols) {
         int size = -1;
-        for (List<String> column : columns) {
+        for (List<String> column : cols) {
             if (size == -1) {
                 size = column.size();
                 if (size == 0) throw new IllegalArgumentException("Columns cannot be empty");

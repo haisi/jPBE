@@ -9,8 +9,8 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 import java.util.Set;
-import li.selman.jpbe.dsl.ConstStr.ConstantStringExpression;
 import li.selman.jpbe.dsl.Expression;
+import li.selman.jpbe.dsl.conststr.ConstantStringExpression;
 import org.junit.jupiter.api.Test;
 
 /**

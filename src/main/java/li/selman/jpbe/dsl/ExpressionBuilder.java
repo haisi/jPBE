@@ -18,6 +18,6 @@ public interface ExpressionBuilder {
      * @param substr of the initially provided output example
      * @return all expressions of the builder, so that each expression f produces: f(input) = substr
      */
-    List<Expression> computeExpressions(final String input, final String substr);
+    List<Expression> computeExpressions(String input, String substr);
 
 }

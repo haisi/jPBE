@@ -3,20 +3,28 @@
  */
 package li.selman.jpbe.dsl.position;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import li.selman.jpbe.dsl.token.Token;
 import li.selman.jpbe.dsl.token.TokenSequence;
 import li.selman.jpbe.dsl.token.TokenSequenceBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Hasan Selman Kara
  */
 public class PositionBuilder {
 
+    private static final Logger logger = LoggerFactory.getLogger(PositionBuilder.class);
+
     private final TokenSequenceBuilder tokenSequenceBuilder;
 
     private String lastString;
-    private final Map<Integer, HashSet<Position>> cache = new HashMap<>();
+    private final Map<Integer, Set<Position>> cache = new HashMap<>();
 
     public PositionBuilder(TokenSequenceBuilder tokenSequenceBuilder) {
         this.tokenSequenceBuilder = tokenSequenceBuilder;
@@ -40,14 +48,19 @@ public class PositionBuilder {
         Set<Position> constantPositions = computeConstantPositions(input, k);
         Set<Position> dynamicPositions = computeDynamicPositions(input, k);
 
-        HashSet<Position> union = union(constantPositions, dynamicPositions);
+        Set<Position> union = union(constantPositions, dynamicPositions);
         cache.put(k, union);
         return union;
     }
 
     private Set<Position> computeConstantPositions(String input, int k) {
         ConstantPosition positionFromTheLeft = new ConstantPosition(k);
-        ConstantPosition positionFromTheRight = input.length() == k ? new ConstantPosition(Integer.MIN_VALUE) : new ConstantPosition(-(input.length() - k));
+        ConstantPosition positionFromTheRight;
+        if (input.length() == k) {
+            positionFromTheRight = new ConstantPosition(Integer.MIN_VALUE);
+        } else {
+            positionFromTheRight = new ConstantPosition(-(input.length() - k));
+        }
 
         return Set.of(
             positionFromTheLeft,
@@ -76,11 +89,12 @@ public class PositionBuilder {
                     c = Matcher.positionOfRegex(r12, input, leftEntry.getKey(), rightEntry.getKey());
                 } catch (Exception ex) {
                     if (ex instanceof IllegalStateException) {
-                        // TODO check if this ever happens and whether we should return Optional in Matcher.positionOfRegex
-                        System.err.println("Matcher.positionOfRegex failed");
+                        // TODO(#api): check if this ever happens and whether we should return Optional in Matcher
+                        //  .positionOfRegex
+                        logger.error("Matcher.positionOfRegex failed", ex);
                         continue;
                     } else {
-                        // TODO should not be need?
+                        // TODO(#bug): should not be need?
                         // bubble up
                         throw ex;
                     }
@@ -98,7 +112,7 @@ public class PositionBuilder {
 
     private Map<Integer, TokenSequence> computeRightTokenSeq(String input, int k) {
         Map<Integer, TokenSequence> rightTokenSeq = new HashMap<>();
-        // TODO check this out. It's the same in reference
+        // TODO(#bug): check this out. It's the same in reference
         for (int k2 = k; k2 <= input.length(); k2++) {
             var tokenSequence = tokenSequenceBuilder.computeTokenSequence(input, k, k2);
             if (!tokenSequence.isEmpty()) {
@@ -119,7 +133,7 @@ public class PositionBuilder {
         return leftTokenSeq;
     }
 
-    private HashSet<Position> union(Set<Position> a, Set<Position> b) {
+    private Set<Position> union(Set<Position> a, Set<Position> b) {
         var union = new HashSet<Position>(a.size() + b.size());
         union.addAll(a);
         union.addAll(b);

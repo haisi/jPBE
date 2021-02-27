@@ -42,7 +42,7 @@ public class TraceExpression implements Expression {
         return Optional.of(output);
     }
 
-    // TODO implement with streams for easy parallelization
+    // TODO(#optimization): implement with streams for easy parallelization
 //    public Optional<String> apply(final String s) {
 //        final Stream<Optional<String>> appliedExpressions = applyAllExpressions(s);
 //
@@ -51,7 +51,7 @@ public class TraceExpression implements Expression {
 //            return Optional.empty();
 //        }
 //
-//        // TODO java.lang.IllegalStateException: stream has already been operated upon or closed
+//        // TODO(#bug): java.lang.IllegalStateException: stream has already been operated upon or closed
 //        String output = concatAllSubstrings(appliedExpressions);
 //
 //        return Optional.of(output);
@@ -71,7 +71,7 @@ public class TraceExpression implements Expression {
 //
 //    private Stream<Optional<String>> applyAllExpressions(String s) {
 //        return expressions.stream()
-////            .parallel() // TODO applying should be parallelizable
+////            .parallel() // TODO(#optimization): applying should be parallelizable
 //            .map(expression -> expression.apply(s));
 //    }
 
@@ -91,7 +91,7 @@ public class TraceExpression implements Expression {
 
         TraceExpression that = (TraceExpression) o;
 
-        // TODO order of lists should be ignored when comparing
+        // TODO(#bug): order of lists should be ignored when comparing
         return expressions.equals(that.expressions);
     }
 

@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
-import li.selman.jpbe.dsl.ConstStr.ConstantStringExpression;
+import li.selman.jpbe.dsl.conststr.ConstantStringExpression;
 import li.selman.jpbe.dsl.expression.SubstringExpression;
 import li.selman.jpbe.dsl.position.ConstantPosition;
 import li.selman.jpbe.dsl.position.DynamicPosition;
@@ -61,7 +61,8 @@ class TraceExpressionTest {
             Position beforeNumber = new DynamicPosition(TokenSequence.of(), TokenSequence.of(Token.NUM), 1);
             Position endOfString = ConstantPosition.lastPosition();
 
-            TraceExpression expression = new TraceExpression(List.of(new SubstringExpression(beforeNumber, endOfString)));
+            TraceExpression expression =
+                new TraceExpression(List.of(new SubstringExpression(beforeNumber, endOfString)));
 
             return expression.apply(input);
         };

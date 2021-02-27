@@ -1,7 +1,7 @@
 /*
  * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
  */
-package li.selman.jpbe.dsl.ConstStr;
+package li.selman.jpbe.dsl.conststr;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;

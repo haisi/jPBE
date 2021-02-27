@@ -41,9 +41,9 @@ public class SubstringExpressionBuilder implements ExpressionBuilder {
         return result;
     }
 
-    // TODO replace with Intlist to avoid boxing
+    // TODO(#optimization): replace with Intlist to avoid boxing
     static List<Integer> substringsStartIndices(String s, String substring) {
-        // TODO replace with KMP
+        // TODO(#optimization): replace with KMP
         List<Integer> positions = new ArrayList<>();
         if (s.length() < substring.length()) {
             return positions;

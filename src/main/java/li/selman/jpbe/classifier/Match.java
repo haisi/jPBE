@@ -21,7 +21,7 @@ public class Match implements Predicate {
 
     private Match(TokenSequence r, int k, boolean positive) {
         if (r.getSize() == 0) throw new IllegalArgumentException("TokenSequence can't be empty.");
-        // TODO does the possibility '0' matches make sense?
+        // TODO(#bug): does the possibility '0' matches make sense?
         if (k < 0) throw new IllegalArgumentException("Number of matches can't be negative");
 
 

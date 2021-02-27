@@ -27,7 +27,8 @@ public class GraphBuilder {
     }
 
     /**
-     * Creates a directed acyclic graph where each node represents the index between two characters of the output string.
+     * Creates a directed acyclic graph where each node represents the index between two characters of
+     * the output string.
      * The edges represent a operation that returns the given substring between the two nodes given the input string.
      * Each edge contains a set of possible operations.
      *
@@ -49,7 +50,7 @@ public class GraphBuilder {
 
                 // All expression for which `f(input) = substr` applies
                 Set<Expression> expressions = expressionBuilders.stream()
-                    // TODO creates too many SubstringExpressions
+                    // TODO(#bug): creates too many SubstringExpressions
                     .map(expressionBuilder -> expressionBuilder.computeExpressions(input, substring))
                     .flatMap(List::stream)
                     .collect(Collectors.toSet());

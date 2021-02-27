@@ -23,6 +23,10 @@ plugins {
 dependencies {
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation("com.google.guava:guava:30.1-jre")
+    val log4jVersion = "2.14.0"
+    implementation("org.apache.logging.log4j:log4j-api:$log4jVersion")
+    implementation("org.apache.logging.log4j:log4j-core:$log4jVersion")
+    implementation("org.apache.logging.log4j:log4j-slf4j-impl:$log4jVersion")
 
     // Use JUnit Jupiter API for testing.
     val junitVersion = "5.7.1"

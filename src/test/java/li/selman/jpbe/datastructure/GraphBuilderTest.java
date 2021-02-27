@@ -3,7 +3,12 @@
  */
 package li.selman.jpbe.datastructure;
 
-import static li.selman.jpbe.dsl.token.Token.*;
+import static li.selman.jpbe.dsl.token.Token.ALPHA;
+import static li.selman.jpbe.dsl.token.Token.COMMA;
+import static li.selman.jpbe.dsl.token.Token.DOT;
+import static li.selman.jpbe.dsl.token.Token.END;
+import static li.selman.jpbe.dsl.token.Token.NUM;
+import static li.selman.jpbe.dsl.token.Token.START;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
@@ -11,10 +16,10 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 import java.util.Set;
-import li.selman.jpbe.dsl.ConstStr.ConstStrExpressionBuilder;
-import li.selman.jpbe.dsl.ConstStr.ConstantStringExpression;
 import li.selman.jpbe.dsl.Expression;
 import li.selman.jpbe.dsl.ExpressionBuilder;
+import li.selman.jpbe.dsl.conststr.ConstStrExpressionBuilder;
+import li.selman.jpbe.dsl.conststr.ConstantStringExpression;
 import li.selman.jpbe.dsl.expression.SubstringExpression;
 import li.selman.jpbe.dsl.expression.SubstringExpressionBuilder;
 import li.selman.jpbe.dsl.position.ConstantPosition;
