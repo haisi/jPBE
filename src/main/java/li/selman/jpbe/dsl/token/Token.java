@@ -28,6 +28,7 @@ public abstract class Token {
     public static final Token NUM = new Token.NumToken();
     public static final Token NUM_NO_LEADING_ZEROS = new NumNoLeadingZerosToken();
     public static final Token ALPHA_NUM = new Token.AlphaNumToken();
+    public static final Token ALPHA_NUM_NO_LEADING_ZEROS = new Token.AlphaNumNoLeadingZerosToken();
 
     public static final Token SPACE = new Token.SpaceToken();
 
@@ -206,6 +207,17 @@ public abstract class Token {
         @Override
         public String toString() {
             return "AN";
+        }
+    }
+
+    private static class AlphaNumNoLeadingZerosToken extends Token {
+        AlphaNumNoLeadingZerosToken() {
+            super(Pattern.compile("([a-zA-Z1-9]+[0-9]*[a-zA-Z]*)"));
+        }
+
+        @Override
+        public String toString() {
+            return "AN-0";
         }
     }
 
