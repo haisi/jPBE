@@ -21,7 +21,7 @@ public class GraphBuilder {
      * @throws IllegalArgumentException if {@code expressionBuilders} is empty
      */
     public GraphBuilder(List<ExpressionBuilder> expressionBuilders) throws IllegalArgumentException {
-        if (expressionBuilders.size() == 0) throw new IllegalArgumentException("ExpressionBuilders cannot be empty");
+        if (expressionBuilders.isEmpty()) throw new IllegalArgumentException("ExpressionBuilders cannot be empty");
 
         this.expressionBuilders = new ArrayList<>(expressionBuilders);
     }

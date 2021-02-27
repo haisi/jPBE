@@ -17,7 +17,7 @@ class Conjunct {
     private final List<Predicate> predicates;
 
     Conjunct(List<Predicate> predicates) {
-        if (predicates.size() == 0) throw new IllegalArgumentException("Predicates can't be empty");
+        if (predicates.isEmpty()) throw new IllegalArgumentException("Predicates can't be empty");
 
         this.predicates = predicates;
     }

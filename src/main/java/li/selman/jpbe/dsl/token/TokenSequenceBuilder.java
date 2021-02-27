@@ -78,7 +78,7 @@ public class TokenSequenceBuilder {
     }
 
     private <T> T getLastOrNull(List<T> list) {
-        if (list.size() == 0) {
+        if (list.isEmpty()) {
             return null;
         } else {
             return list.get(list.size() - 1);
