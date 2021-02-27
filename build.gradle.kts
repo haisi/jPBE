@@ -23,6 +23,11 @@ plugins {
     id("org.asciidoctor.convert") version "1.5.9.2"
 }
 
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
 dependencies {
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation("com.google.guava:guava:30.1-jre")
@@ -48,16 +53,6 @@ tasks.withType<JavaCompile>().configureEach {
 
 tasks.named<JavaCompile>("compileTestJava") {
     options.errorprone.isEnabled.set(false)
-}
-
-tasks.register<Jar>("sourcesJar") {
-    from(sourceSets.main.get().allJava)
-    archiveClassifier.set("sources")
-}
-
-tasks.register<Jar>("javadocJar") {
-    from(tasks.javadoc)
-    archiveClassifier.set("javadoc")
 }
 
 val test by tasks.getting(Test::class) {
