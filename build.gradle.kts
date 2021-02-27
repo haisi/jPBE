@@ -50,6 +50,16 @@ tasks.named<JavaCompile>("compileTestJava") {
     options.errorprone.isEnabled.set(false)
 }
 
+tasks.register<Jar>("sourcesJar") {
+    from(sourceSets.main.get().allJava)
+    archiveClassifier.set("sources")
+}
+
+tasks.register<Jar>("javadocJar") {
+    from(tasks.javadoc)
+    archiveClassifier.set("javadoc")
+}
+
 val test by tasks.getting(Test::class) {
     // Use junit platform for unit tests
     useJUnitPlatform()
