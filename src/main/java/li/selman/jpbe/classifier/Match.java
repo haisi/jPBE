@@ -23,7 +23,7 @@ public final class Match implements Predicate {
     private final boolean positive;
 
     private Match(TokenSequence r, int k, boolean positive) {
-        if (r.getSize() == 0) throw new IllegalArgumentException("TokenSequence can't be empty.");
+        if (r.getNumberOfTokens() == 0) throw new IllegalArgumentException("TokenSequence can't be empty.");
         // TODO(#bug): does the possibility '0' matches make sense?
         if (k < 0) throw new IllegalArgumentException("Number of matches can't be negative");
 

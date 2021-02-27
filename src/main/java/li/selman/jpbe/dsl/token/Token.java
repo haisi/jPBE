@@ -224,6 +224,11 @@ public abstract class Token {
         DotToken() {
             super(Pattern.compile("[\\.]+"));
         }
+
+        @Override
+        public String toString() {
+            return ".";
+        }
     }
 
     private static class ColonToken extends Token {

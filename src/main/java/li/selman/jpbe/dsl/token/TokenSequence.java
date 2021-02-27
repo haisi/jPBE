@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import li.selman.jpbe.dsl.DslElement;
@@ -79,13 +80,15 @@ public class TokenSequence implements DslElement, Iterable<Token> {
     }
 
     public TokenSequence union(TokenSequence other) {
-        if (getSize() == 0 && other.getSize() == 0) {
+        if (sequenceLength() == 0 && other.sequenceLength() == 0) {
             // empty token sequence
             return TokenSequence.of();
         }
 
         List<Token> newSeq = new ArrayList<>(tokens);
-        if (getSize() > 0 && other.getSize() > 0 && other.getFirstElement().equals(newSeq.get(newSeq.size() - 1))) {
+        if (sequenceLength() > 0
+            && other.sequenceLength() > 0
+            && Objects.equals(other.getFirstElement(), newSeq.get(newSeq.size() - 1))) {
             newSeq.remove(newSeq.size() - 1);
         }
 
@@ -93,10 +96,22 @@ public class TokenSequence implements DslElement, Iterable<Token> {
         return new TokenSequence(newSeq);
     }
 
+    /**
+     * @return the size of {@link TokenSequence#tokens}
+     */
+    public int sequenceLength() {
+        return tokens.size();
+    }
 
+    /**
+     * Note that the size of the DslElement and the size of {@link TokenSequence#tokens} can differ!
+     * Do not use this method to get the number of tokens in the sequence.
+     * @return the weight of the token TokenSequence
+     */
     @Override
     public int getSize() {
-        return 1;
+        // This implementation just happens to use the token list length as the DslElement size.
+        return tokens.size();
     }
 
     @Override
