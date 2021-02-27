@@ -14,6 +14,7 @@ repositories {
 
 plugins {
     `java-library`
+    jacoco
     // Part of palantir baseline sanity checks.
     // Processor for Google's "Error Prone" tool.
     // However, for some reason this breaks the build.
