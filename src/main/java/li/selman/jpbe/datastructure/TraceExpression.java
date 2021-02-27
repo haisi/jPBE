@@ -9,6 +9,8 @@ import java.util.Optional;
 import li.selman.jpbe.dsl.Expression;
 
 /**
+ * Represents a full program {@code p} which can be applied on a input string to get the intended output.
+ * {@code p} is made up of {@code n} {@link Expression}s, while itself being an {@link Expression}.
  * @author Hasan Selman Kara
  */
 public class TraceExpression implements Expression {
@@ -42,46 +44,9 @@ public class TraceExpression implements Expression {
         return Optional.of(output);
     }
 
-    // TODO(#optimization): implement with streams for easy parallelization
-//    public Optional<String> apply(final String s) {
-//        final Stream<Optional<String>> appliedExpressions = applyAllExpressions(s);
-//
-//        if (hasAnyFailedApplications(appliedExpressions)) {
-//            // One of the expressions could not be applied on the input
-//            return Optional.empty();
-//        }
-//
-//        // TODO(#bug): java.lang.IllegalStateException: stream has already been operated upon or closed
-//        String output = concatAllSubstrings(appliedExpressions);
-//
-//        return Optional.of(output);
-//    }
-//
-//    private String concatAllSubstrings(Stream<Optional<String>> appliedExpressions) {
-//        return appliedExpressions
-////            .filter(Optional::isPresent) not necessary as `hasAnyFailedApplications` returned false
-//            .map(Optional::get)
-//            .collect(Collectors.joining());
-//    }
-//
-//    private boolean hasAnyFailedApplications(Stream<Optional<String>> appliedExpressions) {
-//        return appliedExpressions
-//            .anyMatch(Optional::isEmpty);
-//    }
-//
-//    private Stream<Optional<String>> applyAllExpressions(String s) {
-//        return expressions.stream()
-////            .parallel() // TODO(#optimization): applying should be parallelizable
-//            .map(expression -> expression.apply(s));
-//    }
-
     @Override
     public int getSize() {
         return expressions.size();
-    }
-
-    public List<Expression> getExpressions() {
-        return expressions;
     }
 
     @Override
@@ -91,7 +56,6 @@ public class TraceExpression implements Expression {
 
         TraceExpression that = (TraceExpression) o;
 
-        // TODO(#bug): order of lists should be ignored when comparing
         return expressions.equals(that.expressions);
     }
 
