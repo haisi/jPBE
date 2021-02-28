@@ -9,16 +9,16 @@ import java.util.Set;
 import li.selman.jpbe.dsl.Expression;
 import li.selman.jpbe.dsl.ExpressionBuilder;
 import li.selman.jpbe.dsl.position.Position;
-import li.selman.jpbe.dsl.position.PositionBuilder;
+import li.selman.jpbe.dsl.position.PositionsBuilder;
 
 /**
  * @author Hasan Selman Kara
  */
 public class SubstringExpressionBuilder implements ExpressionBuilder {
 
-    private final PositionBuilder positionBuilder;
+    private final PositionsBuilder positionBuilder;
 
-    public SubstringExpressionBuilder(PositionBuilder positionBuilder) {
+    public SubstringExpressionBuilder(PositionsBuilder positionBuilder) {
         this.positionBuilder = positionBuilder;
     }
 

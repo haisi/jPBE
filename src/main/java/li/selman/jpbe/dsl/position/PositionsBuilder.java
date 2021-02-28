@@ -10,9 +10,10 @@ import java.util.Set;
 import li.selman.jpbe.dsl.token.TokenSequenceBuilder;
 
 /**
+ * Wraps and applies multiple PositionBuilders.
  * @author Hasan Selman Kara
  */
-public class PositionBuilder {
+public class PositionsBuilder {
 
     private final ConstantPositionBuilder constantPositionBuilder;
     private final DynamicPositionBuilder dynamicPositionBuilder;
@@ -20,7 +21,7 @@ public class PositionBuilder {
     private String lastString;
     private final Map<Integer, Set<Position>> cache = new HashMap<>();
 
-    public PositionBuilder(TokenSequenceBuilder tokenSequenceBuilder) {
+    public PositionsBuilder(TokenSequenceBuilder tokenSequenceBuilder) {
         this.constantPositionBuilder = new ConstantPositionBuilder();
         this.dynamicPositionBuilder = new DynamicPositionBuilder(tokenSequenceBuilder);
     }

@@ -17,7 +17,7 @@ import li.selman.jpbe.dsl.token.TokenSequenceBuilder;
 import li.selman.jpbe.dsl.token.Tokens;
 import org.junit.jupiter.api.Test;
 
-class PositionBuilderTest {
+class PositionsBuilderTest {
 
     @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
     @Test
@@ -42,7 +42,7 @@ class PositionBuilderTest {
 
         Tokens supportedTokens = new Tokens(List.of(START, END, ALPHA, SPACE));
         int maxTokenSeqLength = 999;
-        var positionBuilder = new PositionBuilder(new TokenSequenceBuilder(maxTokenSeqLength, supportedTokens));
+        var positionBuilder = new PositionsBuilder(new TokenSequenceBuilder(maxTokenSeqLength, supportedTokens));
 
         // when
         Set<Position> actual = positionBuilder.computePositions(input, expectedPosition);
