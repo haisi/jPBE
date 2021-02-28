@@ -30,7 +30,7 @@ public class ConstantPosition implements Position {
     }
 
     @Override
-    public int getSize() {
+    public int getDslWeight() {
         return 1;
     }
 

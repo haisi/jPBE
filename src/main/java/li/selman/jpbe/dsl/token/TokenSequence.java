@@ -109,7 +109,7 @@ public class TokenSequence implements DslElement, Iterable<Token> {
      * @return the weight of the token TokenSequence
      */
     @Override
-    public int getSize() {
+    public int getDslWeight() {
         // This implementation just happens to use the token list length as the DslElement size.
         return tokens.size();
     }

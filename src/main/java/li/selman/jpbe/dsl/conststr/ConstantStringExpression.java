@@ -32,7 +32,7 @@ public class ConstantStringExpression implements Expression {
     }
 
     @Override
-    public int getSize() {
+    public int getDslWeight() {
         return 1;
     }
 

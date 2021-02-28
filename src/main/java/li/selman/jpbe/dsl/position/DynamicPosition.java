@@ -26,8 +26,8 @@ public class DynamicPosition implements Position {
 
 
     @Override
-    public int getSize() {
-        return prefix.getSize() * suffix.getSize();
+    public int getDslWeight() {
+        return prefix.getDslWeight() * suffix.getDslWeight();
     }
 
     /**

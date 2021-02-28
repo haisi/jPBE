@@ -8,7 +8,6 @@ package li.selman.jpbe.dsl;
  */
 public interface DslElement {
 
-    // TODO(#api): rename to something like "getWeight"
-    int getSize();
+    int getDslWeight();
 
 }

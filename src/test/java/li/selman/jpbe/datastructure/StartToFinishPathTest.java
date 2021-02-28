@@ -26,7 +26,7 @@ class StartToFinishPathTest {
         TraceExpression expected = new TraceExpression(List.of(a, b));
 
         Expression heavyExpression = mock(Expression.class, "Heavy Expression");
-        when(heavyExpression.getSize()).thenReturn(10000000);
+        when(heavyExpression.getDslWeight()).thenReturn(10000000);
 
         var graph = new Graph(2, List.of(
             // direct edge

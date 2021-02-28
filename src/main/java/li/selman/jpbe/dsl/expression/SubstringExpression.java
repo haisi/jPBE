@@ -51,8 +51,8 @@ public class SubstringExpression implements Expression {
     }
 
     @Override
-    public int getSize() {
-        return startPosition.getSize() * endPosition.getSize();
+    public int getDslWeight() {
+        return startPosition.getDslWeight() * endPosition.getDslWeight();
     }
 
     @Override

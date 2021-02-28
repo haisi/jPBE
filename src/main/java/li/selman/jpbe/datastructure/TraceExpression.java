@@ -45,7 +45,7 @@ public class TraceExpression implements Expression {
     }
 
     @Override
-    public int getSize() {
+    public int getDslWeight() {
         return expressions.size();
     }
 

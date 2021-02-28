@@ -82,7 +82,7 @@ class GraphBuilderTest {
         @Test
         void foo() {
             Expression heavyExpression = mock(Expression.class, "Heavy Expression");
-            when(heavyExpression.getSize()).thenReturn(10000000);
+            when(heavyExpression.getDslWeight()).thenReturn(10000000);
 
             var graph = new Graph(2, List.of(
                 // direct edge

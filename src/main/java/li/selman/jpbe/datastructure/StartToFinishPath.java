@@ -69,7 +69,7 @@ public class StartToFinishPath {
     private static Expression smallestExpressionOfEachEdge(Edge edge) {
         return edge.getExpressions()
             .stream()
-            .min(Comparator.comparingInt(Expression::getSize))
+            .min(Comparator.comparingInt(Expression::getDslWeight))
             .orElseThrow(() -> new RuntimeException("Edge cannot have no elements: " + edge));
     }
 
