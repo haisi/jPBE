@@ -23,6 +23,8 @@ import li.selman.jpbe.dsl.conststr.ConstantStringExpression;
 import li.selman.jpbe.dsl.expression.SubstringExpression;
 import li.selman.jpbe.dsl.expression.SubstringExpressionBuilder;
 import li.selman.jpbe.dsl.position.ConstantPosition;
+import li.selman.jpbe.dsl.position.ConstantPositionBuilder;
+import li.selman.jpbe.dsl.position.DynamicPositionBuilder;
 import li.selman.jpbe.dsl.position.PositionsBuilder;
 import li.selman.jpbe.dsl.token.TokenSequenceBuilder;
 import li.selman.jpbe.dsl.token.Tokens;
@@ -100,7 +102,10 @@ class GraphBuilderTest {
     void integrationTest() {
         Tokens tokens = new Tokens(List.of(START, END, ALPHA, NUM, COMMA, DOT));
         int maxTokenSeqLength = 2;
-        var positionBuilder = new PositionsBuilder(new TokenSequenceBuilder(maxTokenSeqLength, tokens));
+        var positionBuilder = PositionsBuilder.of(
+            new ConstantPositionBuilder(),
+            new DynamicPositionBuilder(new TokenSequenceBuilder(maxTokenSeqLength, tokens))
+        );
 
         ExpressionBuilder constStrExpBuilder = new ConstStrExpressionBuilder();
         ExpressionBuilder substringExpBuilder = new SubstringExpressionBuilder(positionBuilder);

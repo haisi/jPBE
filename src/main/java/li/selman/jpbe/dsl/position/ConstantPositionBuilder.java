@@ -6,8 +6,9 @@ package li.selman.jpbe.dsl.position;
 
 import java.util.Set;
 
-public class ConstantPositionBuilder {
+public class ConstantPositionBuilder implements PositionBuilder {
 
+    @Override
     public Set<Position> computePositions(String input, int k) {
         ConstantPosition positionFromTheLeft = new ConstantPosition(k);
         ConstantPosition positionFromTheRight;

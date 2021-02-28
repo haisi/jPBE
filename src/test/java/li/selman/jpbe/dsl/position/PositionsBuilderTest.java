@@ -42,7 +42,10 @@ class PositionsBuilderTest {
 
         Tokens supportedTokens = new Tokens(List.of(START, END, ALPHA, SPACE));
         int maxTokenSeqLength = 999;
-        var positionBuilder = new PositionsBuilder(new TokenSequenceBuilder(maxTokenSeqLength, supportedTokens));
+        var positionBuilder = PositionsBuilder.of(
+            new ConstantPositionBuilder(),
+            new DynamicPositionBuilder(new TokenSequenceBuilder(maxTokenSeqLength, supportedTokens))
+        );
 
         // when
         Set<Position> actual = positionBuilder.computePositions(input, expectedPosition);

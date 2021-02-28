@@ -3,36 +3,38 @@
  */
 package li.selman.jpbe.dsl.position;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import li.selman.jpbe.dsl.token.TokenSequenceBuilder;
+import java.util.stream.Collectors;
 
 /**
  * Wraps and applies multiple PositionBuilders.
  * @author Hasan Selman Kara
  */
-public class PositionsBuilder {
+public class PositionsBuilder implements PositionBuilder {
 
-    private final ConstantPositionBuilder constantPositionBuilder;
-    private final DynamicPositionBuilder dynamicPositionBuilder;
+    private final List<PositionBuilder> positionBuilders;
 
     private String lastString;
     private final Map<Integer, Set<Position>> cache = new HashMap<>();
 
-    public PositionsBuilder(TokenSequenceBuilder tokenSequenceBuilder) {
-        this.constantPositionBuilder = new ConstantPositionBuilder();
-        this.dynamicPositionBuilder = new DynamicPositionBuilder(tokenSequenceBuilder);
+    private PositionsBuilder(List<PositionBuilder> positionBuilders) {
+        this.positionBuilders = positionBuilders;
     }
 
-    /**
-     * Generates all possible position which match a given index on a given string.
-     *
-     * @param input Input string
-     * @param k     index of position to generate to
-     * @return set of positions
-     */
+    public static PositionsBuilder of(List<PositionBuilder> positionBuilders) {
+        return new PositionsBuilder(positionBuilders);
+    }
+
+    public static PositionsBuilder of(PositionBuilder... positionBuilders) {
+        return new PositionsBuilder(Arrays.asList(positionBuilders));
+    }
+
+    @Override
     public Set<Position> computePositions(String input, int k) {
         if (input.equals(lastString)) {
             cache.clear();
@@ -41,19 +43,14 @@ public class PositionsBuilder {
             return cache.get(k);
         }
 
-        Set<Position> constantPositions = constantPositionBuilder.computePositions(input, k);
-        Set<Position> dynamicPositions = dynamicPositionBuilder.computePositions(input, k);
+        // Compute positions given all configured PositionBuilders
+        Set<Position> unionOfFoundPositions = positionBuilders.stream()
+            .map(positionBuilder -> positionBuilder.computePositions(input, k))
+            .flatMap(Collection::stream)
+            .collect(Collectors.toSet());
 
-        Set<Position> union = union(constantPositions, dynamicPositions);
-        cache.put(k, union);
-        return union;
-    }
-
-    private Set<Position> union(Set<Position> a, Set<Position> b) {
-        var union = new HashSet<Position>(a.size() + b.size());
-        union.addAll(a);
-        union.addAll(b);
-        return union;
+        cache.put(k, unionOfFoundPositions);
+        return unionOfFoundPositions;
     }
 
 }

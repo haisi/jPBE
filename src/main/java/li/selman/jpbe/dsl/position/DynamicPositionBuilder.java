@@ -15,7 +15,7 @@ import li.selman.jpbe.dsl.token.TokenSequenceBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DynamicPositionBuilder {
+public class DynamicPositionBuilder implements PositionBuilder {
 
     private static final Logger log = LoggerFactory.getLogger(DynamicPositionBuilder.class);
 
@@ -25,6 +25,7 @@ public class DynamicPositionBuilder {
         this.tokenSequenceBuilder = tokenSequenceBuilder;
     }
 
+    @Override
     public Set<Position> computePositions(String input, int k) {
         Set<Position> dynamicPositions = new HashSet<>();
 
