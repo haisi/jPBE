@@ -36,6 +36,9 @@ public class PositionsBuilder implements PositionBuilder {
 
     @Override
     public Set<Position> computePositions(String input, int k) {
+        if (k < 0) throw new IllegalArgumentException("k cannot be < 0");
+        if (k > input.length()) throw new IllegalArgumentException("k cannot be > input.length()");
+
         if (input.equals(lastString)) {
             cache.clear();
             lastString = input;

@@ -27,11 +27,13 @@ public class DynamicPositionBuilder implements PositionBuilder {
 
     @Override
     public Set<Position> computePositions(String input, int k) {
-        Set<Position> dynamicPositions = new HashSet<>();
+        if (k < 0) throw new IllegalArgumentException("k cannot be < 0");
+        if (k > input.length()) throw new IllegalArgumentException("k cannot be > input.length()");
 
         Map<Integer, TokenSequence> leftTokenSeq = computeLeftTokenSeq(input, k);
         Map<Integer, TokenSequence> rightTokenSeq = computeRightTokenSeq(input, k);
 
+        Set<Position> dynamicPositions = new HashSet<>();
         for (var leftEntry : leftTokenSeq.entrySet()) {
             for (var rightEntry : rightTokenSeq.entrySet()) {
                 if (Objects.equals(leftEntry.getValue().getLastToken(), rightEntry.getValue().getLastToken())
