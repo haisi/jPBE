@@ -6,6 +6,7 @@ package li.selman.jpbe.dsl.expression;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import li.selman.jpbe.dsl.DslElement;
 import li.selman.jpbe.dsl.Expression;
 
 /**
@@ -46,7 +47,7 @@ public class Expressions implements Expression {
 
     @Override
     public int getDslWeight() {
-        return expressions.size();
+        return expressions.stream().mapToInt(DslElement::getDslWeight).sum();
     }
 
     @Override
