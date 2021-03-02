@@ -7,7 +7,7 @@ package li.selman.jpbe.dsl;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
-import li.selman.jpbe.datastructure.TraceExpression;
+import li.selman.jpbe.dsl.expression.Expressions;
 import li.selman.jpbe.dsl.expression.SubstringExpression;
 import li.selman.jpbe.dsl.position.ConstantPosition;
 import li.selman.jpbe.dsl.position.DynamicPosition;
@@ -26,7 +26,7 @@ public class EndToEndDslTest {
         DynamicPosition beforeNumber = new DynamicPosition(TokenSequence.of(), TokenSequence.of(Token.NUM), 1);
         ConstantPosition endOfString = ConstantPosition.lastPosition();
 
-        TraceExpression trace = new TraceExpression(List.of(new SubstringExpression(beforeNumber, endOfString)));
+        Expressions trace = new Expressions(List.of(new SubstringExpression(beforeNumber, endOfString)));
 
         assertThat(trace.apply("BTR KRNL WK CORN 15Z")).contains("15Z");
         assertThat(trace.apply("CAMP DRY DBL NDL 3.6 OZ")).contains("3.6 OZ");
@@ -39,7 +39,7 @@ public class EndToEndDslTest {
         Position left = new ConstantPosition(0);
         Position slash = new DynamicPosition(TokenSequence.of(Token.BACK_SLASH), TokenSequence.of(), -1);
 
-        TraceExpression trace = new TraceExpression(List.of(new SubstringExpression(left, slash)));
+        Expressions trace = new Expressions(List.of(new SubstringExpression(left, slash)));
 
         assertThat(trace.apply("Company\\Code\\index.html")).contains("Company\\Code\\");
         assertThat(trace.apply("Company\\Docs\\Spec\\sepcs.doc")).contains("Company\\Docs\\Spec\\");

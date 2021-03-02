@@ -1,7 +1,7 @@
 /*
  * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
  */
-package li.selman.jpbe.dsl.lookup;
+package li.selman.jpbe.dsl.expression;
 
 import java.util.Map;
 import java.util.Optional;

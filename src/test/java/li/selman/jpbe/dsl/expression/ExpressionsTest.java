@@ -1,15 +1,13 @@
 /*
  * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
  */
-package li.selman.jpbe.datastructure;
+package li.selman.jpbe.dsl.expression;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
-import li.selman.jpbe.dsl.conststr.ConstantStringExpression;
-import li.selman.jpbe.dsl.expression.SubstringExpression;
 import li.selman.jpbe.dsl.position.ConstantPosition;
 import li.selman.jpbe.dsl.position.DynamicPosition;
 import li.selman.jpbe.dsl.position.Position;
@@ -21,13 +19,13 @@ import org.junit.jupiter.api.Test;
 /**
  * @author Hasan Selman Kara
  */
-class TraceExpressionTest {
+class ExpressionsTest {
 
     @Test
     @DisplayName("Applying the expressions in the correct order")
     void inCorrectOrder() {
         String expected = "ABC";
-        var expression = new TraceExpression(List.of(
+        var expression = new Expressions(List.of(
             new ConstantStringExpression("A"),
             new ConstantStringExpression("B"),
             new ConstantStringExpression("C")
@@ -44,7 +42,7 @@ class TraceExpressionTest {
     void failingToApplyExpression() {
         String expected = "ABC";
         int hugeEndIndexForSubstring = 100;
-        var expression = new TraceExpression(List.of(
+        var expression = new Expressions(List.of(
             new ConstantStringExpression("A"),
             new SubstringExpression(new ConstantPosition(0), new ConstantPosition(hugeEndIndexForSubstring))
         )
@@ -61,8 +59,8 @@ class TraceExpressionTest {
             Position beforeNumber = new DynamicPosition(TokenSequence.of(), TokenSequence.of(Token.NUM), 1);
             Position endOfString = ConstantPosition.lastPosition();
 
-            TraceExpression expression =
-                new TraceExpression(List.of(new SubstringExpression(beforeNumber, endOfString)));
+            Expressions expression =
+                new Expressions(List.of(new SubstringExpression(beforeNumber, endOfString)));
 
             return expression.apply(input);
         };
@@ -80,7 +78,7 @@ class TraceExpressionTest {
             Position left = new ConstantPosition(0);
             Position slash = new DynamicPosition(TokenSequence.of(Token.BACK_SLASH), TokenSequence.of(), -1);
 
-            TraceExpression expression = new TraceExpression(List.of(new SubstringExpression(left, slash)));
+            Expressions expression = new Expressions(List.of(new SubstringExpression(left, slash)));
 
             return expression.apply(input);
         };

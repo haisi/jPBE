@@ -11,6 +11,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import li.selman.jpbe.dsl.Expression;
+import li.selman.jpbe.dsl.expression.Expressions;
 
 /**
  * @author Hasan Selman Kara
@@ -127,11 +128,11 @@ public class Graph {
         // TODO(#wip): handle intersect graph as well
     }
 
-    private List<TraceExpression> getAllTraceExpressions(Stream<Edge> edgeStream) {
+    private List<Expressions> getAllTraceExpressions(Stream<Edge> edgeStream) {
         return edgeStream
             .map(Edge::getExpressions)
             // TODO(#api): check whether we should use Set or List
-            .map(expressions -> new TraceExpression(new ArrayList<>(expressions)))
+            .map(expressions -> new Expressions(new ArrayList<>(expressions)))
             .collect(Collectors.toList());
     }
 

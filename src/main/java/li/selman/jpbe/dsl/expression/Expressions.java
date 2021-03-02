@@ -1,7 +1,7 @@
 /*
  * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
  */
-package li.selman.jpbe.datastructure;
+package li.selman.jpbe.dsl.expression;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +13,11 @@ import li.selman.jpbe.dsl.Expression;
  * {@code p} is made up of {@code n} {@link Expression}s, while itself being an {@link Expression}.
  * @author Hasan Selman Kara
  */
-public class TraceExpression implements Expression {
+public class Expressions implements Expression {
 
     private final List<Expression> expressions;
 
-    public TraceExpression(List<Expression> expressions) {
+    public Expressions(List<Expression> expressions) {
         this.expressions = expressions;
     }
 
@@ -54,7 +54,7 @@ public class TraceExpression implements Expression {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        TraceExpression that = (TraceExpression) o;
+        Expressions that = (Expressions) o;
 
         return expressions.equals(that.expressions);
     }

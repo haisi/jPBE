@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import li.selman.jpbe.dsl.Expression;
+import li.selman.jpbe.dsl.expression.Expressions;
 
 /**
  * Represents all paths on {@link Graph} that lead from start to finish.
@@ -73,12 +74,12 @@ public class StartToFinishPath {
             .orElseThrow(() -> new RuntimeException("Edge cannot have no elements: " + edge));
     }
 
-    public TraceExpression computeOptimalTraceExpression() {
+    public Expressions computeOptimalTraceExpression() {
         List<Expression> optimalExpressions = path.stream()
             .map(StartToFinishPath::smallestExpressionOfEachEdge)
             .collect(Collectors.toUnmodifiableList());
 
-        return new TraceExpression(optimalExpressions);
+        return new Expressions(optimalExpressions);
     }
 
 }

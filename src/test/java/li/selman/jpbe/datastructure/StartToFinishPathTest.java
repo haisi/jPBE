@@ -10,7 +10,8 @@ import static org.mockito.Mockito.when;
 import java.util.List;
 import java.util.Set;
 import li.selman.jpbe.dsl.Expression;
-import li.selman.jpbe.dsl.conststr.ConstantStringExpression;
+import li.selman.jpbe.dsl.expression.ConstantStringExpression;
+import li.selman.jpbe.dsl.expression.Expressions;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -23,7 +24,7 @@ class StartToFinishPathTest {
         var a = new ConstantStringExpression("A");
         var b = new ConstantStringExpression("B");
 
-        TraceExpression expected = new TraceExpression(List.of(a, b));
+        Expressions expected = new Expressions(List.of(a, b));
 
         Expression heavyExpression = mock(Expression.class, "Heavy Expression");
         when(heavyExpression.getDslWeight()).thenReturn(10000000);
@@ -35,7 +36,7 @@ class StartToFinishPathTest {
         ));
 
         var path = new StartToFinishPath(graph.getEdges(), graph.getMaxNode());
-        TraceExpression actualOptimal = path.computeOptimalTraceExpression();
+        Expressions actualOptimal = path.computeOptimalTraceExpression();
 
         assertThat(actualOptimal).isEqualTo(expected);
     }
