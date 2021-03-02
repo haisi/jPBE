@@ -39,6 +39,7 @@ dependencies {
     // Use JUnit Jupiter API for testing.
     val junitVersion = "5.7.1"
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:$junitVersion")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
     testImplementation("org.assertj:assertj-core:3.19.0")
     testImplementation("org.mockito:mockito-core:3.8.0")
