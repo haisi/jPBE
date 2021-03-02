@@ -10,6 +10,8 @@ public interface PositionBuilder {
 
     /**
      * Generates all possible position which match a given index on a given string.
+     * Note that if the passed parameters are valid, then
+     * <b>all computed positions must evaluate to {@code k} on {@code input}.</b>
      *
      * @param input Input string
      * @param k     index of position to generate to
