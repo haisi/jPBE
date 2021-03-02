@@ -4,6 +4,13 @@
 package li.selman.jpbe.dsl.position;
 
 /**
+ * Denotes a constant index of a string.
+ * If {@link ConstantPosition#constant} is positive, the index is counted from the left —
+ * just like {@link String#charAt(int)}.
+ * <p>
+ * If the constant is negative, the index is counted from the right.
+ * In that case the last index of a string is denoted with the value in {@link ConstantPosition#LAST_POSITION_INDEX} as
+ * 0 is already reserved for the "positive" index way of counting.
  * @author Hasan Selman Kara
  */
 public class ConstantPosition implements Position {
@@ -12,6 +19,9 @@ public class ConstantPosition implements Position {
 
     private final int constant;
 
+    /**
+     * @param constant signed integer denoting the index on any string
+     */
     public ConstantPosition(int constant) {
         this.constant = constant;
     }
