@@ -16,8 +16,8 @@ public interface PositionBuilder {
      * @param input Input string
      * @param k     index of position to generate to
      * @return set of positions
-     * @throws IllegalArgumentException if {@code k} < 0
-     * @throws IllegalArgumentException if {@code k} > {@code input.length()}
+     * @throws IllegalArgumentException if {@code k} &lt; 0
+     * @throws IllegalArgumentException if {@code k} &gt; {@code input.length()}
      */
     Set<Position> computePositions(String input, int k);
 
