@@ -23,6 +23,14 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 class DynamicPositionBuilderTest {
 
+    /**
+     * Given a string {@code input} and an index {@code k} on said input,
+     * a {@link DynamicPositionBuilder} will compute a set {@code P} of positions.
+     * <p>
+     * Then for all {@code pos} in {@code P} | {@code pos(input) == k}
+     * @param input the input string used to compute the positions for
+     * @param k the index to compote position DSL elements to and to evaluate to
+     */
     @ParameterizedTest
     @CsvSource(value = {
         "Simple Space:7", "B:2", "D:1"
