@@ -72,8 +72,7 @@ public class DynamicPositionBuilder implements PositionBuilder {
 
     Map<Integer, TokenSequence> computeRightTokenSeq(String input, int k) {
         Map<Integer, TokenSequence> rightTokenSeq = new HashMap<>();
-        // TODO(#bug): check this out. It's the same in reference
-        for (int k2 = k; k2 <= input.length(); k2++) {
+        for (int k2 = k + 1; k2 <= input.length(); k2++) {
             var tokenSequence = tokenSequenceBuilder.computeTokenSequence(input, k, k2);
             if (!tokenSequence.isEmpty()) {
                 rightTokenSeq.put(k2, tokenSequence);
@@ -84,7 +83,7 @@ public class DynamicPositionBuilder implements PositionBuilder {
 
     Map<Integer, TokenSequence> computeLeftTokenSeq(String input, int k) {
         Map<Integer, TokenSequence> leftTokenSeq = new HashMap<>();
-        for (int k1 = 0; k1 <= k; k1++) {
+        for (int k1 = 0; k1 < k; k1++) {
             var tokenSequence = tokenSequenceBuilder.computeTokenSequence(input, k1, k);
             if (!tokenSequence.isEmpty()) {
                 leftTokenSeq.put(k1, tokenSequence);
