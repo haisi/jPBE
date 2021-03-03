@@ -17,6 +17,7 @@ import java.util.Set;
 import li.selman.jpbe.dsl.token.TokenSequence;
 import li.selman.jpbe.dsl.token.TokenSequenceBuilder;
 import li.selman.jpbe.dsl.token.Tokens;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -33,8 +34,11 @@ class DynamicPositionBuilderTest {
      */
     @ParameterizedTest
     @CsvSource(value = {
-        "Simple Space:7", "B:2", "D:1"
+        "Simple Space:7",
+        "B:2",
+        "D:1"
     }, delimiter = ':')
+    @Disabled
     void sanityTest(String input, int k) {
         // given
         Tokens supportedTokens = new Tokens(List.of(START, END, ALPHA, SPACE));
