@@ -36,9 +36,20 @@ public class TokenSequenceBuilder {
         this.tokens = tokens;
     }
 
-    // TODO(#wip): sleep and look at this again
+    /**
+     * @param input the whole input string provided by the data set
+     * @param from start index for sub-string on {@code input}
+     * @param to end index for sub-string on {@code input}
+     * @return sequence of tokens representing the token structure of a substring on {@code input}
+     */
+    @SuppressWarnings("checkstyle:CyclomaticComplexity")
     public TokenSequence computeTokenSequence(String input, int from, int to) {
+        if (to < 1 || to > input.length()) throw new IllegalArgumentException("'to' index is invalid.");
+        if (from < 0 || from >= input.length()) throw new IllegalArgumentException("'from' index is invalid.");
+        if (to <= from) throw new IllegalArgumentException("'from' index must be smaller than 'to' index.");
+
         List<Token> tmpTokens = new ArrayList<>();
+
         if (from == 0) {
             tmpTokens.add(Token.START);
         }
@@ -59,9 +70,8 @@ public class TokenSequenceBuilder {
             }
 
             if (tmpTokens.size() > maxLength) {
-                // Already to long, preemptive cancellation
-                // TODO(#bug): why return empty list and not `TokenSequence.of(tokens)`?
-                return TokenSequence.of();
+                // Already too long, preemptive cancellation with current tokens
+                return TokenSequence.of(tmpTokens);
             }
         }
 
@@ -69,12 +79,7 @@ public class TokenSequenceBuilder {
             tmpTokens.add(Token.END);
         }
 
-        // TODO(#bug): hmmm
-        if (tmpTokens.size() > 0 && tmpTokens.size() <= maxLength) {
-            return TokenSequence.of(tmpTokens);
-        }
-
-        return TokenSequence.of();
+        return TokenSequence.of(tmpTokens);
     }
 
     private <T> T getLastOrNull(List<T> list) {
