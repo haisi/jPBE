@@ -19,7 +19,9 @@ final class Matcher {
     }
 
     static int positionOfRegex(TokenSequence r, String s, int from, int to) {
-        if (from >= to) throw new IllegalArgumentException("From >= To");
+        if (to < 1 || to > s.length()) throw new IllegalArgumentException("'to' index is invalid.");
+        if (from < 0 || from >= s.length()) throw new IllegalArgumentException("'from' index is invalid.");
+        if (from >= to) throw new IllegalArgumentException("'from' index must be smaller than 'to' index.");
 
         List<MatchResult> matches = matches(r.getMergedPattern(), s);
         if (matches.isEmpty()) throw new IllegalStateException("No matches found");
@@ -39,8 +41,10 @@ final class Matcher {
         throw new IllegalStateException("No matches");
     }
 
+    /**
+     * @return number of matches of {@code r} in {@code s} — 0 if there are none or the {@code r} is empty
+     */
     static int totalNumberOfMatches(TokenSequence r, String s) {
-        // according to specification
         if (r.getNumberOfTokens() == 0) {
             return 0;
         }
