@@ -65,6 +65,7 @@ class DynamicPositionBuilderTest {
         Map<Integer, TokenSequence> left = posBuilder.computeLeftTokenSeq(input, k);
         Map<Integer, TokenSequence> right = posBuilder.computeRightTokenSeq(input, k);
 
+        // then
         assertThat(left).containsOnly(
             entry(0, TokenSequence.of(START, ALPHA, SPACE)),
             entry(1, TokenSequence.of(ALPHA, SPACE)),
