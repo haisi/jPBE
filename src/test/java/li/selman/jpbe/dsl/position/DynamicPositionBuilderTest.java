@@ -5,6 +5,7 @@
 package li.selman.jpbe.dsl.position;
 
 import static li.selman.jpbe.dsl.token.Token.ALPHA;
+import static li.selman.jpbe.dsl.token.Token.COMMA;
 import static li.selman.jpbe.dsl.token.Token.END;
 import static li.selman.jpbe.dsl.token.Token.SPACE;
 import static li.selman.jpbe.dsl.token.Token.START;
@@ -17,7 +18,6 @@ import java.util.Set;
 import li.selman.jpbe.dsl.token.TokenSequence;
 import li.selman.jpbe.dsl.token.TokenSequenceBuilder;
 import li.selman.jpbe.dsl.token.Tokens;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -35,13 +35,17 @@ class DynamicPositionBuilderTest {
     @ParameterizedTest
     @CsvSource(value = {
         "Simple Space:7",
-        "B:2",
+        "Multiple Space In One:15",
+//        "Multiple Space In One More:15", // No matches!
+        "Start:0",
+        "End:3",
+        "Com,ma:3",
+        "Com,ma:4",
         "D:1"
     }, delimiter = ':')
-    @Disabled
     void sanityTest(String input, int k) {
         // given
-        Tokens supportedTokens = new Tokens(List.of(START, END, ALPHA, SPACE));
+        Tokens supportedTokens = new Tokens(List.of(START, END, ALPHA, COMMA, SPACE));
         int maxTokenSeqLength = 999;
         var posBuilder = new DynamicPositionBuilder(new TokenSequenceBuilder(maxTokenSeqLength, supportedTokens));
 

@@ -61,8 +61,8 @@ public class DynamicPositionBuilder implements PositionBuilder {
                 }
 
                 int cMax = Matcher.totalNumberOfMatches(r12, input);
-                dynamicPositions.add(new DynamicPosition(leftEntry.getValue(), leftEntry.getValue(), c));
-                dynamicPositions.add(new DynamicPosition(leftEntry.getValue(), leftEntry.getValue(), -(cMax - c + 1)));
+                dynamicPositions.add(new DynamicPosition(leftEntry.getValue(), rightEntry.getValue(), c));
+                dynamicPositions.add(new DynamicPosition(leftEntry.getValue(), rightEntry.getValue(), -(cMax - c + 1)));
             }
 
         }
