@@ -56,6 +56,10 @@ tasks.named<JavaCompile>("compileTestJava") {
     options.errorprone.isEnabled.set(false)
 }
 
+tasks.withType<Javadoc>().configureEach {
+    options.encoding = "UTF-8"
+}
+
 val test by tasks.getting(Test::class) {
     // Use junit platform for unit tests
     useJUnitPlatform()
