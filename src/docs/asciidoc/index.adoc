@@ -2,6 +2,7 @@
 Hasan Selman Kara
 2021-03-06
 :example-caption!:
+:source-highlighter: highlight.js
 ifndef::imagesdir[:imagesdir: images]
 ifndef::sourcedir[:sourcedir: ../java]
 
