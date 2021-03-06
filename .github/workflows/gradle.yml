@@ -30,6 +30,14 @@ jobs:
               run: |
                   rm -f ~/.gradle/caches/modules-2/modules-2.lock
                   rm -f ~/.gradle/caches/modules-2/gc.properties
+            - name: Deploy to GitHub Pages
+              uses: Cecilapp/GitHub-Pages-deploy@v3
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                email: hasan.selman.kara@gmai.com
+                build_dir: build/docs
+                jekyll: no
             - name: 'Upload JavaDocs'
               uses: actions/upload-artifact@v2
               with:
