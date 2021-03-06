@@ -38,13 +38,3 @@ jobs:
                 email: hasan.selman.kara@gmai.com
                 build_dir: build/docs
                 jekyll: no
-            - name: 'Upload JavaDocs'
-              uses: actions/upload-artifact@v2
-              with:
-                name: artifact-javadocs
-                path: build/docs/javadoc/
-            - name: 'Upload Reports'
-              uses: actions/upload-artifact@v2
-              with:
-                name: artifact-reports
-                path: build/reports/
