@@ -1,64 +1,7 @@
-= jPBE - do as I showed
+= jPBE - Java Library for Automated String Transformations
 
 image::https://github.com/haisi/jPBE/actions/workflows/gradle.yml/badge.svg[CI-State]
 
-This is the open source, java implementation of my https://selman.li/thesis[bachelor thesis].
-
 CAUTION: This repo is still a work in progress and not finished, yet alone stable!
 
-== Abstract
-Millions of people need to analyze raw data of varying quality to support their job function.
-In a lot of cases the present data needs to be refined and processed from its raw form to a more structured format in
-order to analyze and visualize it.
-This process is time-intensive and error-prone.
-Usually tools like Microsoft Excel or OpenRefine are used to improve that process.
-However, any nontrivial data wrangling task remains inaccessible to non-programmers.
-Furthermore, existing tools only cover the most common use cases, i.e. they are business agnostic.
-
-Programming by example (PBE), a subfield of program synthesis, allows for a natural and intuitive user
-interaction mechanism.
-Users can specify their intent by providing input output examples for string transformations.
-
-Using PBE for data wrangling is not a novel idea.
-Flash Fill is a PBE feature in Excel and Microsoft’s PROSE framework shows the potential of PBE for data wrangling.
-However, these existing solutions cannot be integrated into custom software.
-
-Therefore, we developed a custom PBE system for data wrangling tasks.
-We describe a custom domain-specific language (DSL) for complex string manipulations.
-We present a data structure to represent a large number of programs built in our DSL.
-We introduce a custom synthesis algorithm that populates our data structure with programs to transform string inputs
-to their intended outputs.
-
-== Example
-
-Imagine you are tasked with analyzing how many of your customers have the same surname.
-You are provided with the following list, which has to be processed first to
-extract the surname.
-
-[cols=2*,options="header"]
-|===
-|Input
-|Wanted output
-
-|Peter Smith; 22; Switzerland - Basel
-|Smith
-
-|Bob Marley; 18; France - Lyon
-|...
-
-|Anna White; 37; USA - Seattle
-|...
-
-|...
-|...
-|===
-
-Your *intent* is to extract the surname.
-One possible way to specify your *intent* is to write a short program.
-If you do not know how to program you are out of luck.
-
-A more natural and accessible way to *specify your intent* is by providing the computer
-with an *input output example* from which a program in synthesised
-that satisfies your intent.
-
-
+Go to the http://selman.li/jPBE/[project website] for all information including a developer guide: http://selman.li/jPBE/
