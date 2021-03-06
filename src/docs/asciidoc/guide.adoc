@@ -18,6 +18,6 @@ We just haven't decided what that is yet.
 .Java code from project
 ----
 class Foo {
-
+    System.out.println("Test");
 }
 ----
