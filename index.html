@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.10">
 <meta name="author" content="Hasan Selman Kara">
-<title>Example Manual</title>
+<title>jPBE — Open Source Java Library for Automated String Transformations</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -439,47 +439,138 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Example Manual</h1>
+<h1>jPBE — Open Source Java Library for Automated String Transformations</h1>
 <div class="details">
 <span id="author" class="author">Hasan Selman Kara</span><br>
-<span id="email" class="email"><a href="mailto:hasan.selman.kara@gmail.com">hasan.selman.kara@gmail.com</a></span><br>
-<span id="revdate">2020-02-08</span>
+<span id="revdate">2021-03-06</span>
 </div>
 </div>
 <div id="content">
-<div id="preamble">
+<div class="sect1">
+<h2 id="_example">Example</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This is a user manual for an example project.</p>
+<p>Imagine you are tasked with analyzing how many of your customers have the same surname.
+You are provided with the following list, which has to be processed first to extract the surname.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_introduction">Introduction</h2>
-<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Input</th>
+<th class="tableblock halign-left valign-top">Intended output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Peter Smith; 22; Switzerland - Basel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Smith</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bob Marley; 18; France - Lyon</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#8230;&#8203;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Anna White; 37; USA - Seattle</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#8230;&#8203;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#8230;&#8203;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#8230;&#8203;</p></td>
+</tr>
+</tbody>
+</table>
 <div class="paragraph">
-<p>This project does something.
-We just haven&#8217;t decided what that is yet.</p>
+<p>Your intent is to extract the surname.
+One possible way to specify your intent is to write a short program.
+If you do not know how to program you are out of luck.</p>
 </div>
+<div class="paragraph">
+<p>A more natural and accessible way to specify your intent is by providing the computer with an input output example
+from which a program in synthesised that satisfies your intent — hello jPBE</p>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_source_code">Source Code</h2>
-<div class="sectionbody">
 <div class="listingblock">
-<div class="title">Java code from project</div>
+<div class="title">How to solve example problem with jPBE</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">class Foo {
-    System.out.println("Test");
+<pre class="highlight"><code class="language-java" data-lang="java">class MyApp {
+    // TODO show minimal usage of jPBE
+    List&lt;String&gt; input = List.of(
+        "Peter Smith; 22; Switzerland - Basel",
+        "Bob Marley; 18; France - Lyon",
+        "Anna White; 37; USA - Seattle"
+    );
+    Synthesizer jpbe = Synthesizer.createDefault();
+    Graph graph = jpbe.computeGraph(input.get(0), "Smith");
+    TraceExpression program = graph.findTracePath();
+    List&lt;String&gt; outputStrings = input.stream()
+                                        .map(input -&gt; program.apply(input))
+                                        .collect(Collectors.toSet());
 }</code></pre>
 </div>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_abstract">Abstract</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Millions of people need to analyze raw data of varying quality to support their job function.
+In a lot of cases the present data needs to be refined and processed from its raw form to a more structured format in
+order to analyze and visualize it. This process is <strong>time-intensive and error-prone</strong>.
+Usually tools like Microsoft Excel or OpenRefine are used to improve that process.
+However, any nontrivial data wrangling task remains inaccessible to non-programmers.
+Furthermore, existing tools only cover the most common use cases, i.e. they are business agnostic.</p>
+</div>
+<div class="paragraph">
+<p>Programming by example (PBE), a subfield of program synthesis, allows for a natural and intuitive user interaction mechanism.
+Users can specify their intent by <strong>providing input output examples for string transformations</strong>.
+jPBE will then dynamically synthesis a program satisfying the user intent.
+By providing additional input out examples the user can further clarify their intent or even generate conditional programs.</p>
+</div>
+<div class="paragraph">
+<p>jPBE is an open source Java library.
+The functionality of the library can be configured and extended — more to that in the following chapters.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Useful links</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Source code repository</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/haisi/jPBE" class="bare">https://github.com/haisi/jPBE</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JavaDoc</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://selman.li/jPBE/javadoc" class="bare">http://selman.li/jPBE/javadoc</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bachelors thesis this project is based on</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://selman.li/thesis" class="bare">https://selman.li/thesis</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Project license</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/haisi/jPBE/blob/master/LICENSE" class="bare">https://github.com/haisi/jPBE/blob/master/LICENSE</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-06 21:11:39 UTC
+Last updated 2021-03-06 22:15:19 UTC
 </div>
 </div>
 </body>
