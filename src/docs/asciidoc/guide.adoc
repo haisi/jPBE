@@ -1,23 +1,87 @@
-= Example Manual
-Hasan Selman Kara <hasan.selman.kara@gmail.com>
-2020-02-08
+= jPBE — Open Source Java Library for Automated String Transformations
+Hasan Selman Kara
+2021-03-06
 :example-caption!:
 ifndef::imagesdir[:imagesdir: images]
 ifndef::sourcedir[:sourcedir: ../java]
 
-This is a user manual for an example project.
+== Example
 
-== Introduction
+Imagine you are tasked with analyzing how many of your customers have the same surname.
+You are provided with the following list, which has to be processed first to extract the surname.
 
-This project does something.
-We just haven't decided what that is yet.
+|===
+|Input |Intended output
 
-== Source Code
+|Peter Smith; 22; Switzerland - Basel
+|Smith
+
+|Bob Marley; 18; France - Lyon
+|...
+
+|Anna White; 37; USA - Seattle
+|...
+
+|...
+|...
+|===
+
+Your intent is to extract the surname.
+One possible way to specify your intent is to write a short program.
+If you do not know how to program you are out of luck.
+
+A more natural and accessible way to specify your intent is by providing the computer with an input output example
+from which a program in synthesised that satisfies your intent — hello jPBE
 
 [source,java]
-.Java code from project
+.How to solve example problem with jPBE
 ----
-class Foo {
-    System.out.println("Test");
+class MyApp {
+    // TODO show minimal usage of jPBE
+    List<String> input = List.of(
+        "Peter Smith; 22; Switzerland - Basel",
+        "Bob Marley; 18; France - Lyon",
+        "Anna White; 37; USA - Seattle"
+    );
+    Synthesizer jpbe = Synthesizer.createDefault();
+    Graph graph = jpbe.computeGraph(input.get(0), "Smith");
+    TraceExpression program = graph.findTracePath();
+    List<String> outputStrings = input.stream()
+                                        .map(input -> program.apply(input))
+                                        .collect(Collectors.toSet());
 }
 ----
+
+== Abstract
+
+Millions of people need to analyze raw data of varying quality to support their job function.
+In a lot of cases the present data needs to be refined and processed from its raw form to a more structured format in
+order to analyze and visualize it. This process is *time-intensive and error-prone*.
+Usually tools like Microsoft Excel or OpenRefine are used to improve that process.
+However, any nontrivial data wrangling task remains inaccessible to non-programmers.
+Furthermore, existing tools only cover the most common use cases, i.e. they are business agnostic.
+
+Programming by example (PBE), a subfield of program synthesis, allows for a natural and intuitive user interaction mechanism.
+Users can specify their intent by *providing input output examples for string transformations*.
+jPBE will then dynamically synthesis a program satisfying the user intent.
+By providing additional input out examples the user can further clarify their intent or even generate conditional programs.
+
+jPBE is an open source Java library.
+The functionality of the library can be configured and extended — more to that in the following chapters.
+
+.Useful links
+|===
+|Description |Link
+
+|Source code repository
+|https://github.com/haisi/jPBE
+
+|JavaDoc
+|http://selman.li/jPBE/javadoc
+
+|Bachelors thesis this project is based on
+|https://selman.li/thesis
+
+|Project license
+|https://github.com/haisi/jPBE/blob/master/LICENSE
+|===
