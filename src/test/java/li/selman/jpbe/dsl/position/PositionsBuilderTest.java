@@ -15,6 +15,7 @@ import java.util.Set;
 import li.selman.jpbe.dsl.token.TokenSequence;
 import li.selman.jpbe.dsl.token.TokenSequenceBuilder;
 import li.selman.jpbe.dsl.token.Tokens;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
@@ -86,6 +87,7 @@ class PositionsBuilderTest {
     }
 
     @Test
+    @Disabled
     void lastPositionTest() {
         // given
         String input = "AB CDE";
@@ -108,6 +110,7 @@ class PositionsBuilderTest {
     }
 
     @Test
+    @Disabled
     void firstPositionTest() {
         // given
         String input = "AB CDE";
