@@ -6,7 +6,9 @@ Hasan Selman Kara
 ifndef::imagesdir[:imagesdir: images]
 ifndef::sourcedir[:sourcedir: ../java]
 
-== Example
+|===
+|https://github.com/haisi/jPBE[*Source code*] |http://selman.li/jPBE/javadoc[*JavaDoc*]|https://github.com/haisi/jPBE/blob/master/LICENSE[*License*]|https://selman.li/thesis[*Bachelor's thesis this project is based on*]
+|===
 
 Imagine you are tasked with analyzing how many of your customers have the same surname.
 You are provided with the following list, which has to be processed first to extract the surname.
@@ -70,19 +72,10 @@ By providing additional input out examples the user can further clarify their in
 jPBE is an open source Java library.
 The functionality of the library can be configured and extended — more to that in the following chapters.
 
-.Useful links
-|===
-|Description |Link
+== Configure jPBE
 
-|Source code repository
-|https://github.com/haisi/jPBE
+TODO
 
-|JavaDoc
-|http://selman.li/jPBE/javadoc
+== Extend jPBE with custom operations
 
-|Bachelors thesis this project is based on
-|https://selman.li/thesis
-
-|Project license
-|https://github.com/haisi/jPBE/blob/master/LICENSE
-|===
+TODO
