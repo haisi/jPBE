@@ -7,7 +7,7 @@ ifndef::imagesdir[:imagesdir: images]
 ifndef::sourcedir[:sourcedir: ../java]
 
 |===
-|https://github.com/haisi/jPBE[*Source code*] |http://selman.li/jPBE/javadoc[*JavaDoc*]|https://github.com/haisi/jPBE/blob/master/LICENSE[*License*]|https://selman.li/thesis[*Bachelor's thesis this project is based on*]
+|https://github.com/haisi/jPBE[*Source code*] |https://selman.li/jPBE/javadoc[*JavaDoc*]|https://github.com/haisi/jPBE/blob/master/LICENSE[*License*]|https://selman.li/jPBE/tests/test/[*Tests*]|https://selman.li/jPBE/jacoco/test/html/[*Test Coverage*]|https://selman.li/thesis[*Bachelor's thesis*]
 |===
 
 Imagine you are tasked with analyzing how many of your customers have the same surname.
