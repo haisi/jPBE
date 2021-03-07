@@ -24,6 +24,8 @@ jobs:
               run: chmod +x gradlew
             - name: Build with Gradle
               run: ./gradlew build jacocoTestReport asciidoctor
+            - name: Copy all reports to docs dir for gh-pages
+              run: mv -v ./build/reports/* ./build/docs
             - name: Cleanup Gradle Cache
                 # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
                 # Restoring these files from a GitHub Actions cache might cause problems for future builds.
