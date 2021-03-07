@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ConstantPosition.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jPBE</a> &gt; <a href="index.source.html" class="el_package">li.selman.jpbe.dsl.position</a> &gt; <span class="el_source">ConstantPosition.java</span></div><h1>ConstantPosition.java</h1><pre class="source lang-java linenums">/*
+ * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ */
+package li.selman.jpbe.dsl.position;
+
+/**
+ * Denotes a constant index of a string.
+ * If {@link ConstantPosition#constant} is positive, the index is counted from the left —
+ * just like {@link String#charAt(int)}.
+ * &lt;p&gt;
+ * If the constant is negative, the index is counted from the right.
+ * In that case the last index of a string is denoted with the value in {@link ConstantPosition#LAST_POSITION_INDEX} as
+ * 0 is already reserved for the &quot;positive&quot; index way of counting.
+ * @author Hasan Selman Kara
+ */
+public class ConstantPosition implements Position {
+
+    private static final int LAST_POSITION_INDEX = Integer.MIN_VALUE;
+
+    private final int constant;
+
+    /**
+     * @param constant signed integer denoting the index on any string
+     */
+<span class="fc" id="L25">    public ConstantPosition(int constant) {</span>
+<span class="fc" id="L26">        this.constant = constant;</span>
+<span class="fc" id="L27">    }</span>
+
+    public static ConstantPosition lastPosition() {
+<span class="fc" id="L30">        return new ConstantPosition(LAST_POSITION_INDEX);</span>
+    }
+
+    @Override
+    public int evalToPosition(String s) {
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        if (constant == LAST_POSITION_INDEX) {</span>
+<span class="fc" id="L36">            return s.length();</span>
+        }
+
+<span class="fc bfc" id="L39" title="All 2 branches covered.">        return constant &gt;= 0 ? constant : s.length() + constant;</span>
+    }
+
+    @Override
+    public int getDslWeight() {
+<span class="nc" id="L44">        return 1;</span>
+    }
+
+    @Override
+    public boolean equals(Object o) {
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">        if (this == o) return true;</span>
+<span class="pc bpc" id="L50" title="1 of 4 branches missed.">        if (o == null || getClass() != o.getClass()) return false;</span>
+
+<span class="fc" id="L52">        ConstantPosition that = (ConstantPosition) o;</span>
+
+<span class="fc bfc" id="L54" title="All 2 branches covered.">        return constant == that.constant;</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="fc" id="L59">        return constant;</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L64">        return String.format(&quot;CPos(%s)&quot;, constant);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

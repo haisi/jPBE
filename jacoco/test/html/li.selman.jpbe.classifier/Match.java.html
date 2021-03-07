@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Match.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jPBE</a> &gt; <a href="index.source.html" class="el_package">li.selman.jpbe.classifier</a> &gt; <span class="el_source">Match.java</span></div><h1>Match.java</h1><pre class="source lang-java linenums">/*
+ * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ */
+package li.selman.jpbe.classifier;
+
+import java.text.MessageFormat;
+import java.util.regex.Matcher;
+import java.util.stream.Collectors;
+import li.selman.jpbe.dsl.token.Token;
+import li.selman.jpbe.dsl.token.TokenSequence;
+
+/**
+ * Matches if the TokenSequence {@code r} occurs {@code k} times in a given string or
+ * inverse if positive is false.
+ *
+ * @author Hasan Selman Kara
+ * @see li.selman.jpbe.dsl.token.TokenSequence
+ */
+public final class Match implements Predicate {
+
+    private final TokenSequence r;
+    private final int k;
+    private final boolean positive;
+
+<span class="fc" id="L25">    private Match(TokenSequence r, int k, boolean positive) {</span>
+<span class="fc bfc" id="L26" title="All 2 branches covered.">        if (r.getNumberOfTokens() == 0) throw new IllegalArgumentException(&quot;TokenSequence can't be empty.&quot;);</span>
+        // TODO(#bug): does the possibility '0' matches make sense?
+<span class="fc bfc" id="L28" title="All 2 branches covered.">        if (k &lt; 0) throw new IllegalArgumentException(&quot;Number of matches can't be negative&quot;);</span>
+
+
+<span class="fc" id="L31">        this.r = r;</span>
+<span class="fc" id="L32">        this.k = k;</span>
+<span class="fc" id="L33">        this.positive = positive;</span>
+<span class="fc" id="L34">    }</span>
+
+    static Match positive(TokenSequence r, int k) {
+<span class="fc" id="L37">        return new Match(r, k, true);</span>
+    }
+
+    static Match negative(TokenSequence r, int k) {
+<span class="fc" id="L41">        return new Match(r, k, false);</span>
+    }
+
+    @Override
+    public boolean matches(String s) {
+<span class="fc" id="L46">        int numberOfMatches = getNumberOfMatches(s);</span>
+
+<span class="pc bpc" id="L48" title="1 of 2 branches missed.">        if (positive) {</span>
+<span class="fc bfc" id="L49" title="All 2 branches covered.">            return numberOfMatches &gt;= k;</span>
+        } else {
+<span class="nc bnc" id="L51" title="All 2 branches missed.">            return !(numberOfMatches &gt;= k);</span>
+        }
+    }
+
+    private int getNumberOfMatches(String s) {
+<span class="fc" id="L56">        Matcher matcher = r.getMergedPattern().matcher(s);</span>
+<span class="fc" id="L57">        int numberOfMatches = 0;</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">        while (matcher.find()) {</span>
+<span class="fc" id="L59">            numberOfMatches++;</span>
+        }
+<span class="fc" id="L61">        return numberOfMatches;</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        String text = positive ? &quot;P&quot; : &quot;N&quot;;</span>
+<span class="fc" id="L67">        String tokenSeqStr = r.getTokens().stream().map(Token::toString).collect(Collectors.joining(&quot;, &quot;, &quot;{&quot;, &quot;}&quot;));</span>
+<span class="fc" id="L68">        return MessageFormat.format(&quot;({0}, {1}, {2})&quot;, text, k, tokenSeqStr);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

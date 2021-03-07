@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="8.40">
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/classifier/Conjunct.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/classifier/Match.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/classifier/Partition.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/classifier/Predicate.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/classifier/TruePredicate.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/datastructure/Edge.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/datastructure/Graph.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/datastructure/GraphBuilder.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/datastructure/PathFinder.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/datastructure/StartToFinishPath.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/dsl/DslElement.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/dsl/Expression.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/dsl/ExpressionBuilder.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/dsl/expression/ConstStrExpressionBuilder.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/dsl/expression/ConstantStringExpression.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/dsl/expression/Expressions.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/dsl/expression/LookupExpression.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/dsl/expression/LookupExpressionBuilder.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/dsl/expression/SubstringExpression.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/dsl/expression/SubstringExpressionBuilder.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/dsl/position/ConstantPosition.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/dsl/position/ConstantPositionBuilder.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/dsl/position/DynamicPosition.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/dsl/position/DynamicPositionBuilder.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/dsl/position/Matcher.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/dsl/position/NoPositionException.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/dsl/position/Position.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/dsl/position/PositionBuilder.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/dsl/position/PositionsBuilder.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/dsl/token/EverythingElseToken.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/dsl/token/Token.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/dsl/token/TokenSequence.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/dsl/token/TokenSequenceBuilder.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/dsl/token/Tokens.java">
+</file>
+</checkstyle>

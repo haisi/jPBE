@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Expressions.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jPBE</a> &gt; <a href="index.source.html" class="el_package">li.selman.jpbe.dsl.expression</a> &gt; <span class="el_source">Expressions.java</span></div><h1>Expressions.java</h1><pre class="source lang-java linenums">/*
+ * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ */
+package li.selman.jpbe.dsl.expression;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import li.selman.jpbe.dsl.DslElement;
+import li.selman.jpbe.dsl.Expression;
+
+/**
+ * Represents a full program {@code p} which can be applied on a input string to get the intended output.
+ * {@code p} is made up of {@code n} {@link Expression}s, while itself being an {@link Expression}.
+ * @author Hasan Selman Kara
+ */
+public class Expressions implements Expression {
+
+    private final List&lt;Expression&gt; expressions;
+
+<span class="fc" id="L21">    public Expressions(List&lt;Expression&gt; expressions) {</span>
+<span class="fc" id="L22">        this.expressions = expressions;</span>
+<span class="fc" id="L23">    }</span>
+
+    /**
+     * Applies all expressions on {@code s} and joins the results in order.
+     *
+     * @param s input string
+     * @return the whole output string
+     */
+    @Override
+    public Optional&lt;String&gt; apply(final String s) {
+<span class="fc" id="L33">        List&lt;String&gt; substrings = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">        for (var expression : expressions) {</span>
+<span class="fc" id="L35">            Optional&lt;String&gt; outputSubstring = expression.apply(s);</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">            if (outputSubstring.isEmpty()) {</span>
+                // Applying failed
+<span class="fc" id="L38">                return Optional.empty();</span>
+            }
+
+<span class="fc" id="L41">            substrings.add(outputSubstring.get());</span>
+<span class="fc" id="L42">        }</span>
+
+<span class="fc" id="L44">        String output = String.join(&quot;&quot;, substrings);</span>
+<span class="fc" id="L45">        return Optional.of(output);</span>
+    }
+
+    @Override
+    public int getDslWeight() {
+<span class="nc" id="L50">        return expressions.stream().mapToInt(DslElement::getDslWeight).sum();</span>
+    }
+
+    @Override
+    public boolean equals(Object o) {
+<span class="pc bpc" id="L55" title="1 of 2 branches missed.">        if (this == o) return true;</span>
+<span class="pc bpc" id="L56" title="2 of 4 branches missed.">        if (o == null || getClass() != o.getClass()) return false;</span>
+
+<span class="fc" id="L58">        Expressions that = (Expressions) o;</span>
+
+<span class="fc" id="L60">        return expressions.equals(that.expressions);</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="nc" id="L65">        return expressions.hashCode();</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L70">        return String.format(&quot;TraceExpression(%s)&quot;, expressions);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

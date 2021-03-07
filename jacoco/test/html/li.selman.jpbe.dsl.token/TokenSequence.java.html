@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TokenSequence.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jPBE</a> &gt; <a href="index.source.html" class="el_package">li.selman.jpbe.dsl.token</a> &gt; <span class="el_source">TokenSequence.java</span></div><h1>TokenSequence.java</h1><pre class="source lang-java linenums">/*
+ * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ */
+package li.selman.jpbe.dsl.token;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Objects;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import li.selman.jpbe.dsl.DslElement;
+
+/**
+ * Merges a list of tokens together to a new combined token.
+ * The whole TokenSequence must match.
+ * &lt;p&gt;
+ * If no tokens are past, the sequence &lt;b&gt;matches everything&lt;/b&gt;
+ *
+ * @author Hasan Selman Kara
+ * @see TokenSequenceBuilder
+ */
+public class TokenSequence implements DslElement, Iterable&lt;Token&gt; {
+
+    private final List&lt;Token&gt; tokens;
+    private final Pattern mergedPattern;
+
+<span class="fc" id="L29">    private TokenSequence(List&lt;Token&gt; tokens) {</span>
+<span class="fc" id="L30">        this.tokens = tokens;</span>
+        // 'and' merge all regex pattern together, i.e. the whole pattern must match
+        // 'or' merge with an '|' pipe is wrong!
+<span class="fc" id="L33">        final String regexPattern = tokens.stream().map(Token::getRegexPattern).collect(Collectors.joining());</span>
+<span class="fc" id="L34">        this.mergedPattern = Pattern.compile(regexPattern);</span>
+<span class="fc" id="L35">    }</span>
+
+    public static TokenSequence of(Token... tokens) {
+<span class="fc" id="L38">        return new TokenSequence(Arrays.asList(tokens));</span>
+    }
+
+    public static TokenSequence of(List&lt;Token&gt; tokens) {
+<span class="fc" id="L42">        return new TokenSequence(tokens);</span>
+    }
+
+    public List&lt;Token&gt; getTokens() {
+<span class="fc" id="L46">        return tokens;</span>
+    }
+
+    public int getNumberOfTokens() {
+<span class="fc" id="L50">        return tokens.size();</span>
+    }
+
+    public boolean isEmpty() {
+<span class="fc" id="L54">        return tokens.isEmpty();</span>
+    }
+
+    /**
+     * @return the last token or {@code null} if the sequence is empty
+     */
+    public Token getLastToken() {
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">        if (!tokens.isEmpty()) {</span>
+<span class="fc" id="L62">            return tokens.get(tokens.size() - 1);</span>
+        }
+<span class="nc" id="L64">        return null;</span>
+    }
+
+    /**
+     * Is only called in {@link TokenSequence#union(TokenSequence)} and only if
+     * the size of sequence is &gt;= 0.
+     * Therefore, returning null in the else case is not an issue.
+     *
+     * @return the first token in the sequence
+     */
+    private Token getFirstElement() {
+<span class="pc bpc" id="L75" title="1 of 2 branches missed.">        return tokens.size() &gt;= 1 ? tokens.get(0) : null;</span>
+    }
+
+    public Pattern getMergedPattern() {
+<span class="fc" id="L79">        return mergedPattern;</span>
+    }
+
+    public TokenSequence union(TokenSequence other) {
+<span class="pc bpc" id="L83" title="3 of 4 branches missed.">        if (sequenceLength() == 0 &amp;&amp; other.sequenceLength() == 0) {</span>
+            // empty token sequence
+<span class="nc" id="L85">            return TokenSequence.of();</span>
+        }
+
+<span class="fc" id="L88">        List&lt;Token&gt; newSeq = new ArrayList&lt;&gt;(tokens);</span>
+<span class="pc bpc" id="L89" title="1 of 2 branches missed.">        if (sequenceLength() &gt; 0</span>
+<span class="pc bpc" id="L90" title="1 of 2 branches missed.">            &amp;&amp; other.sequenceLength() &gt; 0</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">            &amp;&amp; Objects.equals(other.getFirstElement(), newSeq.get(newSeq.size() - 1))) {</span>
+<span class="fc" id="L92">            newSeq.remove(newSeq.size() - 1);</span>
+        }
+
+<span class="fc" id="L95">        newSeq.addAll(other.getTokens());</span>
+<span class="fc" id="L96">        return new TokenSequence(newSeq);</span>
+    }
+
+    /**
+     * @return the size of {@link TokenSequence#tokens}
+     */
+    public int sequenceLength() {
+<span class="fc" id="L103">        return tokens.size();</span>
+    }
+
+    /**
+     * Note that the size of the DslElement and the size of {@link TokenSequence#tokens} can differ!
+     * Do not use this method to get the number of tokens in the sequence.
+     * @return the weight of the token TokenSequence
+     */
+    @Override
+    public int getDslWeight() {
+        // This implementation just happens to use the token list length as the DslElement size.
+<span class="nc" id="L114">        return tokens.size();</span>
+    }
+
+    @Override
+    public Iterator&lt;Token&gt; iterator() {
+<span class="nc" id="L119">        return tokens.iterator();</span>
+    }
+
+    @Override
+    public boolean equals(Object o) {
+<span class="fc bfc" id="L124" title="All 2 branches covered.">        if (this == o) return true;</span>
+<span class="pc bpc" id="L125" title="2 of 4 branches missed.">        if (o == null || getClass() != o.getClass()) return false;</span>
+
+<span class="fc" id="L127">        TokenSequence tokens1 = (TokenSequence) o;</span>
+
+<span class="fc" id="L129">        return tokens.equals(tokens1.tokens);</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="fc" id="L134">        return tokens.hashCode();</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L139">        return tokens.stream()</span>
+<span class="nc" id="L140">                .map(Token::toString)</span>
+<span class="nc" id="L141">                .collect(Collectors.joining(&quot;, &quot;, &quot;{&quot;, &quot;}&quot;));</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

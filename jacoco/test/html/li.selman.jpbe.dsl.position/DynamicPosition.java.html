@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DynamicPosition.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jPBE</a> &gt; <a href="index.source.html" class="el_package">li.selman.jpbe.dsl.position</a> &gt; <span class="el_source">DynamicPosition.java</span></div><h1>DynamicPosition.java</h1><pre class="source lang-java linenums">/*
+ * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ */
+package li.selman.jpbe.dsl.position;
+
+import java.util.List;
+import java.util.regex.MatchResult;
+import li.selman.jpbe.dsl.token.TokenSequence;
+
+/**
+ * @author Hasan Selman Kara
+ */
+public class DynamicPosition implements Position {
+
+    private final TokenSequence prefix;
+    private final TokenSequence suffix;
+    private final int occurrence;
+
+<span class="fc" id="L19">    public DynamicPosition(TokenSequence prefix, TokenSequence suffix, int occurrence) {</span>
+<span class="pc bpc" id="L20" title="1 of 2 branches missed.">        if (occurrence == 0) throw new IllegalArgumentException(&quot;Occurrence cannot be zero&quot;);</span>
+
+<span class="fc" id="L22">        this.prefix = prefix;</span>
+<span class="fc" id="L23">        this.suffix = suffix;</span>
+<span class="fc" id="L24">        this.occurrence = occurrence;</span>
+<span class="fc" id="L25">    }</span>
+
+
+    @Override
+    public int getDslWeight() {
+<span class="nc" id="L30">        return prefix.getDslWeight() * suffix.getDslWeight();</span>
+    }
+
+    /**
+     * @throws NoPositionException if no position can be evaluated to
+     */
+    @SuppressWarnings(&quot;checkstyle:CyclomaticComplexity&quot;)
+    @Override
+    public int evalToPosition(String s) throws NoPositionException {
+<span class="fc" id="L39">        List&lt;MatchResult&gt; prefixMatches = Matcher.matches(prefix.getMergedPattern(), s);</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">        if (prefixMatches.isEmpty()) throw new NoPositionException(&quot;No matches for prefix&quot;);</span>
+<span class="fc" id="L41">        List&lt;MatchResult&gt; suffixMatches = Matcher.matches(suffix.getMergedPattern(), s);</span>
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">        if (suffixMatches.isEmpty()) throw new NoPositionException(&quot;No matches for suffix&quot;);</span>
+
+<span class="fc" id="L44">        int c = occurrence;</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">        if (c &gt; 0) {</span>
+<span class="pc bpc" id="L46" title="1 of 2 branches missed.">            for (MatchResult prefixMatch : prefixMatches) {</span>
+<span class="fc" id="L47">                int endLeft = prefixMatch.end();</span>
+
+<span class="fc bfc" id="L49" title="All 2 branches covered.">                for (MatchResult suffixMatch : suffixMatches) {</span>
+<span class="fc" id="L50">                    int startRight = suffixMatch.start();</span>
+
+<span class="fc bfc" id="L52" title="All 2 branches covered.">                    if (endLeft != startRight) continue;</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">                    if (--c == 0) {</span>
+<span class="fc" id="L54">                        return endLeft;</span>
+                    }
+<span class="fc" id="L56">                }</span>
+<span class="pc" id="L57">            }</span>
+        } else {
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">            for (int i = prefixMatches.size() - 1; i &gt;= 0; i--) {</span>
+<span class="fc" id="L60">                int endLeft = prefixMatches.get(i).end();</span>
+
+<span class="fc bfc" id="L62" title="All 2 branches covered.">                for (int j = suffixMatches.size() - 1; j &gt;= 0; j--) {</span>
+<span class="fc" id="L63">                    int startRight = suffixMatches.get(j).start();</span>
+<span class="fc bfc" id="L64" title="All 2 branches covered.">                    if (endLeft != startRight) continue;</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">                    if (++c == 0) {</span>
+<span class="fc" id="L66">                        return endLeft;</span>
+                    }
+                }
+            }
+        }
+
+<span class="nc" id="L72">        throw new NoPositionException(&quot;Couldn't evaluate to a position on: &quot; + s);</span>
+    }
+
+    @Override
+    public boolean equals(Object o) {
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">        if (this == o) return true;</span>
+<span class="pc bpc" id="L78" title="1 of 4 branches missed.">        if (o == null || getClass() != o.getClass()) return false;</span>
+
+<span class="fc" id="L80">        DynamicPosition that = (DynamicPosition) o;</span>
+
+<span class="fc bfc" id="L82" title="All 2 branches covered.">        if (occurrence != that.occurrence) return false;</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">        if (!prefix.equals(that.prefix)) return false;</span>
+<span class="fc" id="L84">        return suffix.equals(that.suffix);</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="fc" id="L89">        int result = prefix.hashCode();</span>
+<span class="fc" id="L90">        result = 31 * result + suffix.hashCode();</span>
+<span class="fc" id="L91">        result = 31 * result + occurrence;</span>
+<span class="fc" id="L92">        return result;</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L97">        return &quot;DynamicPosition(&quot; + prefix + &quot;, &quot; + suffix + &quot;, &quot; + occurrence + ')';</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

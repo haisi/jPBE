@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DynamicPositionBuilder.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jPBE</a> &gt; <a href="index.source.html" class="el_package">li.selman.jpbe.dsl.position</a> &gt; <span class="el_source">DynamicPositionBuilder.java</span></div><h1>DynamicPositionBuilder.java</h1><pre class="source lang-java linenums">/*
+ * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ */
+
+package li.selman.jpbe.dsl.position;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import li.selman.jpbe.dsl.token.Token;
+import li.selman.jpbe.dsl.token.TokenSequence;
+import li.selman.jpbe.dsl.token.TokenSequenceBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class DynamicPositionBuilder implements PositionBuilder {
+
+<span class="fc" id="L20">    private static final Logger log = LoggerFactory.getLogger(DynamicPositionBuilder.class);</span>
+
+    private final TokenSequenceBuilder tokenSequenceBuilder;
+
+<span class="fc" id="L24">    public DynamicPositionBuilder(TokenSequenceBuilder tokenSequenceBuilder) {</span>
+<span class="fc" id="L25">        this.tokenSequenceBuilder = tokenSequenceBuilder;</span>
+<span class="fc" id="L26">    }</span>
+
+    @Override
+    public Set&lt;Position&gt; computePositions(String input, int k) {
+<span class="pc bpc" id="L30" title="1 of 2 branches missed.">        if (k &lt; 0) throw new IllegalArgumentException(&quot;k cannot be &lt; 0&quot;);</span>
+<span class="pc bpc" id="L31" title="1 of 2 branches missed.">        if (k &gt; input.length()) throw new IllegalArgumentException(&quot;k cannot be &gt; input.length()&quot;);</span>
+
+<span class="fc" id="L33">        Map&lt;Integer, TokenSequence&gt; leftTokenSeq = computeLeftTokenSeq(input, k);</span>
+<span class="fc" id="L34">        Map&lt;Integer, TokenSequence&gt; rightTokenSeq = computeRightTokenSeq(input, k);</span>
+
+<span class="fc" id="L36">        Set&lt;Position&gt; dynamicPositions = new HashSet&lt;&gt;();</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        for (var leftEntry : leftTokenSeq.entrySet()) {</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered.">            for (var rightEntry : rightTokenSeq.entrySet()) {</span>
+<span class="fc bfc" id="L39" title="All 2 branches covered.">                if (Objects.equals(leftEntry.getValue().getLastToken(), rightEntry.getValue().getLastToken())</span>
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">                    &amp;&amp; !Objects.equals(leftEntry.getValue().getLastToken(), Token.START)</span>
+<span class="pc bpc" id="L41" title="1 of 2 branches missed.">                    &amp;&amp; !Objects.equals(leftEntry.getValue().getLastToken(), Token.END)) {</span>
+                    // No valid token combination
+<span class="fc" id="L43">                    continue;</span>
+                }
+
+<span class="fc" id="L46">                TokenSequence r12 = leftEntry.getValue().union(rightEntry.getValue());</span>
+                int c;
+                try {
+<span class="fc" id="L49">                    c = Matcher.positionOfRegex(r12, input, leftEntry.getKey(), rightEntry.getKey());</span>
+<span class="fc" id="L50">                } catch (Exception ex) {</span>
+<span class="pc bpc" id="L51" title="1 of 2 branches missed.">                    if (ex instanceof IllegalStateException) {</span>
+                        // TODO(#api): check if this ever happens and whether we should return Optional in Matcher
+                        //  .positionOfRegex
+<span class="fc" id="L54">                        log.error(&quot;Matcher.positionOfRegex failed&quot;, ex);</span>
+<span class="fc" id="L55">                        continue;</span>
+                    } else {
+                        // TODO(#bug): should not be need?
+                        // bubble up
+<span class="nc" id="L59">                        throw ex;</span>
+                    }
+<span class="fc" id="L61">                }</span>
+
+<span class="fc" id="L63">                int cMax = Matcher.totalNumberOfMatches(r12, input);</span>
+<span class="fc" id="L64">                dynamicPositions.add(new DynamicPosition(leftEntry.getValue(), rightEntry.getValue(), c));</span>
+<span class="fc" id="L65">                dynamicPositions.add(new DynamicPosition(leftEntry.getValue(), rightEntry.getValue(), -(cMax - c + 1)));</span>
+<span class="fc" id="L66">            }</span>
+
+<span class="fc" id="L68">        }</span>
+
+<span class="fc" id="L70">        return dynamicPositions;</span>
+    }
+
+    Map&lt;Integer, TokenSequence&gt; computeRightTokenSeq(String input, int k) {
+<span class="fc" id="L74">        Map&lt;Integer, TokenSequence&gt; rightTokenSeq = new HashMap&lt;&gt;();</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">        for (int k2 = k + 1; k2 &lt;= input.length(); k2++) {</span>
+<span class="fc" id="L76">            var tokenSequence = tokenSequenceBuilder.computeTokenSequence(input, k, k2);</span>
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">            if (!tokenSequence.isEmpty()) {</span>
+<span class="fc" id="L78">                rightTokenSeq.put(k2, tokenSequence);</span>
+            }
+        }
+<span class="fc" id="L81">        return rightTokenSeq;</span>
+    }
+
+    Map&lt;Integer, TokenSequence&gt; computeLeftTokenSeq(String input, int k) {
+<span class="fc" id="L85">        Map&lt;Integer, TokenSequence&gt; leftTokenSeq = new HashMap&lt;&gt;();</span>
+<span class="fc bfc" id="L86" title="All 2 branches covered.">        for (int k1 = 0; k1 &lt; k; k1++) {</span>
+<span class="fc" id="L87">            var tokenSequence = tokenSequenceBuilder.computeTokenSequence(input, k1, k);</span>
+<span class="pc bpc" id="L88" title="1 of 2 branches missed.">            if (!tokenSequence.isEmpty()) {</span>
+<span class="fc" id="L89">                leftTokenSeq.put(k1, tokenSequence);</span>
+            }
+        }
+<span class="fc" id="L92">        return leftTokenSeq;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

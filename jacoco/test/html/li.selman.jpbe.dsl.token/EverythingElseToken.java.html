@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EverythingElseToken.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jPBE</a> &gt; <a href="index.source.html" class="el_package">li.selman.jpbe.dsl.token</a> &gt; <span class="el_source">EverythingElseToken.java</span></div><h1>EverythingElseToken.java</h1><pre class="source lang-java linenums">/*
+ * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ */
+package li.selman.jpbe.dsl.token;
+
+import java.util.List;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+/**
+ * Matches everything that all the other &lt;b&gt;used&lt;/b&gt; tokens do not match.
+ *
+ * @author Hasan Selman Kara
+ */
+final class EverythingElseToken extends Token {
+
+    // both work
+    // TODO(#optimization): check which regex negation is faster
+//    private final static String negationPrefix = &quot;(?![&quot;;
+//    private final static String negationSuffix = &quot;]).&quot;;
+    private static final String negationPrefix = &quot;[^\\^&quot;;
+    private static final String negationSuffix = &quot;]&quot;;
+
+    private EverythingElseToken(Pattern pattern) {
+<span class="fc" id="L26">        super(pattern);</span>
+<span class="fc" id="L27">    }</span>
+
+    public static EverythingElseToken generate(List&lt;Token&gt; usedTokens) {
+<span class="fc" id="L30">        Stream&lt;String&gt; regexPattern = getRegexPattern(usedTokens);</span>
+<span class="fc" id="L31">        Stream&lt;String&gt; preparedForNegation = prepareForNegation(regexPattern);</span>
+<span class="fc" id="L32">        String orJoinedPattern = orJoinPatterns(preparedForNegation);</span>
+<span class="fc" id="L33">        String negatedPattern = negationPrefix + orJoinedPattern + negationSuffix;</span>
+
+<span class="fc" id="L35">        return new EverythingElseToken(Pattern.compile(negatedPattern));</span>
+    }
+
+    private static String orJoinPatterns(Stream&lt;String&gt; preparedForNegation) {
+<span class="fc" id="L39">        return preparedForNegation</span>
+<span class="fc" id="L40">            .collect(Collectors.joining(&quot;|&quot;));</span>
+    }
+
+    private static Stream&lt;String&gt; prepareForNegation(Stream&lt;String&gt; regexPattern) {
+<span class="fc" id="L44">        return regexPattern</span>
+<span class="fc" id="L45">            .map(pattern -&gt; pattern.replaceAll(&quot;[\\[\\]]&quot;, &quot;&quot;));</span>
+    }
+
+    private static Stream&lt;String&gt; getRegexPattern(List&lt;Token&gt; usedTokens) {
+<span class="fc" id="L49">        return usedTokens.stream()</span>
+<span class="fc" id="L50">            .map(Token::getPattern)</span>
+<span class="fc" id="L51">            .map(Pattern::pattern);</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L56">        return &quot;ELSE&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

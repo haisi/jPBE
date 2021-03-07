@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="8.40">
+<file name="/home/runner/work/jPBE/jPBE/src/test/java/li/selman/jpbe/classifier/ConjunctTest.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/test/java/li/selman/jpbe/classifier/MatchTest.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/test/java/li/selman/jpbe/datastructure/GraphBuilderTest.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/test/java/li/selman/jpbe/datastructure/StartToFinishPathTest.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/test/java/li/selman/jpbe/dsl/EndToEndDslTest.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/test/java/li/selman/jpbe/dsl/expression/ConstantStringExpressionTest.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/test/java/li/selman/jpbe/dsl/expression/ExpressionsTest.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/test/java/li/selman/jpbe/dsl/expression/LookupExpressionBuilderTest.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/test/java/li/selman/jpbe/dsl/expression/SubstringExpressionTest.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/test/java/li/selman/jpbe/dsl/position/ConstantPositionBuilderTest.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/test/java/li/selman/jpbe/dsl/position/ConstantPositionTest.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/test/java/li/selman/jpbe/dsl/position/DynamicPositionBuilderTest.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/test/java/li/selman/jpbe/dsl/position/DynamicPositionTest.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/test/java/li/selman/jpbe/dsl/position/MatcherTest.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/test/java/li/selman/jpbe/dsl/position/PositionsBuilderTest.java">
+</file>
+<file name="/home/runner/work/jPBE/jPBE/src/test/java/li/selman/jpbe/dsl/token/TokenSequenceBuilderTest.java">
+</file>
+</checkstyle>

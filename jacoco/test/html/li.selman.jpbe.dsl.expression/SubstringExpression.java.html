@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SubstringExpression.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jPBE</a> &gt; <a href="index.source.html" class="el_package">li.selman.jpbe.dsl.expression</a> &gt; <span class="el_source">SubstringExpression.java</span></div><h1>SubstringExpression.java</h1><pre class="source lang-java linenums">/*
+ * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ */
+package li.selman.jpbe.dsl.expression;
+
+import java.util.Objects;
+import java.util.Optional;
+import li.selman.jpbe.dsl.Expression;
+import li.selman.jpbe.dsl.position.NoPositionException;
+import li.selman.jpbe.dsl.position.Position;
+
+/**
+ * @author Hasan Selman Kara
+ */
+public class SubstringExpression implements Expression {
+
+    private final Position startPosition;
+    private final Position endPosition;
+
+<span class="fc" id="L20">    public SubstringExpression(Position startPosition, Position endPosition) {</span>
+<span class="fc" id="L21">        this.startPosition = startPosition;</span>
+<span class="fc" id="L22">        this.endPosition = endPosition;</span>
+<span class="fc" id="L23">    }</span>
+
+    /**
+     * @param s input string
+     * @return substring of input or empty if start or end index of substring evals to out of bounds
+     */
+    @Override
+    public Optional&lt;String&gt; apply(final String s) {
+<span class="fc" id="L31">        Objects.requireNonNull(s, &quot;Cannot apply substring expression on null!&quot;);</span>
+
+        int startIdx;
+        int endIndex;
+        try {
+<span class="fc" id="L36">            startIdx = startPosition.evalToPosition(s);</span>
+<span class="fc" id="L37">            endIndex = endPosition.evalToPosition(s);</span>
+<span class="nc" id="L38">        } catch (NoPositionException ex) {</span>
+<span class="nc" id="L39">            return Optional.empty();</span>
+<span class="fc" id="L40">        }</span>
+
+<span class="fc bfc" id="L42" title="All 2 branches covered.">        if (isAnyIndexOutOfBounds(s.length(), startIdx, endIndex)) {</span>
+<span class="fc" id="L43">            return Optional.empty();</span>
+        }
+
+<span class="fc" id="L46">        return Optional.of(s.substring(startIdx, endIndex));</span>
+    }
+
+    private boolean isAnyIndexOutOfBounds(int stringLength, int startIdx, int endIndex) {
+<span class="pc bpc" id="L50" title="1 of 4 branches missed.">        return startIdx &gt; endIndex || endIndex &gt; stringLength;</span>
+    }
+
+    @Override
+    public int getDslWeight() {
+<span class="nc" id="L55">        return startPosition.getDslWeight() * endPosition.getDslWeight();</span>
+    }
+
+    @Override
+    public boolean equals(Object o) {
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">        if (this == o) return true;</span>
+<span class="pc bpc" id="L61" title="2 of 4 branches missed.">        if (o == null || getClass() != o.getClass()) return false;</span>
+
+<span class="fc" id="L63">        SubstringExpression that = (SubstringExpression) o;</span>
+
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">        if (!startPosition.equals(that.startPosition)) return false;</span>
+<span class="nc" id="L66">        return endPosition.equals(that.endPosition);</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="fc" id="L71">        int result = startPosition.hashCode();</span>
+<span class="fc" id="L72">        result = 31 * result + endPosition.hashCode();</span>
+<span class="fc" id="L73">        return result;</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L78">        return String.format(&quot;SubStr(%s, %s)&quot;, startPosition, endPosition);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LookupExpression.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jPBE</a> &gt; <a href="index.source.html" class="el_package">li.selman.jpbe.dsl.expression</a> &gt; <span class="el_source">LookupExpression.java</span></div><h1>LookupExpression.java</h1><pre class="source lang-java linenums">/*
+ * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ */
+package li.selman.jpbe.dsl.expression;
+
+import java.util.Map;
+import java.util.Optional;
+import li.selman.jpbe.dsl.Expression;
+
+/**
+ * Note that not the whole input string has to match for the lookup expression to be applied.
+ * For example, if we have a lookup table that translates from German to French numbers, the following input:
+ * &quot;einsAAAA, zwei, dreissig&quot; would translate to &quot;uneAAAA, doix, troisssig&quot;.
+ * &lt;p&gt;
+ * Note that if you want a stricter behaviour, i.e. the whole string must match, you can implement your own
+ * LookupExpression &lt;b&gt;and&lt;/b&gt; LookupExpressionBuilder.
+ *
+ * @author Hasan Selman Kara
+ * @see LookupExpressionBuilder
+ */
+public class LookupExpression implements Expression {
+
+    private final Map&lt;String, String&gt; lookupTable;
+
+<span class="fc" id="L25">    public LookupExpression(Map&lt;String, String&gt; lookupTable) {</span>
+<span class="fc" id="L26">        this.lookupTable = lookupTable;</span>
+<span class="fc" id="L27">    }</span>
+
+    @Override
+    public Optional&lt;String&gt; apply(String input) {
+<span class="fc bfc" id="L31" title="All 2 branches covered.">        if (lookupTable.containsKey(input)) {</span>
+<span class="fc" id="L32">            return Optional.ofNullable(lookupTable.get(input));</span>
+        } else {
+            // Use the more computationally expensive search
+<span class="fc" id="L35">            String lookupValuesReplaced = null;</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">            for (var item : lookupTable.entrySet()) {</span>
+<span class="fc" id="L37">                String key = item.getKey();</span>
+<span class="fc" id="L38">                String value = item.getValue();</span>
+<span class="fc bfc" id="L39" title="All 2 branches covered.">                if (input.contains(key)) {</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">                    if (lookupValuesReplaced == null) {</span>
+<span class="fc" id="L41">                        lookupValuesReplaced = input;</span>
+                    }
+<span class="fc" id="L43">                    lookupValuesReplaced = lookupValuesReplaced.replace(key, value);</span>
+                }
+<span class="fc" id="L45">            }</span>
+
+<span class="fc" id="L47">            return Optional.ofNullable(lookupValuesReplaced);</span>
+        }
+    }
+
+    @Override
+    public int getDslWeight() {
+<span class="nc" id="L53">        return 1;</span>
+    }
+
+    @Override
+    public boolean equals(Object o) {
+<span class="nc bnc" id="L58" title="All 2 branches missed.">        if (this == o) return true;</span>
+<span class="nc bnc" id="L59" title="All 4 branches missed.">        if (o == null || getClass() != o.getClass()) return false;</span>
+
+<span class="nc" id="L61">        LookupExpression that = (LookupExpression) o;</span>
+
+<span class="nc" id="L63">        return lookupTable.equals(that.lookupTable);</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="nc" id="L68">        return lookupTable.hashCode();</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L73">        return String.format(&quot;Lookup(%s)&quot;, lookupTable);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
