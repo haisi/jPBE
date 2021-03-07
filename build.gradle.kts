@@ -28,6 +28,13 @@ java {
     withJavadocJar()
 }
 
+asciidoctorj {
+    modules {
+        diagram.use()
+        diagram.setVersion("2.0.5")
+    }
+}
+
 dependencies {
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation("com.google.guava:guava:30.1-jre")

@@ -79,3 +79,21 @@ TODO
 == Extend jPBE with custom operations
 
 TODO
+
+== Sample Diagram
+
+[plantuml, diagram-classes, png]
+....
+interface DslElement {
+    +int: getDslWeight()
+}
+interface Position {
+    +int: evalToPosition(String)
+}
+class DynamicPosition
+class ConstantPosition
+
+DslElement <|.. Position
+Position <|.. DynamicPosition
+Position <|.. ConstantPosition
+....
