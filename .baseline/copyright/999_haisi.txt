@@ -1,1 +1,0 @@
-(c) Copyright ${today.year} Hasan Selman Kara All rights reserved.
