@@ -34,12 +34,17 @@ public class Graph {
     private final List<Edge> edges;
 
     // TODO(#optimization): remove mutable state!
-//    private List<Edge>[] outgoingEdges;
+    private List<Edge>[] outgoingEdges;
 
     Graph(int maxNode, List<Edge> edges) {
+        if (edges.isEmpty()) throw new IllegalArgumentException("Graph must have edges");
         this.maxNode = maxNode;
         this.edges = edges;
     }
+
+//    public List<Expressions> computeProgram() {
+//        List<Expressions> expressions = new ArrayList<>();
+//    }
 
     @SuppressWarnings("checkstyle:CyclomaticComplexity")
     public Graph intersect(Graph other) {
@@ -115,7 +120,7 @@ public class Graph {
         // TODO(#check): check if this state can actually happen? (I guess with an empty graph after intersection?)
         if (edges == null || edges.isEmpty()) throw new IllegalStateException("Edges cannot be null or empty");
 
-        var directEdge = findDirectEdge();
+        Optional<Edge> directEdge = findDirectEdge();
         if (directEdge.isPresent()) {
             return List.of(directEdge.get());
         }
@@ -134,10 +139,45 @@ public class Graph {
         List<Edge>[] paths = new List[maxNode + 1];
         paths[0] = new ArrayList<>();
 
+        for (int i = 0; i < maxNode; i++) {
+            for (Edge outgoingEdge : outgoingEdges[i]) {
+                if (distance[outgoingEdge.to] <= (distance[i] * outgoingEdge.getExpressionsSize()))
+                    continue;
+                distance[outgoingEdge.to] = distance[i] * outgoingEdge.getExpressionsSize();
+                List<Edge> newPath = new ArrayList<>(paths[i]);
+                newPath.add(outgoingEdge);
+                paths[outgoingEdge.to] = newPath;
+            }
+        }
 
+        List<Expressions> fullPrograms = new ArrayList<>();
+        addToTraceSet(paths[maxNode], fullPrograms);
         throw new UnsupportedOperationException("Not done yet!");
+//        return fullPrograms; // Why does the C# version do all this weird stuff.
+        // I should simply find the optimal list of edges and from there create my
 //        return getAllTraceExpressions(directEdge);
         // TODO(#wip): handle intersect graph as well
+    }
+
+    private void addToTraceSet(List<Edge> path, List<Expressions> expressions) {
+        findTrace(path, new ArrayList<Expression>(), expressions);
+    }
+
+    private void findTrace(List<Edge> path, List<Expression> trace, List<Expressions> expressions) {
+        if (path.isEmpty()) {
+            Expressions t = new Expressions(trace);
+            expressions.add(t);
+            return;
+        }
+
+        Edge next = path.get(0);
+        List<Edge> newPath = path.subList(1, path.size());
+
+        for (Expression expr : next.getExpressions()) {
+            List<Expression> newTrace = new ArrayList<>(trace);
+            newTrace.add(expr);
+            findTrace(newPath, newTrace, expressions);
+        }
     }
 
     private List<Expressions> getAllTraceExpressions(Stream<Edge> edgeStream) {

@@ -115,6 +115,11 @@ public class TokenSequence implements DslElement, Iterable<Token> {
         return tokens.size();
     }
 
+    public TokenSequence getRange(int from, int to) {
+        List<Token> sublist = getTokens().subList(from, to);
+        return TokenSequence.of(sublist);
+    }
+
     /**
      * Note that the size of the DslElement and the size of {@link TokenSequence#tokens} can differ!
      * Do not use this method to get the number of tokens in the sequence.

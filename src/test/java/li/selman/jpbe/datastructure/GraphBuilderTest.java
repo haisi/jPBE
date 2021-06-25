@@ -40,6 +40,7 @@ import li.selman.jpbe.dsl.position.DynamicPositionBuilder;
 import li.selman.jpbe.dsl.position.PositionsBuilder;
 import li.selman.jpbe.dsl.token.TokenSequenceBuilder;
 import li.selman.jpbe.dsl.token.Tokens;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -54,6 +55,7 @@ class GraphBuilderTest {
      * where {@code n} is {@code outputStr.length + 1}.
      */
     @Test
+    @Disabled
     @DisplayName("Max possible edges")
     void maxEdges() {
         ExpressionBuilder mockExpBuilder = mock(ExpressionBuilder.class);
