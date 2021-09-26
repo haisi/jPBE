@@ -3,13 +3,13 @@ import net.ltgt.gradle.errorprone.errorprone
 buildscript {
     repositories {
         gradlePluginPortal()
-        maven { setUrl("http://palantir.bintray.com/releases") }
+        maven { setUrl("https://palantir.bintray.com/releases") }
     }
 }
 
 repositories {
     mavenCentral()
-    maven { setUrl("http://palantir.bintray.com/releases") }
+    maven { setUrl("https://palantir.bintray.com/releases") }
 }
 
 plugins {
@@ -17,9 +17,8 @@ plugins {
     jacoco
     // Part of palantir baseline sanity checks.
     // Processor for Google's "Error Prone" tool.
-    // However, for some reason this breaks the build.
-//    id("org.inferred.processors") version "3.3.0"
-    id("com.palantir.baseline") version "3.69.0"
+    id("org.inferred.processors") version "3.6.0"
+    id("com.palantir.baseline") version "4.25.0"
     id("org.asciidoctor.jvm.convert") version "3.1.0"
 }
 
@@ -53,7 +52,7 @@ dependencies {
 }
 
 tasks.withType<JavaCompile>().configureEach {
-    options.errorprone.disable("BracesRequired", "MissingSummary", "EqualsGetClass", "OptionalOrElseMethodInvocation",
+    options.errorprone.disable("MissingSummary", "EqualsGetClass", "OptionalOrElseMethodInvocation",
         "PreferSafeLoggableExceptions", "PreferSafeLoggingPreconditions",
         "StrictUnusedVariable" // Re-enable in the future
     )
