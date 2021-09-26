@@ -56,7 +56,7 @@ public class Partition {
             for (int i = 0; i < ts.getNumberOfTokens(); i++) {
                 int endIndex = (Math.min(ts.getNumberOfTokens(), i + maxPredicateSequenceLength) - 1);
                 for (int j = endIndex; j >= i; j--) {
-                    tokenSequences.add(ts.getRange(i, j));
+//                    tokenSequences.add(ts.getRange(i, j));
                 }
             }
         }

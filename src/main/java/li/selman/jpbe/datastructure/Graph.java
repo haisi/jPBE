@@ -28,6 +28,7 @@ import li.selman.jpbe.dsl.expression.Expressions;
 /**
  * @author Hasan Selman Kara
  */
+@SuppressWarnings("unchecked")
 public class Graph {
 
     private final int maxNode;
