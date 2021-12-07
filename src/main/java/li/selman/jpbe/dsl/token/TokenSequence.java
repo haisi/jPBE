@@ -99,8 +99,8 @@ public class TokenSequence implements DslElement, Iterable<Token> {
 
         List<Token> newSeq = new ArrayList<>(tokens);
         if (sequenceLength() > 0
-            && other.sequenceLength() > 0
-            && Objects.equals(other.getFirstElement(), newSeq.get(newSeq.size() - 1))) {
+                    && other.sequenceLength() > 0
+                    && Objects.equals(other.getFirstElement(), newSeq.get(newSeq.size() - 1))) {
             newSeq.remove(newSeq.size() - 1);
         }
 
@@ -118,6 +118,7 @@ public class TokenSequence implements DslElement, Iterable<Token> {
     /**
      * Note that the size of the DslElement and the size of {@link TokenSequence#tokens} can differ!
      * Do not use this method to get the number of tokens in the sequence.
+     *
      * @return the weight of the token TokenSequence
      */
     @Override

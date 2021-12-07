@@ -50,7 +50,7 @@ public class StartToFinishPath {
         int previousTo = 0;
         final int lastIdx = edges.size() - 1;
         for (int i = 0; i < edges.size(); i++) {
-            var edge = edges.get(i);
+            Edge edge = edges.get(i);
 
             if (firstEdgeDoesNotStartsFromZero(i, edge)) return false;
             if (lastEdgeDoesNotFinishAtMaxNode(lastIdx, i, edge, maxNode)) return false;
@@ -81,15 +81,15 @@ public class StartToFinishPath {
 
     private static Expression smallestExpressionOfEachEdge(Edge edge) {
         return edge.getExpressions()
-            .stream()
-            .min(Comparator.comparingInt(Expression::getDslWeight))
-            .orElseThrow(() -> new RuntimeException("Edge cannot have no elements: " + edge));
+                .stream()
+                .min(Comparator.comparingInt(Expression::getDslWeight))
+                .orElseThrow(() -> new RuntimeException("Edge cannot have no elements: " + edge));
     }
 
     public Expressions computeOptimalTraceExpression() {
         List<Expression> optimalExpressions = path.stream()
-            .map(StartToFinishPath::smallestExpressionOfEachEdge)
-            .collect(Collectors.toUnmodifiableList());
+                .map(StartToFinishPath::smallestExpressionOfEachEdge)
+                .collect(Collectors.toUnmodifiableList());
 
         return new Expressions(optimalExpressions);
     }

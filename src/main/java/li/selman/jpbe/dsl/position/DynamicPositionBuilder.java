@@ -16,9 +16,11 @@
 
 package li.selman.jpbe.dsl.position;
 
+import com.google.common.base.Preconditions;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
 import li.selman.jpbe.dsl.token.Token;
@@ -29,6 +31,8 @@ import org.slf4j.LoggerFactory;
 
 public class DynamicPositionBuilder implements PositionBuilder {
 
+    // com.palantir.logsafe.logger.SafeLogger;
+    // https://github.com/palantir/gradle-baseline/blob/develop/baseline-error-prone/src/test/java/com/palantir/baseline/errorprone/PreferSafeLoggerTest.java#L46
     private static final Logger log = LoggerFactory.getLogger(DynamicPositionBuilder.class);
 
     private final TokenSequenceBuilder tokenSequenceBuilder;
@@ -39,18 +43,18 @@ public class DynamicPositionBuilder implements PositionBuilder {
 
     @Override
     public Set<Position> computePositions(String input, int k) {
-        if (k < 0) throw new IllegalArgumentException("k cannot be < 0");
-        if (k > input.length()) throw new IllegalArgumentException("k cannot be > input.length()");
+        Preconditions.checkArgument(k >= 0, "k cannot be < 0");
+        Preconditions.checkArgument(k <= input.length(), "k cannot be > input.length()");
 
         Map<Integer, TokenSequence> leftTokenSeq = computeLeftTokenSeq(input, k);
         Map<Integer, TokenSequence> rightTokenSeq = computeRightTokenSeq(input, k);
 
         Set<Position> dynamicPositions = new HashSet<>();
-        for (var leftEntry : leftTokenSeq.entrySet()) {
-            for (var rightEntry : rightTokenSeq.entrySet()) {
+        for (Entry<Integer, TokenSequence> leftEntry : leftTokenSeq.entrySet()) {
+            for (Entry<Integer, TokenSequence> rightEntry : rightTokenSeq.entrySet()) {
                 if (Objects.equals(leftEntry.getValue().getLastToken(), rightEntry.getValue().getLastToken())
-                    && !Objects.equals(leftEntry.getValue().getLastToken(), Token.START)
-                    && !Objects.equals(leftEntry.getValue().getLastToken(), Token.END)) {
+                            && !Objects.equals(leftEntry.getValue().getLastToken(), Token.START)
+                            && !Objects.equals(leftEntry.getValue().getLastToken(), Token.END)) {
                     // No valid token combination
                     continue;
                 }
@@ -85,7 +89,7 @@ public class DynamicPositionBuilder implements PositionBuilder {
     Map<Integer, TokenSequence> computeRightTokenSeq(String input, int k) {
         Map<Integer, TokenSequence> rightTokenSeq = new HashMap<>();
         for (int k2 = k + 1; k2 <= input.length(); k2++) {
-            var tokenSequence = tokenSequenceBuilder.computeTokenSequence(input, k, k2);
+            TokenSequence tokenSequence = tokenSequenceBuilder.computeTokenSequence(input, k, k2);
             if (!tokenSequence.isEmpty()) {
                 rightTokenSeq.put(k2, tokenSequence);
             }
@@ -96,7 +100,7 @@ public class DynamicPositionBuilder implements PositionBuilder {
     Map<Integer, TokenSequence> computeLeftTokenSeq(String input, int k) {
         Map<Integer, TokenSequence> leftTokenSeq = new HashMap<>();
         for (int k1 = 0; k1 < k; k1++) {
-            var tokenSequence = tokenSequenceBuilder.computeTokenSequence(input, k1, k);
+            TokenSequence tokenSequence = tokenSequenceBuilder.computeTokenSequence(input, k1, k);
             if (!tokenSequence.isEmpty()) {
                 leftTokenSeq.put(k1, tokenSequence);
             }

@@ -33,8 +33,8 @@ class StartToFinishPathTest {
 
     @Test
     void computeOptimalTraceExpression() {
-        var a = new ConstantStringExpression("A");
-        var b = new ConstantStringExpression("B");
+        ConstantStringExpression a = new ConstantStringExpression("A");
+        ConstantStringExpression b = new ConstantStringExpression("B");
 
         Expressions expected = new Expressions(List.of(a, b));
 
@@ -42,9 +42,9 @@ class StartToFinishPathTest {
         when(heavyExpression.getDslWeight()).thenReturn(10000000);
 
         var graph = new Graph(2, List.of(
-            // direct edge
-            new Edge(0, 1, Set.of(a, heavyExpression)),
-            new Edge(1, 2, Set.of(heavyExpression, b))
+                // direct edge
+                new Edge(0, 1, Set.of(a, heavyExpression)),
+                new Edge(1, 2, Set.of(heavyExpression, b))
         ));
 
         var path = new StartToFinishPath(graph.getEdges(), graph.getMaxNode());

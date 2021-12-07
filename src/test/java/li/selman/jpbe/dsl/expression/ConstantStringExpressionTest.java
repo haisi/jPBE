@@ -31,13 +31,13 @@ class ConstantStringExpressionTest {
     @Test
     @DisplayName("Returns constant")
     void returnsConstant() {
-        String constant  = "SOME CONSTANT STRING";
+        String constant = "SOME CONSTANT STRING";
         var constStrExp = new ConstantStringExpression(constant);
 
         assertAll(
-            () -> assertThat(constStrExp.apply("any string")).isNotEmpty().containsSame(constant),
-            () -> assertThat(constStrExp.apply("")).isNotEmpty().containsSame(constant),
-            () -> assertThat(constStrExp.apply(null)).isNotEmpty().containsSame(constant)
+                () -> assertThat(constStrExp.apply("any string")).isNotEmpty().containsSame(constant),
+                () -> assertThat(constStrExp.apply("")).isNotEmpty().containsSame(constant),
+                () -> assertThat(constStrExp.apply(null)).isNotEmpty().containsSame(constant)
         );
     }
 

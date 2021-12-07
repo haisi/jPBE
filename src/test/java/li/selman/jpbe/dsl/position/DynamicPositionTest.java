@@ -49,9 +49,9 @@ class DynamicPositionTest {
     @Test
     void leadingZeroPositionTest() {
         Position start = new DynamicPosition(
-            TokenSequence.of(START, LEADING_ZERO), TokenSequence.of(ALPHA_NUM_NO_LEADING_ZEROS), 1);
+                TokenSequence.of(START, LEADING_ZERO), TokenSequence.of(ALPHA_NUM_NO_LEADING_ZEROS), 1);
         Position end = new DynamicPosition(
-            TokenSequence.of(ALPHA_NUM_NO_LEADING_ZEROS), TokenSequence.of(DOT, ALPHA_NUM), 1);
+                TokenSequence.of(ALPHA_NUM_NO_LEADING_ZEROS), TokenSequence.of(DOT, ALPHA_NUM), 1);
 
         assertThat(start.evalToPosition("0087145.B.04")).isEqualTo(2);
         assertThat(start.evalToPosition("0087335.C.02")).isEqualTo(2);
@@ -59,7 +59,7 @@ class DynamicPositionTest {
         assertThat(start.evalToPosition("0305265.0.00")).isEqualTo(1);
 
         assertThatThrownBy(() -> start.evalToPosition("Somejunk 0305265.0.00"))
-            .isInstanceOf(NoPositionException.class);
+                .isInstanceOf(NoPositionException.class);
 
         assertThat(end.evalToPosition("0087145.B.04")).isEqualTo(7);
         assertThat(end.evalToPosition("0087335.C.02")).isEqualTo(7);

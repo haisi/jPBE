@@ -24,6 +24,7 @@ public interface Position extends DslElement {
 
     /**
      * Given an input, dynamically evaluate to an index inside for string manipulation operations.
+     *
      * @param s input
      * @return the index
      * @throws NoPositionException in certain implementations

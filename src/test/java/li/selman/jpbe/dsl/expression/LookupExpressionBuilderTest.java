@@ -29,15 +29,15 @@ import org.junit.jupiter.api.Test;
 class LookupExpressionBuilderTest {
 
     LookupExpressionBuilder builder = new LookupExpressionBuilder(List.of(
-        List.of("une", "deux", "trois"),
-        List.of("eins", "zwei", "drei"),
-        List.of("one", "two", "three")
+            List.of("une", "deux", "trois"),
+            List.of("eins", "zwei", "drei"),
+            List.of("one", "two", "three")
     ));
 
     @Test
     void illegalInitTest() {
         Exception exception = assertThrows(IllegalArgumentException.class,
-            () -> new LookupExpressionBuilder(List.of()));
+                () -> new LookupExpressionBuilder(List.of()));
         assertThat(exception).isNotNull();
 
         exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -47,9 +47,9 @@ class LookupExpressionBuilderTest {
 
         exception = assertThrows(IllegalArgumentException.class, () -> {
             new LookupExpressionBuilder(List.of(
-                List.of("une", "deux", "trois"),
-                List.of("eins", "zwei", "drei"),
-                List.of("one", "two")
+                    List.of("une", "deux", "trois"),
+                    List.of("eins", "zwei", "drei"),
+                    List.of("one", "two")
             ));
         });
         assertThat(exception).isNotNull();

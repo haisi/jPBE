@@ -34,8 +34,8 @@ public class ConstantPositionBuilder implements PositionBuilder {
         }
 
         return Set.of(
-            positionFromTheLeft,
-            positionFromTheRight
+                positionFromTheLeft,
+                positionFromTheRight
         );
     }
 

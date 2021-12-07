@@ -73,7 +73,7 @@ class TokenSequenceBuilderTest {
                 .isEqualTo(TokenSequence.of(START, LEADING_ZERO, NUM_NO_LEADING_ZEROS, END));
         assertThat(tsb.computeTokenSequence("0309665.B.00", 0, 12))
                 .isEqualTo(
-                    TokenSequence.of(
-                        START, LEADING_ZERO, NUM_NO_LEADING_ZEROS, DOT, ALPHA, DOT, NUM_NO_LEADING_ZEROS, END));
+                        TokenSequence.of(
+                                START, LEADING_ZERO, NUM_NO_LEADING_ZEROS, DOT, ALPHA, DOT, NUM_NO_LEADING_ZEROS, END));
     }
 }

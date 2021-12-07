@@ -34,9 +34,9 @@ class SubstringExpressionTest {
     @Test
     void leadingZeroTest() {
         Position start = new DynamicPosition(
-            TokenSequence.of(Token.START, Token.LEADING_ZERO), TokenSequence.of(Token.ALPHA_NUM_NO_LEADING_ZEROS), 1);
+                TokenSequence.of(Token.START, Token.LEADING_ZERO), TokenSequence.of(Token.ALPHA_NUM_NO_LEADING_ZEROS), 1);
         Position end = new DynamicPosition(
-            TokenSequence.of(Token.ALPHA_NUM_NO_LEADING_ZEROS), TokenSequence.of(Token.DOT, Token.ALPHA_NUM), 1);
+                TokenSequence.of(Token.ALPHA_NUM_NO_LEADING_ZEROS), TokenSequence.of(Token.DOT, Token.ALPHA_NUM), 1);
 
         Expression expression = new SubstringExpression(start, end);
         assertThat(expression.apply("0370835.A.00")).contains("370835");
@@ -50,7 +50,7 @@ class SubstringExpressionTest {
 
         ConstantPosition endPosition = ConstantPosition.lastPosition();
 
-        var subStr = new SubstringExpression(new ConstantPosition(0), endPosition);
+        SubstringExpression subStr = new SubstringExpression(new ConstantPosition(0), endPosition);
         Optional<String> actual = subStr.apply(input);
 
         assertThat(actual).isNotEmpty().contains(expected);

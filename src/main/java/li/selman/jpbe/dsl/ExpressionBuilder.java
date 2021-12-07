@@ -26,7 +26,7 @@ import java.util.List;
 public interface ExpressionBuilder {
 
     /**
-     * @param input of the initially provided input example
+     * @param input  of the initially provided input example
      * @param substr of the initially provided output example
      * @return all expressions of the builder, so that each expression f produces: f(input) = substr
      */

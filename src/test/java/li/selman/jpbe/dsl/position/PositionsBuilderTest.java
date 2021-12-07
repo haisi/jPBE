@@ -36,8 +36,8 @@ class PositionsBuilderTest {
     Tokens supportedTokens = new Tokens(List.of(START, END, ALPHA, SPACE));
     int maxTokenSeqLength = 999;
     PositionsBuilder positionBuilder = PositionsBuilder.of(
-        new ConstantPositionBuilder(),
-        new DynamicPositionBuilder(new TokenSequenceBuilder(maxTokenSeqLength, supportedTokens))
+            new ConstantPositionBuilder(),
+            new DynamicPositionBuilder(new TokenSequenceBuilder(maxTokenSeqLength, supportedTokens))
     );
 
     // Token-Sequences S: Space, A: Alphanumeric, s: Start, e: End
@@ -61,20 +61,20 @@ class PositionsBuilderTest {
         int expectedPosition = 3;
 
         Set<Position> expected = Set.of(
-            new ConstantPosition(3),
-            new ConstantPosition(-3),
-            new DynamicPosition(sAS, A, 1),
-            new DynamicPosition(sAS, A, -1),
-            new DynamicPosition(AS, A, 1),
-            new DynamicPosition(AS, A, -1),
-            new DynamicPosition(S, A, 1),
-            new DynamicPosition(S, A, -1),
-            new DynamicPosition(sAS, Ae, 1),
-            new DynamicPosition(sAS, Ae, -1),
-            new DynamicPosition(AS, Ae, 1),
-            new DynamicPosition(AS, Ae, -1),
-            new DynamicPosition(S, Ae, 1),
-            new DynamicPosition(S, Ae, -1)
+                new ConstantPosition(3),
+                new ConstantPosition(-3),
+                new DynamicPosition(sAS, A, 1),
+                new DynamicPosition(sAS, A, -1),
+                new DynamicPosition(AS, A, 1),
+                new DynamicPosition(AS, A, -1),
+                new DynamicPosition(S, A, 1),
+                new DynamicPosition(S, A, -1),
+                new DynamicPosition(sAS, Ae, 1),
+                new DynamicPosition(sAS, Ae, -1),
+                new DynamicPosition(AS, Ae, 1),
+                new DynamicPosition(AS, Ae, -1),
+                new DynamicPosition(S, Ae, 1),
+                new DynamicPosition(S, Ae, -1)
         );
 
         executeAndAssert(input, expectedPosition, expected);
@@ -87,12 +87,12 @@ class PositionsBuilderTest {
         int expectedPosition = 2;
 
         Set<Position> expected = Set.of(
-            new ConstantPosition(2),
-            new ConstantPosition(-4),
-            new DynamicPosition(sA, SAe, 1),
-            new DynamicPosition(sA, SAe, -1),
-            new DynamicPosition(A, SAe, 1),
-            new DynamicPosition(A, SAe, -1)
+                new ConstantPosition(2),
+                new ConstantPosition(-4),
+                new DynamicPosition(sA, SAe, 1),
+                new DynamicPosition(sA, SAe, -1),
+                new DynamicPosition(A, SAe, 1),
+                new DynamicPosition(A, SAe, -1)
         );
 
         executeAndAssert(input, expectedPosition, expected);
@@ -106,16 +106,16 @@ class PositionsBuilderTest {
         int expectedPosition = 6;
 
         Set<Position> expected = Set.of(
-            new ConstantPosition(6),
-            ConstantPosition.lastPosition(),
-            new DynamicPosition(sASAe, e, 1),
-            new DynamicPosition(sASAe, e, -1),
-            new DynamicPosition(ASAe, e, 1),
-            new DynamicPosition(ASAe, e, -1),
-            new DynamicPosition(SAe, e, 1),
-            new DynamicPosition(SAe, e, -1),
-            new DynamicPosition(Ae, e, 1),
-            new DynamicPosition(Ae, e, -1)
+                new ConstantPosition(6),
+                ConstantPosition.lastPosition(),
+                new DynamicPosition(sASAe, e, 1),
+                new DynamicPosition(sASAe, e, -1),
+                new DynamicPosition(ASAe, e, 1),
+                new DynamicPosition(ASAe, e, -1),
+                new DynamicPosition(SAe, e, 1),
+                new DynamicPosition(SAe, e, -1),
+                new DynamicPosition(Ae, e, 1),
+                new DynamicPosition(Ae, e, -1)
         );
 
         executeAndAssert(input, expectedPosition, expected);
@@ -129,16 +129,16 @@ class PositionsBuilderTest {
         int expectedPosition = 0;
 
         Set<Position> expected = Set.of(
-            new ConstantPosition(0),
-            new ConstantPosition(-6),
-            new DynamicPosition(s, sASAe, 1),
-            new DynamicPosition(s, sASAe, -1),
-            new DynamicPosition(s, sASA, 1),
-            new DynamicPosition(s, sASA, -1),
-            new DynamicPosition(s, sAS, 1),
-            new DynamicPosition(s, sAS, -1),
-            new DynamicPosition(s, sA, 1),
-            new DynamicPosition(s, sA, -1)
+                new ConstantPosition(0),
+                new ConstantPosition(-6),
+                new DynamicPosition(s, sASAe, 1),
+                new DynamicPosition(s, sASAe, -1),
+                new DynamicPosition(s, sASA, 1),
+                new DynamicPosition(s, sASA, -1),
+                new DynamicPosition(s, sAS, 1),
+                new DynamicPosition(s, sAS, -1),
+                new DynamicPosition(s, sA, 1),
+                new DynamicPosition(s, sA, -1)
         );
 
         executeAndAssert(input, expectedPosition, expected);

@@ -23,6 +23,7 @@ package li.selman.jpbe.dsl.position;
  * If the constant is negative, the index is counted from the right.
  * In that case the last index of a string is denoted with the value in {@link ConstantPosition#LAST_POSITION_INDEX} as
  * 0 is already reserved for the "positive" index way of counting.
+ *
  * @author Hasan Selman Kara
  */
 public class ConstantPosition implements Position {

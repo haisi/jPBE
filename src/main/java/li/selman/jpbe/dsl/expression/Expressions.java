@@ -24,6 +24,7 @@ import li.selman.jpbe.dsl.Expression;
 /**
  * Represents a full program {@code p} which can be applied on a input string to get the intended output.
  * {@code p} is made up of {@code n} {@link Expression}s, while itself being an {@link Expression}.
+ *
  * @author Hasan Selman Kara
  */
 public class Expressions implements Expression {

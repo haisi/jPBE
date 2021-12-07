@@ -28,8 +28,8 @@ class ConjunctTest {
     @Test
     void normalTest() {
         List<Predicate> predicates = List.of(
-            Match.positive(TokenSequence.of(Token.START), 1),
-            Match.positive(TokenSequence.of(Token.SPACE), 1)
+                Match.positive(TokenSequence.of(Token.START), 1),
+                Match.positive(TokenSequence.of(Token.SPACE), 1)
         );
 
         Conjunct conjunct = new Conjunct(predicates);
@@ -39,8 +39,8 @@ class ConjunctTest {
     @Test
     void notAllMatchTest() {
         List<Predicate> predicates = List.of(
-            Match.positive(TokenSequence.of(Token.START), 1), // This one matches
-            Match.positive(TokenSequence.of(Token.DOT), 1) // This one doesn't match
+                Match.positive(TokenSequence.of(Token.START), 1), // This one matches
+                Match.positive(TokenSequence.of(Token.DOT), 1) // This one doesn't match
         );
 
         Conjunct conjunct = new Conjunct(predicates);
@@ -50,8 +50,8 @@ class ConjunctTest {
     @Test
     void notEnoughMatchesTest() {
         List<Predicate> predicates = List.of(
-            Match.positive(TokenSequence.of(Token.START), 1),
-            Match.positive(TokenSequence.of(Token.SPACE), 999) // Doesn't match the specified number of times
+                Match.positive(TokenSequence.of(Token.START), 1),
+                Match.positive(TokenSequence.of(Token.SPACE), 999) // Doesn't match the specified number of times
         );
 
         Conjunct conjunct = new Conjunct(predicates);
@@ -63,9 +63,9 @@ class ConjunctTest {
     @Test
     void toStringTest() {
         List<Predicate> predicates = List.of(
-            Match.positive(TokenSequence.of(Token.START), 1),
-            Match.negative(TokenSequence.of(Token.SPACE, Token.ALPHA_NUM), 99),
-            new TruePredicate()
+                Match.positive(TokenSequence.of(Token.START), 1),
+                Match.negative(TokenSequence.of(Token.SPACE, Token.ALPHA_NUM), 99),
+                new TruePredicate()
         );
 
         Conjunct conjunct = new Conjunct(predicates);

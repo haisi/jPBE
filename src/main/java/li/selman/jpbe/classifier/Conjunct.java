@@ -15,6 +15,7 @@
  */
 package li.selman.jpbe.classifier;
 
+import com.google.common.base.Preconditions;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -36,12 +37,13 @@ class Conjunct {
 
     /**
      * Checks whether the conjuct matches.
+     *
      * @return {@code true} if all predicates match {@code s}, else {@code false}
      */
     boolean matches(String s) {
         return predicates.stream()
-            .map(predicate -> predicate.matches(s))
-            .noneMatch(aBoolean -> Objects.equals(aBoolean, Boolean.FALSE));
+                .map(predicate -> predicate.matches(s))
+                .noneMatch(aBoolean -> Objects.equals(aBoolean, Boolean.FALSE));
     }
 
     @Override

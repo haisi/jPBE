@@ -58,7 +58,7 @@ class GraphBuilderTest {
     void maxEdges() {
         ExpressionBuilder mockExpBuilder = mock(ExpressionBuilder.class);
         when(mockExpBuilder.computeExpressions(anyString(), anyString()))
-            .thenReturn(List.of(mock(Expression.class)));
+                .thenReturn(List.of(mock(Expression.class)));
 
         var graphBuilder = new GraphBuilder(List.of(mockExpBuilder));
         var outputs = List.of("", "1", "12", "123", "1234", "12345", "123456");
@@ -79,12 +79,12 @@ class GraphBuilderTest {
         // n * (n-1) / 2 nodes
         Graph actualGraph = graphBuilder.createAllPrograms("Doesn't matter", "ABC");
         assertThat(actualGraph.getEdges()).containsExactlyInAnyOrder(
-            new Edge(0, 1, Set.of(new ConstantStringExpression("A"))),
-            new Edge(1, 2, Set.of(new ConstantStringExpression("B"))),
-            new Edge(2, 3, Set.of(new ConstantStringExpression("C"))),
-            new Edge(0, 2, Set.of(new ConstantStringExpression("AB"))),
-            new Edge(1, 3, Set.of(new ConstantStringExpression("BC"))),
-            new Edge(0, 3, Set.of(new ConstantStringExpression("ABC")))
+                new Edge(0, 1, Set.of(new ConstantStringExpression("A"))),
+                new Edge(1, 2, Set.of(new ConstantStringExpression("B"))),
+                new Edge(2, 3, Set.of(new ConstantStringExpression("C"))),
+                new Edge(0, 2, Set.of(new ConstantStringExpression("AB"))),
+                new Edge(1, 3, Set.of(new ConstantStringExpression("BC"))),
+                new Edge(0, 3, Set.of(new ConstantStringExpression("ABC")))
         );
     }
 
@@ -97,10 +97,10 @@ class GraphBuilderTest {
             when(heavyExpression.getDslWeight()).thenReturn(10000000);
 
             var graph = new Graph(2, List.of(
-                // direct edge
-                new Edge(0, 2, Set.of(new ConstantStringExpression("AB"), heavyExpression)),
-                new Edge(0, 1, Set.of(new ConstantStringExpression("A"), heavyExpression)),
-                new Edge(1, 2, Set.of(new ConstantStringExpression("B"), heavyExpression))
+                    // direct edge
+                    new Edge(0, 2, Set.of(new ConstantStringExpression("AB"), heavyExpression)),
+                    new Edge(0, 1, Set.of(new ConstantStringExpression("A"), heavyExpression)),
+                    new Edge(1, 2, Set.of(new ConstantStringExpression("B"), heavyExpression))
             ));
 
             var actual = graph.computeLocalOptimaPath();
@@ -115,8 +115,8 @@ class GraphBuilderTest {
         Tokens tokens = new Tokens(List.of(START, END, ALPHA, NUM, COMMA, DOT));
         int maxTokenSeqLength = 2;
         var positionBuilder = PositionsBuilder.of(
-            new ConstantPositionBuilder(),
-            new DynamicPositionBuilder(new TokenSequenceBuilder(maxTokenSeqLength, tokens))
+                new ConstantPositionBuilder(),
+                new DynamicPositionBuilder(new TokenSequenceBuilder(maxTokenSeqLength, tokens))
         );
 
         ExpressionBuilder constStrExpBuilder = new ConstStrExpressionBuilder();
@@ -125,8 +125,8 @@ class GraphBuilderTest {
         var graphBuilder = new GraphBuilder(List.of(constStrExpBuilder, substringExpBuilder));
 
         List<Expression> foo = List.of(
-            new ConstantStringExpression("Smith"),
-            new SubstringExpression(new ConstantPosition(6), new ConstantPosition(10))
+                new ConstantStringExpression("Smith"),
+                new SubstringExpression(new ConstantPosition(6), new ConstantPosition(10))
         );
 
         Graph graph = graphBuilder.createAllPrograms("Peter,Smith,1990", "Smith");

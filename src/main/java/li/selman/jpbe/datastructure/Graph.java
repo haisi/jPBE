@@ -57,13 +57,13 @@ public class Graph {
                 // as there are no loops,
                 // thus, the following nodes are impossible to lead from s to t
                 if ((edge1.from == 0 && edge2.from != 0)
-                    || (edge1.from != 0 && edge2.from == 0)
-                    || (edge1.from == n1 && edge2.from != n2)
-                    || (edge1.from != n1 && edge2.from == n2)
-                    || (edge1.to == 0 && edge2.to != 0)
-                    || (edge1.to != 0 && edge2.to == 0)
-                    || (edge1.to == n1 && edge2.to != n2)
-                    || (edge1.to != n1 && edge2.to == n2)) {
+                            || (edge1.from != 0 && edge2.from == 0)
+                            || (edge1.from == n1 && edge2.from != n2)
+                            || (edge1.from != n1 && edge2.from == n2)
+                            || (edge1.to == 0 && edge2.to != 0)
+                            || (edge1.to != 0 && edge2.to == 0)
+                            || (edge1.to == n1 && edge2.to != n2)
+                            || (edge1.to != n1 && edge2.to == n2)) {
                     continue;
                 }
 
@@ -116,7 +116,7 @@ public class Graph {
         // TODO(#check): check if this state can actually happen? (I guess with an empty graph after intersection?)
         if (edges == null || edges.isEmpty()) throw new IllegalStateException("Edges cannot be null or empty");
 
-        var directEdge = findDirectEdge();
+        Optional<Edge> directEdge = findDirectEdge();
         if (directEdge.isPresent()) {
             return List.of(directEdge.get());
         }
@@ -141,18 +141,19 @@ public class Graph {
         // TODO(#wip): handle intersect graph as well
     }
 
+    @SuppressWarnings("UnusedMethod")
     private List<Expressions> getAllTraceExpressions(Stream<Edge> edgeStream) {
         return edgeStream
-            .map(Edge::getExpressions)
-            // TODO(#api): check whether we should use Set or List
-            .map(expressions -> new Expressions(new ArrayList<>(expressions)))
-            .collect(Collectors.toList());
+                .map(Edge::getExpressions)
+                // TODO(#api): check whether we should use Set or List
+                .map(expressions -> new Expressions(new ArrayList<>(expressions)))
+                .collect(Collectors.toList());
     }
 
     private Optional<Edge> findDirectEdge() {
         return edges.stream()
-            .filter(edge -> edge.from == 0 && edge.to == maxNode)
-            .findFirst();
+                .filter(edge -> edge.from == 0 && edge.to == maxNode)
+                .findFirst();
     }
 
     int getMaxNode() {
@@ -165,12 +166,12 @@ public class Graph {
 
     @Override
     public String toString() {
-        var builder = new StringBuilder(String.format("Graph[%d]:\n", maxNode));
+        StringBuilder builder = new StringBuilder(String.format("Graph[%d]:%n", maxNode));
         for (Edge edge : edges) {
             builder
-                .append("\t")
-                .append(edge.from).append(" -{").append(edge.getExpressions().size()).append("}->").append(edge.to)
-                .append("\n");
+                    .append("\t")
+                    .append(edge.from).append(" -{").append(edge.getExpressions().size()).append("}->").append(edge.to)
+                    .append("\n");
         }
 
         return builder.toString();

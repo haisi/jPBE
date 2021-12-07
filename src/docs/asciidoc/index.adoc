@@ -33,8 +33,7 @@ Your intent is to extract the surname.
 One possible way to specify your intent is to write a short program.
 If you do not know how to program you are out of luck.
 
-A more natural and accessible way to specify your intent is by providing the computer with an input output example
-from which a program in synthesised that satisfies your intent — hello jPBE
+A more natural and accessible way to specify your intent is by providing the computer with an input output example from which a program in synthesised that satisfies your intent — hello jPBE
 
 [source,java]
 .How to solve example problem with jPBE
@@ -58,8 +57,8 @@ class MyApp {
 == Abstract
 
 Millions of people need to analyze raw data of varying quality to support their job function.
-In a lot of cases the present data needs to be refined and processed from its raw form to a more structured format in
-order to analyze and visualize it. This process is *time-intensive and error-prone*.
+In a lot of cases the present data needs to be refined and processed from its raw form to a more structured format in order to analyze and visualize it.
+This process is *time-intensive and error-prone*.
 Usually tools like Microsoft Excel or OpenRefine are used to improve that process.
 However, any nontrivial data wrangling task remains inaccessible to non-programmers.
 Furthermore, existing tools only cover the most common use cases, i.e. they are business agnostic.
@@ -82,7 +81,7 @@ TODO
 
 == Sample Diagram
 
-[plantuml, diagram-classes, png]
+[plantuml,diagram-classes,png]
 ....
 interface DslElement {
     +int: getDslWeight()

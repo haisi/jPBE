@@ -31,12 +31,12 @@ class ConstantPositionBuilderTest {
         int negativeK = -3;
 
         assertThatThrownBy(
-            // when
-            () -> {
-                builder.computePositions("AB C", negativeK);
-            })
-            // then
-            .isInstanceOf(IllegalArgumentException.class);
+                // when
+                () -> {
+                    builder.computePositions("AB C", negativeK);
+                })
+                // then
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
@@ -45,12 +45,12 @@ class ConstantPositionBuilderTest {
         ConstantPositionBuilder builder = new ConstantPositionBuilder();
 
         assertThatThrownBy(
-            // when
-            () -> {
-                builder.computePositions("123", 4);
-            })
-            // then
-            .isInstanceOf(IllegalArgumentException.class);
+                // when
+                () -> {
+                    builder.computePositions("123", 4);
+                })
+                // then
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
@@ -63,8 +63,8 @@ class ConstantPositionBuilderTest {
 
         // then
         assertThat(actual).containsExactlyInAnyOrder(
-            new ConstantPosition(3),
-            new ConstantPosition(-2)
+                new ConstantPosition(3),
+                new ConstantPosition(-2)
         );
     }
 
@@ -78,8 +78,8 @@ class ConstantPositionBuilderTest {
 
         // then
         assertThat(actual).containsExactlyInAnyOrder(
-            ConstantPosition.lastPosition(),
-            new ConstantPosition(7)
+                ConstantPosition.lastPosition(),
+                new ConstantPosition(7)
         );
     }
 
@@ -93,8 +93,8 @@ class ConstantPositionBuilderTest {
 
         // then
         assertThat(actual).containsExactlyInAnyOrder(
-            new ConstantPosition(-7),
-            new ConstantPosition(0)
+                new ConstantPosition(-7),
+                new ConstantPosition(0)
         );
     }
 

@@ -49,9 +49,9 @@ class MatcherTest {
     @Test
     public void positionOfRegexWithNoMatchTest() {
         assertThatThrownBy(() -> positionOfRegex(TokenSequence.of(SPACE), "ABCDED", 1, 3))
-            .isInstanceOf(IllegalStateException.class);
+                .isInstanceOf(IllegalStateException.class);
         assertThatThrownBy(() -> positionOfRegex(TokenSequence.of(UNDERSCORE), "_ABCDED", 0, 2))
-            .isInstanceOf(IllegalStateException.class);
+                .isInstanceOf(IllegalStateException.class);
     }
 
     @Test
@@ -80,7 +80,7 @@ class MatcherTest {
         assertThat(totalNumberOfMatches(TokenSequence.of(START, ALPHA, SPACE), "ABC    ___")).isEqualTo(1);
         assertThat(totalNumberOfMatches(TokenSequence.of(START, ALPHA, SPACE, UNDERSCORE), "ABC    ___")).isEqualTo(1);
         assertThat(totalNumberOfMatches(TokenSequence.of(START, ALPHA, SPACE, UNDERSCORE, END), "ABC    ___"))
-            .isEqualTo(1);
+                .isEqualTo(1);
     }
 
     @Test
@@ -100,11 +100,11 @@ class MatcherTest {
     @Test
     public void outOfRangeGetPositionOfRegex() {
         assertThatThrownBy(() -> positionOfRegex(TokenSequence.of(), "ABCDED", 2, 1))
-            .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(IllegalArgumentException.class);
         assertThatThrownBy(() -> positionOfRegex(TokenSequence.of(), "ABCDED", 1, 300))
-            .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(IllegalArgumentException.class);
         assertThatThrownBy(() -> positionOfRegex(TokenSequence.of(), "ABCDED", 200, 300))
-            .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
 }

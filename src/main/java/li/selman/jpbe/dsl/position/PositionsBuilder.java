@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 
 /**
  * Wraps and applies multiple PositionBuilders.
+ *
  * @author Hasan Selman Kara
  */
 public class PositionsBuilder implements PositionBuilder {
@@ -60,9 +61,9 @@ public class PositionsBuilder implements PositionBuilder {
 
         // Compute positions given all configured PositionBuilders
         Set<Position> unionOfFoundPositions = positionBuilders.stream()
-            .map(positionBuilder -> positionBuilder.computePositions(input, k))
-            .flatMap(Collection::stream)
-            .collect(Collectors.toSet());
+                .map(positionBuilder -> positionBuilder.computePositions(input, k))
+                .flatMap(Collection::stream)
+                .collect(Collectors.toSet());
 
         cache.put(k, unionOfFoundPositions);
         return unionOfFoundPositions;

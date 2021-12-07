@@ -49,18 +49,18 @@ final class EverythingElseToken extends Token {
 
     private static String orJoinPatterns(Stream<String> preparedForNegation) {
         return preparedForNegation
-            .collect(Collectors.joining("|"));
+                .collect(Collectors.joining("|"));
     }
 
     private static Stream<String> prepareForNegation(Stream<String> regexPattern) {
         return regexPattern
-            .map(pattern -> pattern.replaceAll("[\\[\\]]", ""));
+                .map(pattern -> pattern.replaceAll("[\\[\\]]", ""));
     }
 
     private static Stream<String> getRegexPattern(List<Token> usedTokens) {
         return usedTokens.stream()
-            .map(Token::getPattern)
-            .map(Pattern::pattern);
+                .map(Token::getPattern)
+                .map(Pattern::pattern);
     }
 
     @Override

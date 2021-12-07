@@ -40,20 +40,20 @@ class MatchTest {
     @Test
     void negativeNumberOfMatchesIllegalTest() {
         assertThatThrownBy(() -> Match.positive(TokenSequence.of(Token.ALPHA), -1))
-            .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
     void emptyTokenSequenceIllegalTest() {
         assertThatThrownBy(() -> Match.positive(TokenSequence.of(), 1))
-            .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
     void toStringTest() {
         assertThat(Match.positive(TokenSequence.of(Token.SPACE), 1).toString()).isEqualTo("(P, 1, {s+})");
         assertThat(Match.negative(TokenSequence.of(Token.SPACE, Token.DOT, Token.ALPHA_NUM), 3).toString())
-            .isEqualTo("(N, 3, {s+, ., AN})");
+                .isEqualTo("(N, 3, {s+, ., AN})");
     }
 
 }

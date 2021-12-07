@@ -74,6 +74,7 @@ public abstract class Token {
 
     /**
      * Check whether a string matches the pattern.
+     *
      * @param s to match
      * @return {@code true} if the s matches the Regex
      */
@@ -83,6 +84,7 @@ public abstract class Token {
 
     /**
      * Checks whether a single character matches the token.
+     *
      * @param c to match
      * @return {@code true} if the c matches the Regex
      */
@@ -165,7 +167,7 @@ public abstract class Token {
         @Override
         public boolean matches(String s, Token lastToken) {
             return ("0".equals(s) && Token.START.equals(lastToken))
-                || ("0".equals(s) && Token.LEADING_ZERO.equals(lastToken));
+                           || ("0".equals(s) && Token.LEADING_ZERO.equals(lastToken));
         }
 
         @Override

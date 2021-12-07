@@ -38,9 +38,9 @@ class ExpressionsTest {
     void inCorrectOrder() {
         String expected = "ABC";
         var expression = new Expressions(List.of(
-            new ConstantStringExpression("A"),
-            new ConstantStringExpression("B"),
-            new ConstantStringExpression("C")
+                new ConstantStringExpression("A"),
+                new ConstantStringExpression("B"),
+                new ConstantStringExpression("C")
         )
         );
 
@@ -55,8 +55,8 @@ class ExpressionsTest {
         String expected = "ABC";
         int hugeEndIndexForSubstring = 100;
         var expression = new Expressions(List.of(
-            new ConstantStringExpression("A"),
-            new SubstringExpression(new ConstantPosition(0), new ConstantPosition(hugeEndIndexForSubstring))
+                new ConstantStringExpression("A"),
+                new SubstringExpression(new ConstantPosition(0), new ConstantPosition(hugeEndIndexForSubstring))
         )
         );
 
@@ -72,7 +72,7 @@ class ExpressionsTest {
             Position endOfString = ConstantPosition.lastPosition();
 
             Expressions expression =
-                new Expressions(List.of(new SubstringExpression(beforeNumber, endOfString)));
+                    new Expressions(List.of(new SubstringExpression(beforeNumber, endOfString)));
 
             return expression.apply(input);
         };

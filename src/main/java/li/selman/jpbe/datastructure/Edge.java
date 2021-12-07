@@ -32,6 +32,7 @@ import li.selman.jpbe.dsl.Expression;
  * <p>
  * For example: Given i_1 = "Joe Bob 1990.12.3" and output o_1 = "Bob 1990", we might have the following edge:
  * {@code Edge(0, 3, { CStr("Bob"), SubStr(CPos(4), CPos(7), ... })} where all expression on i_1 would eval to "Bob".
+ *
  * @author Hasan Selman Kara
  */
 // TODO(#api): turn into record
@@ -42,8 +43,8 @@ public class Edge {
     private final Set<Expression> expressions;
 
     /**
-     * @param from start index on a substring of the user provided output string
-     * @param to end index on a substring of the user provided output string
+     * @param from        start index on a substring of the user provided output string
+     * @param to          end index on a substring of the user provided output string
      * @param expressions all expressions which on input_1 eval to provided_output_1.substring(from, to)
      */
     public Edge(int from, int to, Set<Expression> expressions) {

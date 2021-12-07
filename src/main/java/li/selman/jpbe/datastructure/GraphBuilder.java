@@ -62,10 +62,10 @@ public class GraphBuilder {
 
                 // All expression for which `f(input) = substr` applies
                 Set<Expression> expressions = expressionBuilders.stream()
-                    // TODO(#bug): creates too many SubstringExpressions
-                    .map(expressionBuilder -> expressionBuilder.computeExpressions(input, substring))
-                    .flatMap(List::stream)
-                    .collect(Collectors.toSet());
+                        // TODO(#bug): creates too many SubstringExpressions
+                        .map(expressionBuilder -> expressionBuilder.computeExpressions(input, substring))
+                        .flatMap(List::stream)
+                        .collect(Collectors.toSet());
 
                 edges.add(new Edge(from, to, expressions));
             }

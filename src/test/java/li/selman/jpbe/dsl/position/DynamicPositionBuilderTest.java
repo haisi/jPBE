@@ -41,19 +41,20 @@ class DynamicPositionBuilderTest {
      * a {@link DynamicPositionBuilder} will compute a set {@code P} of positions.
      * <p>
      * Then for all {@code pos} in {@code P} | {@code pos(input) == k}
+     *
      * @param input the input string used to compute the positions for
-     * @param k the index to compote position DSL elements to and to evaluate to
+     * @param k     the index to compote position DSL elements to and to evaluate to
      */
     @ParameterizedTest
     @CsvSource(value = {
-        "Simple Space:7",
-        "Multiple Space In One:15",
+            "Simple Space:7",
+            "Multiple Space In One:15",
 //        "Multiple Space In One More:15", // No matches!
-        "Start:0",
-        "End:3",
-        "Com,ma:3",
-        "Com,ma:4",
-        "D:1"
+            "Start:0",
+            "End:3",
+            "Com,ma:3",
+            "Com,ma:4",
+            "D:1"
     }, delimiter = ':')
     void sanityTest(String input, int k) {
         // given
@@ -83,14 +84,14 @@ class DynamicPositionBuilderTest {
 
         // then
         assertThat(left).containsOnly(
-            entry(0, TokenSequence.of(START, ALPHA, SPACE)),
-            entry(1, TokenSequence.of(ALPHA, SPACE)),
-            entry(2, TokenSequence.of(SPACE))
+                entry(0, TokenSequence.of(START, ALPHA, SPACE)),
+                entry(1, TokenSequence.of(ALPHA, SPACE)),
+                entry(2, TokenSequence.of(SPACE))
         );
         assertThat(right).containsOnly(
-            entry(4, TokenSequence.of(ALPHA)),
-            entry(5, TokenSequence.of(ALPHA)),
-            entry(6, TokenSequence.of(ALPHA, END))
+                entry(4, TokenSequence.of(ALPHA)),
+                entry(5, TokenSequence.of(ALPHA)),
+                entry(6, TokenSequence.of(ALPHA, END))
         );
     }
 

@@ -39,11 +39,11 @@ class ConstantPositionTest {
             int wholeString = input.length();
 
             assertAll(
-                () -> assertThat(actualOutput(input, 0)).isEqualTo(""),
-                () -> assertThat(actualOutput(input, 1)).isEqualTo("A"),
-                () -> assertThat(actualOutput(input, 2)).isEqualTo("AB"),
-                () -> assertThat(actualOutput(input, 3)).isEqualTo("ABC"),
-                () -> assertThat(actualOutput(input, wholeString)).isEqualTo(input)
+                    () -> assertThat(actualOutput(input, 0)).isEqualTo(""),
+                    () -> assertThat(actualOutput(input, 1)).isEqualTo("A"),
+                    () -> assertThat(actualOutput(input, 2)).isEqualTo("AB"),
+                    () -> assertThat(actualOutput(input, 3)).isEqualTo("ABC"),
+                    () -> assertThat(actualOutput(input, wholeString)).isEqualTo(input)
             );
         }
 
@@ -65,8 +65,8 @@ class ConstantPositionTest {
             int constant = Integer.MIN_VALUE;
 
             assertAll(
-                () -> assertThat(actualOutput("Some Text", constant)).isEqualTo(""),
-                () -> assertThat(actualOutput("", constant)).isEqualTo("")
+                    () -> assertThat(actualOutput("Some Text", constant)).isEqualTo(""),
+                    () -> assertThat(actualOutput("", constant)).isEqualTo("")
             );
         }
 
@@ -77,10 +77,10 @@ class ConstantPositionTest {
             int wholeString = input.length() * (-1);
 
             assertAll(
-                () -> assertThat(actualOutput(input, -1)).isEqualTo("E"),
-                () -> assertThat(actualOutput(input, -2)).isEqualTo("DE"),
-                () -> assertThat(actualOutput(input, -3)).isEqualTo("CDE"),
-                () -> assertThat(actualOutput(input, wholeString)).isEqualTo(input)
+                    () -> assertThat(actualOutput(input, -1)).isEqualTo("E"),
+                    () -> assertThat(actualOutput(input, -2)).isEqualTo("DE"),
+                    () -> assertThat(actualOutput(input, -3)).isEqualTo("CDE"),
+                    () -> assertThat(actualOutput(input, wholeString)).isEqualTo(input)
             );
         }
 
@@ -91,7 +91,7 @@ class ConstantPositionTest {
             int bigNumber = 100;
 
             var exception = assertThrows(StringIndexOutOfBoundsException.class,
-                () -> actualOutput(input, input.length() * (-1) - bigNumber));
+                    () -> actualOutput(input, input.length() * (-1) - bigNumber));
             assertThat(exception).isNotNull();
         }
 

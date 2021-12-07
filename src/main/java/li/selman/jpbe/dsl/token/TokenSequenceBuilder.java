@@ -30,14 +30,14 @@ public class TokenSequenceBuilder {
     private final Tokens tokens;
 
     private static final BiFunction<Character, Token, Optional<Token>> defaultHook =
-        (character, token) -> Optional.empty();
+            (character, token) -> Optional.empty();
 
     public TokenSequenceBuilder(int maxLength, Tokens tokens) {
         this(maxLength, defaultHook, tokens);
     }
 
     public TokenSequenceBuilder(int maxLength, BiFunction<Character, Token, Optional<Token>> computeTokenForCharHook,
-        Tokens tokens) {
+                                Tokens tokens) {
         if (maxLength <= 0) throw new IllegalArgumentException("MaxLength cannot be smaller than 1");
         if (computeTokenForCharHook == null)
             throw new IllegalArgumentException("Hook cannot be null. Use default hook!");
@@ -50,8 +50,8 @@ public class TokenSequenceBuilder {
 
     /**
      * @param input the whole input string provided by the data set
-     * @param from start index for sub-string on {@code input}
-     * @param to end index for sub-string on {@code input}
+     * @param from  start index for sub-string on {@code input}
+     * @param to    end index for sub-string on {@code input}
      * @return sequence of tokens representing the token structure of a substring on {@code input}
      */
     @SuppressWarnings("checkstyle:CyclomaticComplexity")
@@ -66,7 +66,7 @@ public class TokenSequenceBuilder {
             tmpTokens.add(Token.START);
         }
 
-        var substr = input.substring(from, to);
+        String substr = input.substring(from, to);
         Token last = null;
         for (char c : substr.toCharArray()) {
             if (last == null) {
@@ -110,9 +110,9 @@ public class TokenSequenceBuilder {
         }
 
         return tokens.getTokens().stream()
-            .filter(token -> token.matches(c, lastToken))
-            .findFirst()
-            .orElse(tokens.getElseToken());
+                .filter(token -> token.matches(c, lastToken))
+                .findFirst()
+                .orElse(tokens.getElseToken());
     }
 
 }

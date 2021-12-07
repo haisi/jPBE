@@ -32,6 +32,7 @@ public interface DslElement {
      *         Thus, the user has to specify their intent more often to finish their wrangling task.
      *     </ul>
      * </li>
+     *
      * @return the weight of the DSL element
      */
     int getDslWeight();
