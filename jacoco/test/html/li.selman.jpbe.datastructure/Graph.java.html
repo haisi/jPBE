@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Graph.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jPBE</a> &gt; <a href="index.source.html" class="el_package">li.selman.jpbe.datastructure</a> &gt; <span class="el_source">Graph.java</span></div><h1>Graph.java</h1><pre class="source lang-java linenums">/*
- * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ * (c) Copyright 2021 Hasan Selman Kara. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package li.selman.jpbe.datastructure;
 
@@ -16,6 +28,7 @@ import li.selman.jpbe.dsl.expression.Expressions;
 /**
  * @author Hasan Selman Kara
  */
+@SuppressWarnings(&quot;unchecked&quot;)
 public class Graph {
 
     private final int maxNode;
@@ -24,69 +37,71 @@ public class Graph {
     // TODO(#optimization): remove mutable state!
 //    private List&lt;Edge&gt;[] outgoingEdges;
 
-<span class="fc" id="L27">    Graph(int maxNode, List&lt;Edge&gt; edges) {</span>
-<span class="fc" id="L28">        this.maxNode = maxNode;</span>
-<span class="fc" id="L29">        this.edges = edges;</span>
-<span class="fc" id="L30">    }</span>
+<span class="fc" id="L40">    Graph(int maxNode, List&lt;Edge&gt; edges) {</span>
+<span class="fc" id="L41">        this.maxNode = maxNode;</span>
+<span class="fc" id="L42">        this.edges = edges;</span>
+<span class="fc" id="L43">    }</span>
 
     @SuppressWarnings(&quot;checkstyle:CyclomaticComplexity&quot;)
     public Graph intersect(Graph other) {
-<span class="nc" id="L34">        int n1 = maxNode;</span>
-<span class="nc" id="L35">        int n2 = other.maxNode;</span>
+<span class="nc" id="L47">        int n1 = maxNode;</span>
+<span class="nc" id="L48">        int n2 = other.maxNode;</span>
         // number of nodes after Cartesian product
-<span class="nc" id="L37">        int max = (n1 + 1) * (n2 + 1) - 1;</span>
-<span class="nc" id="L38">        List&lt;Edge&gt; newEdges = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L39">        List&lt;List&lt;Edge&gt;&gt; fromMap = new ArrayList&lt;&gt;(max + 1);</span>
-<span class="nc" id="L40">        List&lt;List&lt;Edge&gt;&gt; toMap = new ArrayList&lt;&gt;(max + 1);</span>
+<span class="nc" id="L50">        int max = (n1 + 1) * (n2 + 1) - 1;</span>
+<span class="nc" id="L51">        List&lt;Edge&gt; newEdges = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L52">        List&lt;List&lt;Edge&gt;&gt; fromMap = new ArrayList&lt;&gt;(max + 1);</span>
+<span class="nc" id="L53">        List&lt;List&lt;Edge&gt;&gt; toMap = new ArrayList&lt;&gt;(max + 1);</span>
 
-<span class="nc bnc" id="L42" title="All 2 branches missed.">        for (Edge edge1 : this.edges) {</span>
-<span class="nc bnc" id="L43" title="All 2 branches missed.">            for (Edge edge2 : other.edges) {</span>
+<span class="nc bnc" id="L55" title="All 2 branches missed.">        for (Edge edge1 : this.edges) {</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">            for (Edge edge2 : other.edges) {</span>
                 // as there are no loops,
                 // thus, the following nodes are impossible to lead from s to t
-<span class="nc bnc" id="L46" title="All 32 branches missed.">                if ((edge1.from == 0 &amp;&amp; edge2.from != 0)</span>
-                    || (edge1.from != 0 &amp;&amp; edge2.from == 0)
-                    || (edge1.from == n1 &amp;&amp; edge2.from != n2)
-                    || (edge1.from != n1 &amp;&amp; edge2.from == n2)
-                    || (edge1.to == 0 &amp;&amp; edge2.to != 0)
-                    || (edge1.to != 0 &amp;&amp; edge2.to == 0)
-                    || (edge1.to == n1 &amp;&amp; edge2.to != n2)
-                    || (edge1.to != n1 &amp;&amp; edge2.to == n2)) {
-<span class="nc" id="L54">                    continue;</span>
+<span class="nc bnc" id="L59" title="All 32 branches missed.">                if ((edge1.from == 0 &amp;&amp; edge2.from != 0)</span>
+                            || (edge1.from != 0 &amp;&amp; edge2.from == 0)
+                            || (edge1.from == n1 &amp;&amp; edge2.from != n2)
+                            || (edge1.from != n1 &amp;&amp; edge2.from == n2)
+                            || (edge1.to == 0 &amp;&amp; edge2.to != 0)
+                            || (edge1.to != 0 &amp;&amp; edge2.to == 0)
+                            || (edge1.to == n1 &amp;&amp; edge2.to != n2)
+                            || (edge1.to != n1 &amp;&amp; edge2.to == n2)) {
+<span class="nc" id="L67">                    continue;</span>
                 }
 
                 final Set&lt;Expression&gt; intersect;
-<span class="nc bnc" id="L58" title="All 2 branches missed.">                if (edge1.getExpressionsSize() &lt;= edge2.getExpressionsSize()) {</span>
-<span class="nc" id="L59">                    intersect = new HashSet&lt;&gt;(edge1.getExpressions());</span>
-<span class="nc" id="L60">                    intersect.retainAll(edge2.getExpressions());</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">                if (edge1.getExpressionsSize() &lt;= edge2.getExpressionsSize()) {</span>
+<span class="nc" id="L72">                    intersect = new HashSet&lt;&gt;(edge1.getExpressions());</span>
+<span class="nc" id="L73">                    intersect.retainAll(edge2.getExpressions());</span>
                 } else {
-<span class="nc" id="L62">                    intersect = new HashSet&lt;&gt;(edge2.getExpressions());</span>
-<span class="nc" id="L63">                    intersect.retainAll(edge1.getExpressions());</span>
+<span class="nc" id="L75">                    intersect = new HashSet&lt;&gt;(edge2.getExpressions());</span>
+<span class="nc" id="L76">                    intersect.retainAll(edge1.getExpressions());</span>
                 }
 
-<span class="nc bnc" id="L66" title="All 2 branches missed.">                if (intersect.isEmpty()) {</span>
-<span class="nc" id="L67">                    continue;</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">                if (intersect.isEmpty()) {</span>
+<span class="nc" id="L80">                    continue;</span>
                 }
-<span class="nc" id="L69">                int from = edge1.from + edge2.from * (n1 + 1);</span>
-<span class="nc" id="L70">                int to = edge1.to + edge2.to * (n1 + 1);</span>
-<span class="nc" id="L71">                Edge edge = new Edge(from, to, intersect);</span>
-<span class="nc" id="L72">                newEdges.add(edge);</span>
-<span class="nc" id="L73">                addToDictionaries(fromMap, toMap, edge);</span>
-<span class="nc" id="L74">            }</span>
-<span class="nc" id="L75">        }</span>
+<span class="nc" id="L82">                int from = edge1.from + edge2.from * (n1 + 1);</span>
+<span class="nc" id="L83">                int to = edge1.to + edge2.to * (n1 + 1);</span>
+<span class="nc" id="L84">                Edge edge = new Edge(from, to, intersect);</span>
+<span class="nc" id="L85">                newEdges.add(edge);</span>
+<span class="nc" id="L86">                addToDictionaries(fromMap, toMap, edge);</span>
+<span class="nc" id="L87">            }</span>
+<span class="nc" id="L88">        }</span>
 
         // TODO(#wip): finish intersect
-<span class="nc" id="L78">        return null;</span>
+<span class="nc" id="L91">        return new Graph(0, newEdges);</span>
     }
 
     private static void addToDictionaries(List&lt;List&lt;Edge&gt;&gt; fromDict, List&lt;List&lt;Edge&gt;&gt; toDict, Edge edge) {
-<span class="nc bnc" id="L82" title="All 2 branches missed.">        if (fromDict.get(edge.from) == null)</span>
-<span class="nc" id="L83">            fromDict.set(edge.from, new ArrayList&lt;&gt;());</span>
-<span class="nc" id="L84">        fromDict.get(edge.from).add(edge);</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">        if (fromDict.get(edge.from) == null) {</span>
+<span class="nc" id="L96">            fromDict.set(edge.from, new ArrayList&lt;&gt;());</span>
+        }
+<span class="nc" id="L98">        fromDict.get(edge.from).add(edge);</span>
 
-<span class="nc bnc" id="L86" title="All 2 branches missed.">        if (toDict.get(edge.to) == null)</span>
-<span class="nc" id="L87">            toDict.set(edge.to, new ArrayList&lt;&gt;());</span>
-<span class="nc" id="L88">        toDict.get(edge.to).add(edge);</span>
-<span class="nc" id="L89">    }</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">        if (toDict.get(edge.to) == null) {</span>
+<span class="nc" id="L101">            toDict.set(edge.to, new ArrayList&lt;&gt;());</span>
+        }
+<span class="nc" id="L103">        toDict.get(edge.to).add(edge);</span>
+<span class="nc" id="L104">    }</span>
 
     // TODO(#api): extract the searching the path algorithm
     //  - So users can choose if they don't want to have the heuristics of getting the shortest path,
@@ -101,66 +116,67 @@ public class Graph {
      */
     public List&lt;Edge&gt; computeLocalOptimaPath() {
         // TODO(#check): check if this state can actually happen? (I guess with an empty graph after intersection?)
-<span class="pc bpc" id="L104" title="2 of 4 branches missed.">        if (edges == null || edges.isEmpty()) throw new IllegalStateException(&quot;Edges cannot be null or empty&quot;);</span>
+<span class="pc bpc" id="L119" title="2 of 4 branches missed.">        if (edges == null || edges.isEmpty()) throw new IllegalStateException(&quot;Edges cannot be null or empty&quot;);</span>
 
-<span class="fc" id="L106">        var directEdge = findDirectEdge();</span>
-<span class="pc bpc" id="L107" title="1 of 2 branches missed.">        if (directEdge.isPresent()) {</span>
-<span class="fc" id="L108">            return List.of(directEdge.get());</span>
+<span class="fc" id="L121">        Optional&lt;Edge&gt; directEdge = findDirectEdge();</span>
+<span class="pc bpc" id="L122" title="1 of 2 branches missed.">        if (directEdge.isPresent()) {</span>
+<span class="fc" id="L123">            return List.of(directEdge.get());</span>
         }
 
         /*
           Find the cheapest path from S to T
          */
         // init
-<span class="nc" id="L115">        int[] distance = new int[maxNode + 1];</span>
-<span class="nc" id="L116">        distance[0] = 0;</span>
-<span class="nc bnc" id="L117" title="All 2 branches missed.">        for (int i = 1; i &lt; distance.length; i++) {</span>
-<span class="nc" id="L118">            distance[i] = Integer.MAX_VALUE;</span>
+<span class="nc" id="L130">        int[] distance = new int[maxNode + 1];</span>
+<span class="nc" id="L131">        distance[0] = 0;</span>
+<span class="nc bnc" id="L132" title="All 2 branches missed.">        for (int i = 1; i &lt; distance.length; i++) {</span>
+<span class="nc" id="L133">            distance[i] = Integer.MAX_VALUE;</span>
         }
 
         // An array of edges (optimization!)
-<span class="nc" id="L122">        List&lt;Edge&gt;[] paths = new List[maxNode + 1];</span>
-<span class="nc" id="L123">        paths[0] = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L137">        List&lt;Edge&gt;[] paths = new List[maxNode + 1];</span>
+<span class="nc" id="L138">        paths[0] = new ArrayList&lt;&gt;();</span>
 
 
-<span class="nc" id="L126">        throw new UnsupportedOperationException(&quot;Not done yet!&quot;);</span>
+<span class="nc" id="L141">        throw new UnsupportedOperationException(&quot;Not done yet!&quot;);</span>
 //        return getAllTraceExpressions(directEdge);
         // TODO(#wip): handle intersect graph as well
     }
 
+    @SuppressWarnings(&quot;UnusedMethod&quot;)
     private List&lt;Expressions&gt; getAllTraceExpressions(Stream&lt;Edge&gt; edgeStream) {
-<span class="nc" id="L132">        return edgeStream</span>
-<span class="nc" id="L133">            .map(Edge::getExpressions)</span>
-            // TODO(#api): check whether we should use Set or List
-<span class="nc" id="L135">            .map(expressions -&gt; new Expressions(new ArrayList&lt;&gt;(expressions)))</span>
-<span class="nc" id="L136">            .collect(Collectors.toList());</span>
+<span class="nc" id="L148">        return edgeStream</span>
+<span class="nc" id="L149">                .map(Edge::getExpressions)</span>
+                // TODO(#api): check whether we should use Set or List
+<span class="nc" id="L151">                .map(expressions -&gt; new Expressions(new ArrayList&lt;&gt;(expressions)))</span>
+<span class="nc" id="L152">                .collect(Collectors.toList());</span>
     }
 
     private Optional&lt;Edge&gt; findDirectEdge() {
-<span class="fc" id="L140">        return edges.stream()</span>
-<span class="pc bpc" id="L141" title="2 of 4 branches missed.">            .filter(edge -&gt; edge.from == 0 &amp;&amp; edge.to == maxNode)</span>
-<span class="fc" id="L142">            .findFirst();</span>
+<span class="fc" id="L156">        return edges.stream()</span>
+<span class="pc bpc" id="L157" title="2 of 4 branches missed.">                .filter(edge -&gt; edge.from == 0 &amp;&amp; edge.to == maxNode)</span>
+<span class="fc" id="L158">                .findFirst();</span>
     }
 
     int getMaxNode() {
-<span class="fc" id="L146">        return maxNode;</span>
+<span class="fc" id="L162">        return maxNode;</span>
     }
 
     List&lt;Edge&gt; getEdges() {
-<span class="fc" id="L150">        return edges;</span>
+<span class="fc" id="L166">        return edges;</span>
     }
 
     @Override
     public String toString() {
-<span class="nc" id="L155">        var builder = new StringBuilder(String.format(&quot;Graph[%d]:\n&quot;, maxNode));</span>
-<span class="nc bnc" id="L156" title="All 2 branches missed.">        for (Edge edge : edges) {</span>
-<span class="nc" id="L157">            builder</span>
-<span class="nc" id="L158">                .append(&quot;\t&quot;)</span>
-<span class="nc" id="L159">                .append(edge.from).append(&quot; -{&quot;).append(edge.getExpressions().size()).append(&quot;}-&gt;&quot;).append(edge.to)</span>
-<span class="nc" id="L160">                .append(&quot;\n&quot;);</span>
-<span class="nc" id="L161">        }</span>
+<span class="nc" id="L171">        StringBuilder builder = new StringBuilder(String.format(&quot;Graph[%d]:%n&quot;, maxNode));</span>
+<span class="nc bnc" id="L172" title="All 2 branches missed.">        for (Edge edge : edges) {</span>
+<span class="nc" id="L173">            builder</span>
+<span class="nc" id="L174">                    .append(&quot;\t&quot;)</span>
+<span class="nc" id="L175">                    .append(edge.from).append(&quot; -{&quot;).append(edge.getExpressions().size()).append(&quot;}-&gt;&quot;).append(edge.to)</span>
+<span class="nc" id="L176">                    .append(&quot;\n&quot;);</span>
+<span class="nc" id="L177">        }</span>
 
-<span class="nc" id="L163">        return builder.toString();</span>
+<span class="nc" id="L179">        return builder.toString();</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

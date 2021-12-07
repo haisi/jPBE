@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PositionsBuilder.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jPBE</a> &gt; <a href="index.source.html" class="el_package">li.selman.jpbe.dsl.position</a> &gt; <span class="el_source">PositionsBuilder.java</span></div><h1>PositionsBuilder.java</h1><pre class="source lang-java linenums">/*
- * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ * (c) Copyright 2021 Hasan Selman Kara. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package li.selman.jpbe.dsl.position;
 
@@ -13,48 +25,49 @@ import java.util.stream.Collectors;
 
 /**
  * Wraps and applies multiple PositionBuilders.
+ *
  * @author Hasan Selman Kara
  */
-public class PositionsBuilder implements PositionBuilder {
+public final class PositionsBuilder implements PositionBuilder {
 
     private final List&lt;PositionBuilder&gt; positionBuilders;
 
     private String lastString;
-<span class="fc" id="L23">    private final Map&lt;Integer, Set&lt;Position&gt;&gt; cache = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L36">    private final Map&lt;Integer, Set&lt;Position&gt;&gt; cache = new HashMap&lt;&gt;();</span>
 
-<span class="fc" id="L25">    private PositionsBuilder(List&lt;PositionBuilder&gt; positionBuilders) {</span>
-<span class="fc" id="L26">        this.positionBuilders = positionBuilders;</span>
-<span class="fc" id="L27">    }</span>
+<span class="fc" id="L38">    private PositionsBuilder(List&lt;PositionBuilder&gt; positionBuilders) {</span>
+<span class="fc" id="L39">        this.positionBuilders = positionBuilders;</span>
+<span class="fc" id="L40">    }</span>
 
     public static PositionsBuilder of(List&lt;PositionBuilder&gt; positionBuilders) {
-<span class="nc" id="L30">        return new PositionsBuilder(positionBuilders);</span>
+<span class="nc" id="L43">        return new PositionsBuilder(positionBuilders);</span>
     }
 
     public static PositionsBuilder of(PositionBuilder... positionBuilders) {
-<span class="fc" id="L34">        return new PositionsBuilder(Arrays.asList(positionBuilders));</span>
+<span class="fc" id="L47">        return new PositionsBuilder(Arrays.asList(positionBuilders));</span>
     }
 
     @Override
     public Set&lt;Position&gt; computePositions(String input, int k) {
-<span class="pc bpc" id="L39" title="1 of 2 branches missed.">        if (k &lt; 0) throw new IllegalArgumentException(&quot;k cannot be &lt; 0&quot;);</span>
-<span class="pc bpc" id="L40" title="1 of 2 branches missed.">        if (k &gt; input.length()) throw new IllegalArgumentException(&quot;k cannot be &gt; input.length()&quot;);</span>
+<span class="pc bpc" id="L52" title="1 of 2 branches missed.">        if (k &lt; 0) throw new IllegalArgumentException(&quot;k cannot be &lt; 0&quot;);</span>
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">        if (k &gt; input.length()) throw new IllegalArgumentException(&quot;k cannot be &gt; input.length()&quot;);</span>
 
-<span class="pc bpc" id="L42" title="1 of 2 branches missed.">        if (input.equals(lastString)) {</span>
-<span class="nc" id="L43">            cache.clear();</span>
-<span class="nc" id="L44">            lastString = input;</span>
-<span class="fc bfc" id="L45" title="All 2 branches covered.">        } else if (cache.containsKey(k)) {</span>
-<span class="fc" id="L46">            return cache.get(k);</span>
+<span class="pc bpc" id="L55" title="1 of 2 branches missed.">        if (input.equals(lastString)) {</span>
+<span class="nc" id="L56">            cache.clear();</span>
+<span class="nc" id="L57">            lastString = input;</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">        } else if (cache.containsKey(k)) {</span>
+<span class="fc" id="L59">            return cache.get(k);</span>
         }
 
         // Compute positions given all configured PositionBuilders
-<span class="fc" id="L50">        Set&lt;Position&gt; unionOfFoundPositions = positionBuilders.stream()</span>
-<span class="fc" id="L51">            .map(positionBuilder -&gt; positionBuilder.computePositions(input, k))</span>
-<span class="fc" id="L52">            .flatMap(Collection::stream)</span>
-<span class="fc" id="L53">            .collect(Collectors.toSet());</span>
+<span class="fc" id="L63">        Set&lt;Position&gt; unionOfFoundPositions = positionBuilders.stream()</span>
+<span class="fc" id="L64">                .map(positionBuilder -&gt; positionBuilder.computePositions(input, k))</span>
+<span class="fc" id="L65">                .flatMap(Collection::stream)</span>
+<span class="fc" id="L66">                .collect(Collectors.toSet());</span>
 
-<span class="fc" id="L55">        cache.put(k, unionOfFoundPositions);</span>
-<span class="fc" id="L56">        return unionOfFoundPositions;</span>
+<span class="fc" id="L68">        cache.put(k, unionOfFoundPositions);</span>
+<span class="fc" id="L69">        return unionOfFoundPositions;</span>
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

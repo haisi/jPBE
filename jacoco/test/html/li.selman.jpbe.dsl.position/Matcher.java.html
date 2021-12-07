@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Matcher.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jPBE</a> &gt; <a href="index.source.html" class="el_package">li.selman.jpbe.dsl.position</a> &gt; <span class="el_source">Matcher.java</span></div><h1>Matcher.java</h1><pre class="source lang-java linenums">/*
- * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ * (c) Copyright 2021 Hasan Selman Kara. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package li.selman.jpbe.dsl.position;
 
@@ -19,52 +31,52 @@ final class Matcher {
     }
 
     static int positionOfRegex(TokenSequence r, String s, int from, int to) {
-<span class="pc bpc" id="L22" title="1 of 4 branches missed.">        if (to &lt; 1 || to &gt; s.length()) throw new IllegalArgumentException(&quot;'to' index is invalid.&quot;);</span>
-<span class="pc bpc" id="L23" title="2 of 4 branches missed.">        if (from &lt; 0 || from &gt;= s.length()) throw new IllegalArgumentException(&quot;'from' index is invalid.&quot;);</span>
-<span class="fc bfc" id="L24" title="All 2 branches covered.">        if (from &gt;= to) throw new IllegalArgumentException(&quot;'from' index must be smaller than 'to' index.&quot;);</span>
+<span class="pc bpc" id="L34" title="1 of 4 branches missed.">        if (to &lt; 1 || to &gt; s.length()) throw new IllegalArgumentException(&quot;'to' index is invalid.&quot;);</span>
+<span class="pc bpc" id="L35" title="2 of 4 branches missed.">        if (from &lt; 0 || from &gt;= s.length()) throw new IllegalArgumentException(&quot;'from' index is invalid.&quot;);</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">        if (from &gt;= to) throw new IllegalArgumentException(&quot;'from' index must be smaller than 'to' index.&quot;);</span>
 
-<span class="fc" id="L26">        List&lt;MatchResult&gt; matches = matches(r.getMergedPattern(), s);</span>
-<span class="fc bfc" id="L27" title="All 2 branches covered.">        if (matches.isEmpty()) throw new IllegalStateException(&quot;No matches found&quot;);</span>
+<span class="fc" id="L38">        List&lt;MatchResult&gt; matches = matches(r.getMergedPattern(), s);</span>
+<span class="fc bfc" id="L39" title="All 2 branches covered.">        if (matches.isEmpty()) throw new IllegalStateException(&quot;No matches found&quot;);</span>
 
-<span class="fc" id="L29">        int position = 1;</span>
-<span class="fc bfc" id="L30" title="All 2 branches covered.">        for (MatchResult match : matches) {</span>
-<span class="fc" id="L31">            int start = match.start();</span>
-<span class="fc" id="L32">            int end = match.end();</span>
+<span class="fc" id="L41">        int position = 1;</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">        for (MatchResult match : matches) {</span>
+<span class="fc" id="L43">            int start = match.start();</span>
+<span class="fc" id="L44">            int end = match.end();</span>
 
-<span class="fc bfc" id="L34" title="All 2 branches covered.">            if (inRange(from, to, start, end)) {</span>
-<span class="fc" id="L35">                return position;</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">            if (inRange(from, to, start, end)) {</span>
+<span class="fc" id="L47">                return position;</span>
             } else {
-<span class="fc" id="L37">                position++;</span>
+<span class="fc" id="L49">                position++;</span>
             }
-<span class="fc" id="L39">        }</span>
+<span class="fc" id="L51">        }</span>
 
-<span class="fc" id="L41">        throw new IllegalStateException(&quot;No matches&quot;);</span>
+<span class="fc" id="L53">        throw new IllegalStateException(&quot;No matches&quot;);</span>
     }
 
     /**
      * @return number of matches of {@code r} in {@code s} — 0 if there are none or the {@code r} is empty
      */
     static int totalNumberOfMatches(TokenSequence r, String s) {
-<span class="pc bpc" id="L48" title="1 of 2 branches missed.">        if (r.getNumberOfTokens() == 0) {</span>
-<span class="nc" id="L49">            return 0;</span>
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">        if (r.getNumberOfTokens() == 0) {</span>
+<span class="nc" id="L61">            return 0;</span>
         }
 
-<span class="fc" id="L52">        return matches(r.getMergedPattern(), s).size();</span>
+<span class="fc" id="L64">        return matches(r.getMergedPattern(), s).size();</span>
     }
 
     private static boolean inRange(int from, int to, int start, int end) {
-<span class="fc bfc" id="L56" title="All 4 branches covered.">        return from &gt;= start &amp;&amp; to &lt;= end;</span>
+<span class="fc bfc" id="L68" title="All 4 branches covered.">        return from &gt;= start &amp;&amp; to &lt;= end;</span>
     }
 
     static List&lt;MatchResult&gt; matches(final Pattern p, final CharSequence input) {
-<span class="fc" id="L60">        final java.util.regex.Matcher matcher = p.matcher(input);</span>
-<span class="fc" id="L61">        final List&lt;MatchResult&gt; matchResults = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L72">        final java.util.regex.Matcher matcher = p.matcher(input);</span>
+<span class="fc" id="L73">        final List&lt;MatchResult&gt; matchResults = new ArrayList&lt;&gt;();</span>
 
-<span class="fc bfc" id="L63" title="All 2 branches covered.">        while (matcher.find()) {</span>
-<span class="fc" id="L64">            matchResults.add(matcher.toMatchResult());</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">        while (matcher.find()) {</span>
+<span class="fc" id="L76">            matchResults.add(matcher.toMatchResult());</span>
         }
 
-<span class="fc" id="L67">        return matchResults;</span>
+<span class="fc" id="L79">        return matchResults;</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

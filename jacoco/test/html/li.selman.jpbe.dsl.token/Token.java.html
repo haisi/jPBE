@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Token.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jPBE</a> &gt; <a href="index.source.html" class="el_package">li.selman.jpbe.dsl.token</a> &gt; <span class="el_source">Token.java</span></div><h1>Token.java</h1><pre class="source lang-java linenums">/*
- * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ * (c) Copyright 2021 Hasan Selman Kara. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package li.selman.jpbe.dsl.token;
 
@@ -17,93 +29,95 @@ import java.util.regex.Pattern;
  */
 public abstract class Token {
 
-<span class="fc" id="L20">    public static final Token START = new Token.StartToken();</span>
-<span class="fc" id="L21">    public static final Token END = new Token.EndToken();</span>
+<span class="fc" id="L32">    public static final Token START = new Token.StartToken();</span>
+<span class="fc" id="L33">    public static final Token END = new Token.EndToken();</span>
 
-<span class="fc" id="L23">    public static final Token ALPHA = new Token.AlphaToken();</span>
-<span class="fc" id="L24">    public static final Token LOWER_ALPHA = new Token.LowerAlphaToken();</span>
-<span class="fc" id="L25">    public static final Token UPPER_ALPHA = new Token.UpperAlphaToken();</span>
+<span class="fc" id="L35">    public static final Token ALPHA = new Token.AlphaToken();</span>
+<span class="fc" id="L36">    public static final Token LOWER_ALPHA = new Token.LowerAlphaToken();</span>
+<span class="fc" id="L37">    public static final Token UPPER_ALPHA = new Token.UpperAlphaToken();</span>
 
-<span class="fc" id="L27">    public static final Token LEADING_ZERO = new Token.LeadingZeroToken();</span>
-<span class="fc" id="L28">    public static final Token NUM = new Token.NumToken();</span>
-<span class="fc" id="L29">    public static final Token NUM_NO_LEADING_ZEROS = new NumNoLeadingZerosToken();</span>
-<span class="fc" id="L30">    public static final Token ALPHA_NUM = new Token.AlphaNumToken();</span>
-<span class="fc" id="L31">    public static final Token ALPHA_NUM_NO_LEADING_ZEROS = new Token.AlphaNumNoLeadingZerosToken();</span>
+<span class="fc" id="L39">    public static final Token LEADING_ZERO = new Token.LeadingZeroToken();</span>
+<span class="fc" id="L40">    public static final Token NUM = new Token.NumToken();</span>
+<span class="fc" id="L41">    public static final Token NUM_NO_LEADING_ZEROS = new NumNoLeadingZerosToken();</span>
+<span class="fc" id="L42">    public static final Token ALPHA_NUM = new Token.AlphaNumToken();</span>
+<span class="fc" id="L43">    public static final Token ALPHA_NUM_NO_LEADING_ZEROS = new Token.AlphaNumNoLeadingZerosToken();</span>
 
-<span class="fc" id="L33">    public static final Token SPACE = new Token.SpaceToken();</span>
+<span class="fc" id="L45">    public static final Token SPACE = new Token.SpaceToken();</span>
 
-<span class="fc" id="L35">    public static final Token COLON = new Token.ColonToken();</span>
-<span class="fc" id="L36">    public static final Token SEMI_COLON = new Token.SemiColonToken();</span>
+<span class="fc" id="L47">    public static final Token COLON = new Token.ColonToken();</span>
+<span class="fc" id="L48">    public static final Token SEMI_COLON = new Token.SemiColonToken();</span>
 
-<span class="fc" id="L38">    public static final Token DOT = new Token.DotToken();</span>
-<span class="fc" id="L39">    public static final Token COMMA = new Token.CommaToken();</span>
+<span class="fc" id="L50">    public static final Token DOT = new Token.DotToken();</span>
+<span class="fc" id="L51">    public static final Token COMMA = new Token.CommaToken();</span>
 
-<span class="fc" id="L41">    public static final Token HYPHEN = new Token.HyphenToken();</span>
-<span class="fc" id="L42">    public static final Token UNDERSCORE = new Token.UnderscoreToken();</span>
+<span class="fc" id="L53">    public static final Token HYPHEN = new Token.HyphenToken();</span>
+<span class="fc" id="L54">    public static final Token UNDERSCORE = new Token.UnderscoreToken();</span>
 
-<span class="fc" id="L44">    public static final Token BACK_SLASH = new Token.BackSlashToken();</span>
-<span class="fc" id="L45">    public static final Token FORWARD_SLASH = new Token.ForwardSlashToken();</span>
+<span class="fc" id="L56">    public static final Token BACK_SLASH = new Token.BackSlashToken();</span>
+<span class="fc" id="L57">    public static final Token FORWARD_SLASH = new Token.ForwardSlashToken();</span>
 
     private final Pattern pattern;
 
-<span class="fc" id="L49">    public Token(Pattern pattern) {</span>
-<span class="pc bpc" id="L50" title="1 of 2 branches missed.">        if (pattern == null) throw new IllegalArgumentException(&quot;Pattern cannot be null&quot;);</span>
+<span class="fc" id="L61">    public Token(Pattern pattern) {</span>
+<span class="pc bpc" id="L62" title="1 of 2 branches missed.">        if (pattern == null) throw new IllegalArgumentException(&quot;Pattern cannot be null&quot;);</span>
 
-<span class="fc" id="L52">        this.pattern = pattern;</span>
-<span class="fc" id="L53">    }</span>
+<span class="fc" id="L64">        this.pattern = pattern;</span>
+<span class="fc" id="L65">    }</span>
 
     public final Pattern getPattern() {
-<span class="fc" id="L56">        return pattern;</span>
+<span class="fc" id="L68">        return pattern;</span>
     }
 
     public final String getRegexPattern() {
-<span class="fc" id="L60">        return pattern.pattern();</span>
+<span class="fc" id="L72">        return pattern.pattern();</span>
     }
 
     /**
      * Check whether a string matches the pattern.
+     *
      * @param s to match
      * @return {@code true} if the s matches the Regex
      */
     public boolean matches(String s) {
-<span class="fc" id="L69">        return pattern.matcher(s).matches();</span>
+<span class="fc" id="L82">        return pattern.matcher(s).matches();</span>
     }
 
     /**
      * Checks whether a single character matches the token.
+     *
      * @param c to match
      * @return {@code true} if the c matches the Regex
      */
     public boolean matches(char c) {
-<span class="fc" id="L78">        return matches(String.valueOf(c));</span>
+<span class="fc" id="L92">        return matches(String.valueOf(c));</span>
     }
 
     public boolean matches(String s, Token lastToken) {
-<span class="nc" id="L82">        return matches(s);</span>
+<span class="nc" id="L96">        return matches(s);</span>
     }
 
     public boolean matches(char c, Token lastToken) {
-<span class="fc" id="L86">        return matches(c);</span>
+<span class="fc" id="L100">        return matches(c);</span>
     }
 
     @Override
     public String toString() {
-<span class="fc" id="L91">        return pattern.toString();</span>
+<span class="fc" id="L105">        return pattern.toString();</span>
     }
 
     @Override
     public boolean equals(Object o) {
-<span class="fc bfc" id="L96" title="All 2 branches covered.">        if (this == o) return true;</span>
-<span class="pc bpc" id="L97" title="2 of 4 branches missed.">        if (o == null || getClass() != o.getClass()) return false;</span>
+<span class="fc bfc" id="L110" title="All 2 branches covered.">        if (this == o) return true;</span>
+<span class="pc bpc" id="L111" title="2 of 4 branches missed.">        if (o == null || getClass() != o.getClass()) return false;</span>
 
-<span class="nc" id="L99">        Token token = (Token) o;</span>
+<span class="nc" id="L113">        Token token = (Token) o;</span>
 
-<span class="nc" id="L101">        return pattern.equals(token.pattern);</span>
+<span class="nc" id="L115">        return pattern.equals(token.pattern);</span>
     }
 
     @Override
     public int hashCode() {
-<span class="fc" id="L106">        return pattern.hashCode();</span>
+<span class="fc" id="L120">        return pattern.hashCode();</span>
     }
 
     // TODO(#idea): do we need Token.EVERYTHING ?
@@ -111,178 +125,178 @@ public abstract class Token {
     //  I.e. we could represent it with `TokenSequence.of(List.of(Token.EVERYTHING))`
     private static class EverythingToken extends Token {
         EverythingToken() {
-<span class="nc" id="L114">            super(Pattern.compile(&quot;(.*?)&quot;));</span>
-<span class="nc" id="L115">        }</span>
+<span class="nc" id="L128">            super(Pattern.compile(&quot;(.*?)&quot;));</span>
+<span class="nc" id="L129">        }</span>
     }
 
     private static class StartToken extends Token {
         StartToken() {
-<span class="fc" id="L120">            super(Pattern.compile(&quot;^&quot;));</span>
-<span class="fc" id="L121">        }</span>
+<span class="fc" id="L134">            super(Pattern.compile(&quot;^&quot;));</span>
+<span class="fc" id="L135">        }</span>
     }
 
     private static class EndToken extends Token {
         EndToken() {
-<span class="fc" id="L126">            super(Pattern.compile(&quot;$&quot;));</span>
-<span class="fc" id="L127">        }</span>
+<span class="fc" id="L140">            super(Pattern.compile(&quot;$&quot;));</span>
+<span class="fc" id="L141">        }</span>
     }
 
     private static class AlphaToken extends Token {
         AlphaToken() {
-<span class="fc" id="L132">            super(Pattern.compile(&quot;[a-zA-Z]+&quot;));</span>
-<span class="fc" id="L133">        }</span>
+<span class="fc" id="L146">            super(Pattern.compile(&quot;[a-zA-Z]+&quot;));</span>
+<span class="fc" id="L147">        }</span>
     }
 
     private static class LowerAlphaToken extends Token {
         LowerAlphaToken() {
-<span class="fc" id="L138">            super(Pattern.compile(&quot;[a-z]+&quot;));</span>
-<span class="fc" id="L139">        }</span>
+<span class="fc" id="L152">            super(Pattern.compile(&quot;[a-z]+&quot;));</span>
+<span class="fc" id="L153">        }</span>
     }
 
     private static class UpperAlphaToken extends Token {
         UpperAlphaToken() {
-<span class="fc" id="L144">            super(Pattern.compile(&quot;[A-Z]+&quot;));</span>
-<span class="fc" id="L145">        }</span>
+<span class="fc" id="L158">            super(Pattern.compile(&quot;[A-Z]+&quot;));</span>
+<span class="fc" id="L159">        }</span>
     }
 
     private static class LeadingZeroToken extends Token {
         LeadingZeroToken() {
-<span class="fc" id="L150">            super(Pattern.compile(&quot;(^)[0]+&quot;));</span>
-<span class="fc" id="L151">        }</span>
+<span class="fc" id="L164">            super(Pattern.compile(&quot;(^)[0]+&quot;));</span>
+<span class="fc" id="L165">        }</span>
 
         @Override
         public boolean matches(String s, Token lastToken) {
-<span class="fc bfc" id="L155" title="All 4 branches covered.">            return (&quot;0&quot;.equals(s) &amp;&amp; Token.START.equals(lastToken))</span>
-<span class="fc bfc" id="L156" title="All 4 branches covered.">                || (&quot;0&quot;.equals(s) &amp;&amp; Token.LEADING_ZERO.equals(lastToken));</span>
+<span class="fc bfc" id="L169" title="All 4 branches covered.">            return (&quot;0&quot;.equals(s) &amp;&amp; Token.START.equals(lastToken))</span>
+<span class="fc bfc" id="L170" title="All 4 branches covered.">                           || (&quot;0&quot;.equals(s) &amp;&amp; Token.LEADING_ZERO.equals(lastToken));</span>
         }
 
         @Override
         public boolean matches(char c, Token lastToken) {
-<span class="fc" id="L161">            return this.matches(String.valueOf(c), lastToken);</span>
+<span class="fc" id="L175">            return this.matches(String.valueOf(c), lastToken);</span>
         }
     }
 
     private static class NumNoLeadingZerosToken extends Token {
         NumNoLeadingZerosToken() {
-<span class="fc" id="L167">            super(Pattern.compile(&quot;([1-9]+[0-9]*)&quot;));</span>
-<span class="fc" id="L168">        }</span>
+<span class="fc" id="L181">            super(Pattern.compile(&quot;([1-9]+[0-9]*)&quot;));</span>
+<span class="fc" id="L182">        }</span>
 
         @Override
         public boolean matches(String s, Token lastToken) {
-<span class="nc bnc" id="L172" title="All 2 branches missed.">            if (&quot;0&quot;.equals(s)) {</span>
-<span class="nc bnc" id="L173" title="All 2 branches missed.">                return !Token.LEADING_ZERO.equals(lastToken);</span>
+<span class="nc bnc" id="L186" title="All 2 branches missed.">            if (&quot;0&quot;.equals(s)) {</span>
+<span class="nc bnc" id="L187" title="All 2 branches missed.">                return !Token.LEADING_ZERO.equals(lastToken);</span>
             } else {
-<span class="nc" id="L175">                return isPositiveNumeric(s);</span>
+<span class="nc" id="L189">                return isPositiveNumeric(s);</span>
             }
         }
 
         @Override
         public boolean matches(char c, Token lastToken) {
-<span class="fc bfc" id="L181" title="All 2 branches covered.">            if (c == '0') {</span>
-<span class="pc bpc" id="L182" title="1 of 2 branches missed.">                return !Token.LEADING_ZERO.equals(lastToken);</span>
+<span class="fc bfc" id="L195" title="All 2 branches covered.">            if (c == '0') {</span>
+<span class="pc bpc" id="L196" title="1 of 2 branches missed.">                return !Token.LEADING_ZERO.equals(lastToken);</span>
             } else {
-<span class="fc" id="L184">                return Character.isDigit(c);</span>
+<span class="fc" id="L198">                return Character.isDigit(c);</span>
             }
         }
 
         private static boolean isPositiveNumeric(String str) {
-<span class="nc bnc" id="L189" title="All 2 branches missed.">            for (char c : str.toCharArray()) {</span>
-<span class="nc bnc" id="L190" title="All 2 branches missed.">                if (!Character.isDigit(c)) return false;</span>
+<span class="nc bnc" id="L203" title="All 2 branches missed.">            for (int i = 0; i &lt; str.length(); i++) {</span>
+<span class="nc bnc" id="L204" title="All 2 branches missed.">                if (!Character.isDigit(str.charAt(i))) return false;</span>
             }
-<span class="nc" id="L192">            return true;</span>
+<span class="nc" id="L206">            return true;</span>
         }
     }
 
     private static class NumToken extends Token {
         NumToken() {
-<span class="fc" id="L198">            super(Pattern.compile(&quot;[0-9]+&quot;));</span>
-<span class="fc" id="L199">        }</span>
+<span class="fc" id="L212">            super(Pattern.compile(&quot;[0-9]+&quot;));</span>
+<span class="fc" id="L213">        }</span>
     }
 
     private static class AlphaNumToken extends Token {
         AlphaNumToken() {
-<span class="fc" id="L204">            super(Pattern.compile(&quot;[a-zA-Z0-9]+&quot;));</span>
-<span class="fc" id="L205">        }</span>
+<span class="fc" id="L218">            super(Pattern.compile(&quot;[a-zA-Z0-9]+&quot;));</span>
+<span class="fc" id="L219">        }</span>
 
         @Override
         public String toString() {
-<span class="fc" id="L209">            return &quot;AN&quot;;</span>
+<span class="fc" id="L223">            return &quot;AN&quot;;</span>
         }
     }
 
     private static class AlphaNumNoLeadingZerosToken extends Token {
         AlphaNumNoLeadingZerosToken() {
-<span class="fc" id="L215">            super(Pattern.compile(&quot;([a-zA-Z1-9]+[0-9]*[a-zA-Z]*)&quot;));</span>
-<span class="fc" id="L216">        }</span>
+<span class="fc" id="L229">            super(Pattern.compile(&quot;([a-zA-Z1-9]+[0-9]*[a-zA-Z]*)&quot;));</span>
+<span class="fc" id="L230">        }</span>
 
         @Override
         public String toString() {
-<span class="nc" id="L220">            return &quot;AN-0&quot;;</span>
+<span class="nc" id="L234">            return &quot;AN-0&quot;;</span>
         }
     }
 
     private static class SpaceToken extends Token {
         SpaceToken() {
-<span class="fc" id="L226">            super(Pattern.compile(&quot;[\\s]+&quot;));</span>
-<span class="fc" id="L227">        }</span>
+<span class="fc" id="L240">            super(Pattern.compile(&quot;[\\s]+&quot;));</span>
+<span class="fc" id="L241">        }</span>
 
         @Override
         public String toString() {
-<span class="fc" id="L231">            return &quot;s+&quot;;</span>
+<span class="fc" id="L245">            return &quot;s+&quot;;</span>
         }
     }
 
     private static class DotToken extends Token {
         DotToken() {
-<span class="fc" id="L237">            super(Pattern.compile(&quot;[\\.]+&quot;));</span>
-<span class="fc" id="L238">        }</span>
+<span class="fc" id="L251">            super(Pattern.compile(&quot;[\\.]+&quot;));</span>
+<span class="fc" id="L252">        }</span>
 
         @Override
         public String toString() {
-<span class="fc" id="L242">            return &quot;.&quot;;</span>
+<span class="fc" id="L256">            return &quot;.&quot;;</span>
         }
     }
 
     private static class ColonToken extends Token {
         ColonToken() {
-<span class="fc" id="L248">            super(Pattern.compile(&quot;[:]+&quot;));</span>
-<span class="fc" id="L249">        }</span>
+<span class="fc" id="L262">            super(Pattern.compile(&quot;[:]+&quot;));</span>
+<span class="fc" id="L263">        }</span>
     }
 
     private static class CommaToken extends Token {
         CommaToken() {
-<span class="fc" id="L254">            super(Pattern.compile(&quot;[\\,]+&quot;));</span>
-<span class="fc" id="L255">        }</span>
+<span class="fc" id="L268">            super(Pattern.compile(&quot;[\\,]+&quot;));</span>
+<span class="fc" id="L269">        }</span>
     }
 
     private static class SemiColonToken extends Token {
         SemiColonToken() {
-<span class="fc" id="L260">            super(Pattern.compile(&quot;[;]+&quot;));</span>
-<span class="fc" id="L261">        }</span>
+<span class="fc" id="L274">            super(Pattern.compile(&quot;[;]+&quot;));</span>
+<span class="fc" id="L275">        }</span>
     }
 
     private static class BackSlashToken extends Token {
         BackSlashToken() {
-<span class="fc" id="L266">            super(Pattern.compile(&quot;[\\\\]+&quot;));</span>
-<span class="fc" id="L267">        }</span>
+<span class="fc" id="L280">            super(Pattern.compile(&quot;[\\\\]+&quot;));</span>
+<span class="fc" id="L281">        }</span>
     }
 
     private static class ForwardSlashToken extends Token {
         ForwardSlashToken() {
-<span class="fc" id="L272">            super(Pattern.compile(&quot;[/]+&quot;));</span>
-<span class="fc" id="L273">        }</span>
+<span class="fc" id="L286">            super(Pattern.compile(&quot;[/]+&quot;));</span>
+<span class="fc" id="L287">        }</span>
     }
 
     private static class HyphenToken extends Token {
         HyphenToken() {
-<span class="fc" id="L278">            super(Pattern.compile(&quot;[-]+&quot;));</span>
-<span class="fc" id="L279">        }</span>
+<span class="fc" id="L292">            super(Pattern.compile(&quot;[-]+&quot;));</span>
+<span class="fc" id="L293">        }</span>
     }
 
     private static class UnderscoreToken extends Token {
         UnderscoreToken() {
-<span class="fc" id="L284">            super(Pattern.compile(&quot;[_]+&quot;));</span>
-<span class="fc" id="L285">        }</span>
+<span class="fc" id="L298">            super(Pattern.compile(&quot;[_]+&quot;));</span>
+<span class="fc" id="L299">        }</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

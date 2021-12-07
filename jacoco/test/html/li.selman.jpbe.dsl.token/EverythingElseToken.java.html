@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EverythingElseToken.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jPBE</a> &gt; <a href="index.source.html" class="el_package">li.selman.jpbe.dsl.token</a> &gt; <span class="el_source">EverythingElseToken.java</span></div><h1>EverythingElseToken.java</h1><pre class="source lang-java linenums">/*
- * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ * (c) Copyright 2021 Hasan Selman Kara. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package li.selman.jpbe.dsl.token;
 
@@ -23,37 +35,37 @@ final class EverythingElseToken extends Token {
     private static final String negationSuffix = &quot;]&quot;;
 
     private EverythingElseToken(Pattern pattern) {
-<span class="fc" id="L26">        super(pattern);</span>
-<span class="fc" id="L27">    }</span>
+<span class="fc" id="L38">        super(pattern);</span>
+<span class="fc" id="L39">    }</span>
 
     public static EverythingElseToken generate(List&lt;Token&gt; usedTokens) {
-<span class="fc" id="L30">        Stream&lt;String&gt; regexPattern = getRegexPattern(usedTokens);</span>
-<span class="fc" id="L31">        Stream&lt;String&gt; preparedForNegation = prepareForNegation(regexPattern);</span>
-<span class="fc" id="L32">        String orJoinedPattern = orJoinPatterns(preparedForNegation);</span>
-<span class="fc" id="L33">        String negatedPattern = negationPrefix + orJoinedPattern + negationSuffix;</span>
+<span class="fc" id="L42">        Stream&lt;String&gt; regexPattern = getRegexPattern(usedTokens);</span>
+<span class="fc" id="L43">        Stream&lt;String&gt; preparedForNegation = prepareForNegation(regexPattern);</span>
+<span class="fc" id="L44">        String orJoinedPattern = orJoinPatterns(preparedForNegation);</span>
+<span class="fc" id="L45">        String negatedPattern = negationPrefix + orJoinedPattern + negationSuffix;</span>
 
-<span class="fc" id="L35">        return new EverythingElseToken(Pattern.compile(negatedPattern));</span>
+<span class="fc" id="L47">        return new EverythingElseToken(Pattern.compile(negatedPattern));</span>
     }
 
     private static String orJoinPatterns(Stream&lt;String&gt; preparedForNegation) {
-<span class="fc" id="L39">        return preparedForNegation</span>
-<span class="fc" id="L40">            .collect(Collectors.joining(&quot;|&quot;));</span>
+<span class="fc" id="L51">        return preparedForNegation</span>
+<span class="fc" id="L52">                .collect(Collectors.joining(&quot;|&quot;));</span>
     }
 
     private static Stream&lt;String&gt; prepareForNegation(Stream&lt;String&gt; regexPattern) {
-<span class="fc" id="L44">        return regexPattern</span>
-<span class="fc" id="L45">            .map(pattern -&gt; pattern.replaceAll(&quot;[\\[\\]]&quot;, &quot;&quot;));</span>
+<span class="fc" id="L56">        return regexPattern</span>
+<span class="fc" id="L57">                .map(pattern -&gt; pattern.replaceAll(&quot;[\\[\\]]&quot;, &quot;&quot;));</span>
     }
 
     private static Stream&lt;String&gt; getRegexPattern(List&lt;Token&gt; usedTokens) {
-<span class="fc" id="L49">        return usedTokens.stream()</span>
-<span class="fc" id="L50">            .map(Token::getPattern)</span>
-<span class="fc" id="L51">            .map(Pattern::pattern);</span>
+<span class="fc" id="L61">        return usedTokens.stream()</span>
+<span class="fc" id="L62">                .map(Token::getPattern)</span>
+<span class="fc" id="L63">                .map(Pattern::pattern);</span>
     }
 
     @Override
     public String toString() {
-<span class="nc" id="L56">        return &quot;ELSE&quot;;</span>
+<span class="nc" id="L68">        return &quot;ELSE&quot;;</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

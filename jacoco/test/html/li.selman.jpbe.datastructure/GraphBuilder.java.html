@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GraphBuilder.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jPBE</a> &gt; <a href="index.source.html" class="el_package">li.selman.jpbe.datastructure</a> &gt; <span class="el_source">GraphBuilder.java</span></div><h1>GraphBuilder.java</h1><pre class="source lang-java linenums">/*
- * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ * (c) Copyright 2021 Hasan Selman Kara. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package li.selman.jpbe.datastructure;
 
@@ -20,11 +32,11 @@ public class GraphBuilder {
     /**
      * @throws IllegalArgumentException if {@code expressionBuilders} is empty
      */
-<span class="fc" id="L23">    public GraphBuilder(List&lt;ExpressionBuilder&gt; expressionBuilders) throws IllegalArgumentException {</span>
-<span class="pc bpc" id="L24" title="1 of 2 branches missed.">        if (expressionBuilders.isEmpty()) throw new IllegalArgumentException(&quot;ExpressionBuilders cannot be empty&quot;);</span>
+<span class="fc" id="L35">    public GraphBuilder(List&lt;ExpressionBuilder&gt; expressionBuilders) throws IllegalArgumentException {</span>
+<span class="pc bpc" id="L36" title="1 of 2 branches missed.">        if (expressionBuilders.isEmpty()) throw new IllegalArgumentException(&quot;ExpressionBuilders cannot be empty&quot;);</span>
 
-<span class="fc" id="L26">        this.expressionBuilders = new ArrayList&lt;&gt;(expressionBuilders);</span>
-<span class="fc" id="L27">    }</span>
+<span class="fc" id="L38">        this.expressionBuilders = new ArrayList&lt;&gt;(expressionBuilders);</span>
+<span class="fc" id="L39">    }</span>
 
     /**
      * Creates a directed acyclic graph where each node represents the index between two characters of
@@ -38,29 +50,29 @@ public class GraphBuilder {
      */
     public Graph createAllPrograms(final String input, final String output) {
 
-<span class="fc" id="L41">        int size = output.length() * output.length() / 2;</span>
-<span class="fc" id="L42">        final List&lt;Edge&gt; edges = new ArrayList&lt;&gt;(size);</span>
+<span class="fc" id="L53">        int size = output.length() * output.length() / 2;</span>
+<span class="fc" id="L54">        final List&lt;Edge&gt; edges = new ArrayList&lt;&gt;(size);</span>
 
         // Loop over all possible substrings of 'output' (n * n / 2)
-<span class="fc bfc" id="L45" title="All 2 branches covered.">        for (int from = 0; from &lt; output.length(); from++) {</span>
-<span class="fc bfc" id="L46" title="All 2 branches covered.">            for (int to = from + 1; to &lt;= output.length(); to++) {</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">        for (int from = 0; from &lt; output.length(); from++) {</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">            for (int to = from + 1; to &lt;= output.length(); to++) {</span>
 
                 // For each substring find all expressions f, so that f(input) = substring
-<span class="fc" id="L49">                var substring = output.substring(from, to);</span>
+<span class="fc" id="L61">                String substring = output.substring(from, to);</span>
 
                 // All expression for which `f(input) = substr` applies
-<span class="fc" id="L52">                Set&lt;Expression&gt; expressions = expressionBuilders.stream()</span>
-                    // TODO(#bug): creates too many SubstringExpressions
-<span class="fc" id="L54">                    .map(expressionBuilder -&gt; expressionBuilder.computeExpressions(input, substring))</span>
-<span class="fc" id="L55">                    .flatMap(List::stream)</span>
-<span class="fc" id="L56">                    .collect(Collectors.toSet());</span>
+<span class="fc" id="L64">                Set&lt;Expression&gt; expressions = expressionBuilders.stream()</span>
+                        // TODO(#bug): creates too many SubstringExpressions
+<span class="fc" id="L66">                        .map(expressionBuilder -&gt; expressionBuilder.computeExpressions(input, substring))</span>
+<span class="fc" id="L67">                        .flatMap(List::stream)</span>
+<span class="fc" id="L68">                        .collect(Collectors.toSet());</span>
 
-<span class="fc" id="L58">                edges.add(new Edge(from, to, expressions));</span>
+<span class="fc" id="L70">                edges.add(new Edge(from, to, expressions));</span>
             }
         }
 
-<span class="fc" id="L62">        return new Graph(output.length(), edges);</span>
+<span class="fc" id="L74">        return new Graph(output.length(), edges);</span>
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

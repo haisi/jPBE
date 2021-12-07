@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StartToFinishPath.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jPBE</a> &gt; <a href="index.source.html" class="el_package">li.selman.jpbe.datastructure</a> &gt; <span class="el_source">StartToFinishPath.java</span></div><h1>StartToFinishPath.java</h1><pre class="source lang-java linenums">/*
- * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ * (c) Copyright 2021 Hasan Selman Kara. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package li.selman.jpbe.datastructure;
 
@@ -27,60 +39,60 @@ public class StartToFinishPath {
      * @param edges must be ordered from S to T.
      * @throws IllegalArgumentException if edges are null or empty
      */
-<span class="fc" id="L30">    StartToFinishPath(List&lt;Edge&gt; edges, int maxNode) {</span>
-<span class="pc bpc" id="L31" title="2 of 4 branches missed.">        if (edges == null || edges.isEmpty()) throw new IllegalArgumentException(&quot;Paths cannot be null or empty&quot;);</span>
-<span class="pc bpc" id="L32" title="1 of 2 branches missed.">        if (!isOrdered(edges, maxNode)) throw new IllegalArgumentException(&quot;Edges are not ordered&quot;);</span>
+<span class="fc" id="L42">    StartToFinishPath(List&lt;Edge&gt; edges, int maxNode) {</span>
+<span class="pc bpc" id="L43" title="2 of 4 branches missed.">        if (edges == null || edges.isEmpty()) throw new IllegalArgumentException(&quot;Paths cannot be null or empty&quot;);</span>
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">        if (!isOrdered(edges, maxNode)) throw new IllegalArgumentException(&quot;Edges are not ordered&quot;);</span>
 
-<span class="fc" id="L34">        this.path = edges;</span>
-<span class="fc" id="L35">    }</span>
+<span class="fc" id="L46">        this.path = edges;</span>
+<span class="fc" id="L47">    }</span>
 
     private boolean isOrdered(List&lt;Edge&gt; edges, int maxNode) {
-<span class="fc" id="L38">        int previousTo = 0;</span>
-<span class="fc" id="L39">        final int lastIdx = edges.size() - 1;</span>
-<span class="fc bfc" id="L40" title="All 2 branches covered.">        for (int i = 0; i &lt; edges.size(); i++) {</span>
-<span class="fc" id="L41">            var edge = edges.get(i);</span>
+<span class="fc" id="L50">        int previousTo = 0;</span>
+<span class="fc" id="L51">        final int lastIdx = edges.size() - 1;</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">        for (int i = 0; i &lt; edges.size(); i++) {</span>
+<span class="fc" id="L53">            Edge edge = edges.get(i);</span>
 
-<span class="pc bpc" id="L43" title="1 of 2 branches missed.">            if (firstEdgeDoesNotStartsFromZero(i, edge)) return false;</span>
-<span class="pc bpc" id="L44" title="1 of 2 branches missed.">            if (lastEdgeDoesNotFinishAtMaxNode(lastIdx, i, edge, maxNode)) return false;</span>
+<span class="pc bpc" id="L55" title="1 of 2 branches missed.">            if (firstEdgeDoesNotStartsFromZero(i, edge)) return false;</span>
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">            if (lastEdgeDoesNotFinishAtMaxNode(lastIdx, i, edge, maxNode)) return false;</span>
 
-<span class="pc bpc" id="L46" title="1 of 2 branches missed.">            if (edge.from != previousTo) {</span>
-<span class="nc" id="L47">                return false;</span>
+<span class="pc bpc" id="L58" title="1 of 2 branches missed.">            if (edge.from != previousTo) {</span>
+<span class="nc" id="L59">                return false;</span>
             } else {
-<span class="fc" id="L49">                previousTo = edge.to;</span>
+<span class="fc" id="L61">                previousTo = edge.to;</span>
             }
         }
 
-<span class="fc" id="L53">        return true;</span>
+<span class="fc" id="L65">        return true;</span>
     }
 
     private boolean lastEdgeDoesNotFinishAtMaxNode(int lastIdx, int i, Edge edge, int maxNode) {
-<span class="fc bfc" id="L57" title="All 2 branches covered.">        if (i == lastIdx) {</span>
-<span class="pc bpc" id="L58" title="1 of 2 branches missed.">            return edge.to != maxNode;</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">        if (i == lastIdx) {</span>
+<span class="pc bpc" id="L70" title="1 of 2 branches missed.">            return edge.to != maxNode;</span>
         }
-<span class="fc" id="L60">        return false;</span>
+<span class="fc" id="L72">        return false;</span>
     }
 
     private boolean firstEdgeDoesNotStartsFromZero(int i, Edge edge) {
-<span class="fc bfc" id="L64" title="All 2 branches covered.">        if (i == 0) {</span>
-<span class="pc bpc" id="L65" title="1 of 2 branches missed.">            return edge.from != 0;</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">        if (i == 0) {</span>
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">            return edge.from != 0;</span>
         }
-<span class="fc" id="L67">        return false;</span>
+<span class="fc" id="L79">        return false;</span>
     }
 
     private static Expression smallestExpressionOfEachEdge(Edge edge) {
-<span class="fc" id="L71">        return edge.getExpressions()</span>
-<span class="fc" id="L72">            .stream()</span>
-<span class="fc" id="L73">            .min(Comparator.comparingInt(Expression::getDslWeight))</span>
-<span class="pc" id="L74">            .orElseThrow(() -&gt; new RuntimeException(&quot;Edge cannot have no elements: &quot; + edge));</span>
+<span class="fc" id="L83">        return edge.getExpressions()</span>
+<span class="fc" id="L84">                .stream()</span>
+<span class="fc" id="L85">                .min(Comparator.comparingInt(Expression::getDslWeight))</span>
+<span class="pc" id="L86">                .orElseThrow(() -&gt; new RuntimeException(&quot;Edge cannot have no elements: &quot; + edge));</span>
     }
 
     public Expressions computeOptimalTraceExpression() {
-<span class="fc" id="L78">        List&lt;Expression&gt; optimalExpressions = path.stream()</span>
-<span class="fc" id="L79">            .map(StartToFinishPath::smallestExpressionOfEachEdge)</span>
-<span class="fc" id="L80">            .collect(Collectors.toUnmodifiableList());</span>
+<span class="fc" id="L90">        List&lt;Expression&gt; optimalExpressions = path.stream()</span>
+<span class="fc" id="L91">                .map(StartToFinishPath::smallestExpressionOfEachEdge)</span>
+<span class="fc" id="L92">                .collect(Collectors.toUnmodifiableList());</span>
 
-<span class="fc" id="L82">        return new Expressions(optimalExpressions);</span>
+<span class="fc" id="L94">        return new Expressions(optimalExpressions);</span>
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

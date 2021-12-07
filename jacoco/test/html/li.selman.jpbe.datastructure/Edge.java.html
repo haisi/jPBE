@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Edge.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jPBE</a> &gt; <a href="index.source.html" class="el_package">li.selman.jpbe.datastructure</a> &gt; <span class="el_source">Edge.java</span></div><h1>Edge.java</h1><pre class="source lang-java linenums">/*
- * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ * (c) Copyright 2021 Hasan Selman Kara. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package li.selman.jpbe.datastructure;
 
@@ -20,60 +32,63 @@ import li.selman.jpbe.dsl.Expression;
  * &lt;p&gt;
  * For example: Given i_1 = &quot;Joe Bob 1990.12.3&quot; and output o_1 = &quot;Bob 1990&quot;, we might have the following edge:
  * {@code Edge(0, 3, { CStr(&quot;Bob&quot;), SubStr(CPos(4), CPos(7), ... })} where all expression on i_1 would eval to &quot;Bob&quot;.
+ *
  * @author Hasan Selman Kara
  */
 // TODO(#api): turn into record
 public class Edge {
 
+    @SuppressWarnings(&quot;checkstyle:VisibilityModifier&quot;)
     public final int from;
+    @SuppressWarnings(&quot;checkstyle:VisibilityModifier&quot;)
     public final int to;
     private final Set&lt;Expression&gt; expressions;
 
     /**
-     * @param from start index on a substring of the user provided output string
-     * @param to end index on a substring of the user provided output string
+     * @param from        start index on a substring of the user provided output string
+     * @param to          end index on a substring of the user provided output string
      * @param expressions all expressions which on input_1 eval to provided_output_1.substring(from, to)
      */
-<span class="fc" id="L37">    public Edge(int from, int to, Set&lt;Expression&gt; expressions) {</span>
-<span class="pc bpc" id="L38" title="1 of 2 branches missed.">        if (from &gt;= to) throw new IllegalArgumentException(String.format(&quot;Edge cannot go from '%d' to '%d'&quot;, from, to));</span>
-<span class="pc bpc" id="L39" title="1 of 2 branches missed.">        if (expressions.isEmpty()) throw new IllegalArgumentException(&quot;Expressions cannot be empty&quot;);</span>
+<span class="fc" id="L52">    public Edge(int from, int to, Set&lt;Expression&gt; expressions) {</span>
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">        if (from &gt;= to) throw new IllegalArgumentException(String.format(&quot;Edge cannot go from '%d' to '%d'&quot;, from, to));</span>
+<span class="pc bpc" id="L54" title="1 of 2 branches missed.">        if (expressions.isEmpty()) throw new IllegalArgumentException(&quot;Expressions cannot be empty&quot;);</span>
 
-<span class="fc" id="L41">        this.from = from;</span>
-<span class="fc" id="L42">        this.to = to;</span>
-<span class="fc" id="L43">        this.expressions = expressions;</span>
-<span class="fc" id="L44">    }</span>
+<span class="fc" id="L56">        this.from = from;</span>
+<span class="fc" id="L57">        this.to = to;</span>
+<span class="fc" id="L58">        this.expressions = expressions;</span>
+<span class="fc" id="L59">    }</span>
 
     public Set&lt;Expression&gt; getExpressions() {
-<span class="fc" id="L47">        return expressions;</span>
+<span class="fc" id="L62">        return expressions;</span>
     }
 
     public int getExpressionsSize() {
-<span class="nc" id="L51">        return this.expressions.size();</span>
+<span class="nc" id="L66">        return this.expressions.size();</span>
     }
 
     @Override
     public boolean equals(Object o) {
-<span class="pc bpc" id="L56" title="1 of 2 branches missed.">        if (this == o) return true;</span>
-<span class="pc bpc" id="L57" title="2 of 4 branches missed.">        if (o == null || getClass() != o.getClass()) return false;</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">        if (this == o) return true;</span>
+<span class="pc bpc" id="L72" title="2 of 4 branches missed.">        if (o == null || getClass() != o.getClass()) return false;</span>
 
-<span class="fc" id="L59">        Edge edge = (Edge) o;</span>
+<span class="fc" id="L74">        Edge edge = (Edge) o;</span>
 
-<span class="fc bfc" id="L61" title="All 2 branches covered.">        if (from != edge.from) return false;</span>
-<span class="pc bpc" id="L62" title="1 of 2 branches missed.">        if (to != edge.to) return false;</span>
-<span class="fc" id="L63">        return expressions.equals(edge.expressions);</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">        if (from != edge.from) return false;</span>
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">        if (to != edge.to) return false;</span>
+<span class="fc" id="L78">        return expressions.equals(edge.expressions);</span>
     }
 
     @Override
     public int hashCode() {
-<span class="nc" id="L68">        int result = from;</span>
-<span class="nc" id="L69">        result = 31 * result + to;</span>
-<span class="nc" id="L70">        result = 31 * result + expressions.hashCode();</span>
-<span class="nc" id="L71">        return result;</span>
+<span class="nc" id="L83">        int result = from;</span>
+<span class="nc" id="L84">        result = 31 * result + to;</span>
+<span class="nc" id="L85">        result = 31 * result + expressions.hashCode();</span>
+<span class="nc" id="L86">        return result;</span>
     }
 
     @Override
     public String toString() {
-<span class="fc" id="L76">        return String.format(&quot;Edge{From=%d, To=%d, Expressions=%s&quot;, from, to, expressions);</span>
+<span class="fc" id="L91">        return String.format(&quot;Edge{From=%d, To=%d, Expressions=%s&quot;, from, to, expressions);</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

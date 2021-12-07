@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SubstringExpressionBuilder.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jPBE</a> &gt; <a href="index.source.html" class="el_package">li.selman.jpbe.dsl.expression</a> &gt; <span class="el_source">SubstringExpressionBuilder.java</span></div><h1>SubstringExpressionBuilder.java</h1><pre class="source lang-java linenums">/*
- * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ * (c) Copyright 2021 Hasan Selman Kara. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package li.selman.jpbe.dsl.expression;
 
@@ -18,45 +30,45 @@ public class SubstringExpressionBuilder implements ExpressionBuilder {
 
     private final PositionsBuilder positionBuilder;
 
-<span class="fc" id="L21">    public SubstringExpressionBuilder(PositionsBuilder positionBuilder) {</span>
-<span class="fc" id="L22">        this.positionBuilder = positionBuilder;</span>
-<span class="fc" id="L23">    }</span>
+<span class="fc" id="L33">    public SubstringExpressionBuilder(PositionsBuilder positionBuilder) {</span>
+<span class="fc" id="L34">        this.positionBuilder = positionBuilder;</span>
+<span class="fc" id="L35">    }</span>
 
     @Override
     public List&lt;Expression&gt; computeExpressions(final String input, final String substr) {
-<span class="fc" id="L27">        List&lt;Expression&gt; result = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L39">        List&lt;Expression&gt; result = new ArrayList&lt;&gt;();</span>
 
-<span class="fc bfc" id="L29" title="All 2 branches covered.">        for (Integer k : substringsStartIndices(input, substr)) {</span>
-<span class="fc" id="L30">            Set&lt;Position&gt; y1 = positionBuilder.computePositions(input, k);</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        for (Integer k : substringsStartIndices(input, substr)) {</span>
+<span class="fc" id="L42">            Set&lt;Position&gt; y1 = positionBuilder.computePositions(input, k);</span>
             // in reference it's: k + input.length()   WARUM?!?!
-<span class="fc" id="L32">            Set&lt;Position&gt; y2 = positionBuilder.computePositions(input, input.length() - k);</span>
+<span class="fc" id="L44">            Set&lt;Position&gt; y2 = positionBuilder.computePositions(input, input.length() - k);</span>
 
-<span class="fc bfc" id="L34" title="All 2 branches covered.">            for (Position p1 : y1) {</span>
-<span class="fc bfc" id="L35" title="All 2 branches covered.">                for (Position p2 : y2) {</span>
-<span class="fc" id="L36">                    result.add(new SubstringExpression(p1, p2));</span>
-<span class="fc" id="L37">                }</span>
-<span class="fc" id="L38">            }</span>
-<span class="fc" id="L39">        }</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">            for (Position p1 : y1) {</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">                for (Position p2 : y2) {</span>
+<span class="fc" id="L48">                    result.add(new SubstringExpression(p1, p2));</span>
+<span class="fc" id="L49">                }</span>
+<span class="fc" id="L50">            }</span>
+<span class="fc" id="L51">        }</span>
 
-<span class="fc" id="L41">        return result;</span>
+<span class="fc" id="L53">        return result;</span>
     }
 
     // TODO(#optimization): replace with Intlist to avoid boxing
     static List&lt;Integer&gt; substringsStartIndices(String s, String substring) {
         // TODO(#optimization): replace with KMP
-<span class="fc" id="L47">        List&lt;Integer&gt; positions = new ArrayList&lt;&gt;();</span>
-<span class="pc bpc" id="L48" title="1 of 2 branches missed.">        if (s.length() &lt; substring.length()) {</span>
-<span class="nc" id="L49">            return positions;</span>
+<span class="fc" id="L59">        List&lt;Integer&gt; positions = new ArrayList&lt;&gt;();</span>
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">        if (s.length() &lt; substring.length()) {</span>
+<span class="nc" id="L61">            return positions;</span>
         }
 
-<span class="fc bfc" id="L52" title="All 2 branches covered.">        for (int i = 0; i &lt; s.length() - substring.length() + 1; i++) {</span>
-<span class="fc bfc" id="L53" title="All 2 branches covered.">            if (s.substring(i, i + substring.length()).equals(substring)) {</span>
-<span class="fc" id="L54">                positions.add(i);</span>
+<span class="fc bfc" id="L64" title="All 2 branches covered.">        for (int i = 0; i &lt; s.length() - substring.length() + 1; i++) {</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">            if (s.substring(i, i + substring.length()).equals(substring)) {</span>
+<span class="fc" id="L66">                positions.add(i);</span>
             }
         }
 
-<span class="fc" id="L58">        return positions;</span>
+<span class="fc" id="L70">        return positions;</span>
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

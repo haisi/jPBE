@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<checkstyle version="8.40">
+<checkstyle version="9.2">
 <file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/classifier/Conjunct.java">
 </file>
 <file name="/home/runner/work/jPBE/jPBE/src/main/java/li/selman/jpbe/classifier/Match.java">

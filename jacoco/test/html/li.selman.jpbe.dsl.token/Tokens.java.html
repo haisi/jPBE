@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Tokens.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jPBE</a> &gt; <a href="index.source.html" class="el_package">li.selman.jpbe.dsl.token</a> &gt; <span class="el_source">Tokens.java</span></div><h1>Tokens.java</h1><pre class="source lang-java linenums">/*
- * (c) Copyright 2021 Hasan Selman Kara All rights reserved.
+ * (c) Copyright 2021 Hasan Selman Kara. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package li.selman.jpbe.dsl.token;
 
@@ -14,27 +26,27 @@ public class Tokens {
     private final List&lt;Token&gt; tokens;
     private final EverythingElseToken elseToken;
 
-<span class="fc" id="L17">    public Tokens(List&lt;Token&gt; tokens) {</span>
-<span class="pc bpc" id="L18" title="1 of 2 branches missed.">        if (tokens.isEmpty()) throw new IllegalArgumentException(&quot;Tokens cannot be empty&quot;);</span>
+<span class="fc" id="L29">    public Tokens(List&lt;Token&gt; tokens) {</span>
+<span class="pc bpc" id="L30" title="1 of 2 branches missed.">        if (tokens.isEmpty()) throw new IllegalArgumentException(&quot;Tokens cannot be empty&quot;);</span>
 
-<span class="fc" id="L20">        this.elseToken = EverythingElseToken.generate(tokens);</span>
+<span class="fc" id="L32">        this.elseToken = EverythingElseToken.generate(tokens);</span>
 
-<span class="fc" id="L22">        this.tokens = combine(tokens, elseToken);</span>
-<span class="fc" id="L23">    }</span>
+<span class="fc" id="L34">        this.tokens = combine(tokens, elseToken);</span>
+<span class="fc" id="L35">    }</span>
 
     private List&lt;Token&gt; combine(List&lt;Token&gt; otherTokens, Token otherElseToken) {
-<span class="fc" id="L26">        List&lt;Token&gt; tokensWithElseToken = new ArrayList&lt;&gt;(otherTokens.size() + 1);</span>
-<span class="fc" id="L27">        tokensWithElseToken.addAll(otherTokens);</span>
-<span class="fc" id="L28">        tokensWithElseToken.add(otherElseToken);</span>
-<span class="fc" id="L29">        return tokensWithElseToken;</span>
+<span class="fc" id="L38">        List&lt;Token&gt; tokensWithElseToken = new ArrayList&lt;&gt;(otherTokens.size() + 1);</span>
+<span class="fc" id="L39">        tokensWithElseToken.addAll(otherTokens);</span>
+<span class="fc" id="L40">        tokensWithElseToken.add(otherElseToken);</span>
+<span class="fc" id="L41">        return tokensWithElseToken;</span>
     }
 
     public List&lt;Token&gt; getTokens() {
-<span class="fc" id="L33">        return tokens;</span>
+<span class="fc" id="L45">        return tokens;</span>
     }
 
     public EverythingElseToken getElseToken() {
-<span class="fc" id="L37">        return elseToken;</span>
+<span class="fc" id="L49">        return elseToken;</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
