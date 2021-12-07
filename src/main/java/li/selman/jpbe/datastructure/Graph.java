@@ -88,16 +88,18 @@ public class Graph {
         }
 
         // TODO(#wip): finish intersect
-        return null;
+        return new Graph(0, newEdges);
     }
 
     private static void addToDictionaries(List<List<Edge>> fromDict, List<List<Edge>> toDict, Edge edge) {
-        if (fromDict.get(edge.from) == null)
+        if (fromDict.get(edge.from) == null) {
             fromDict.set(edge.from, new ArrayList<>());
+        }
         fromDict.get(edge.from).add(edge);
 
-        if (toDict.get(edge.to) == null)
+        if (toDict.get(edge.to) == null) {
             toDict.set(edge.to, new ArrayList<>());
+        }
         toDict.get(edge.to).add(edge);
     }
 

@@ -34,7 +34,8 @@ class SubstringExpressionTest {
     @Test
     void leadingZeroTest() {
         Position start = new DynamicPosition(
-                TokenSequence.of(Token.START, Token.LEADING_ZERO), TokenSequence.of(Token.ALPHA_NUM_NO_LEADING_ZEROS), 1);
+                TokenSequence.of(Token.START, Token.LEADING_ZERO),
+                TokenSequence.of(Token.ALPHA_NUM_NO_LEADING_ZEROS), 1);
         Position end = new DynamicPosition(
                 TokenSequence.of(Token.ALPHA_NUM_NO_LEADING_ZEROS), TokenSequence.of(Token.DOT, Token.ALPHA_NUM), 1);
 

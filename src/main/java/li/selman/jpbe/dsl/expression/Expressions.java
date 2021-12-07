@@ -44,7 +44,7 @@ public class Expressions implements Expression {
     @Override
     public Optional<String> apply(final String s) {
         List<String> substrings = new ArrayList<>();
-        for (var expression : expressions) {
+        for (Expression expression : expressions) {
             Optional<String> outputSubstring = expression.apply(s);
             if (outputSubstring.isEmpty()) {
                 // Applying failed

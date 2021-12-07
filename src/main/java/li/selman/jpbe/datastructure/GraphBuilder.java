@@ -58,7 +58,7 @@ public class GraphBuilder {
             for (int to = from + 1; to <= output.length(); to++) {
 
                 // For each substring find all expressions f, so that f(input) = substring
-                var substring = output.substring(from, to);
+                String substring = output.substring(from, to);
 
                 // All expression for which `f(input) = substr` applies
                 Set<Expression> expressions = expressionBuilders.stream()

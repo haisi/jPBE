@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
  *
  * @author Hasan Selman Kara
  */
-public class PositionsBuilder implements PositionBuilder {
+public final class PositionsBuilder implements PositionBuilder {
 
     private final List<PositionBuilder> positionBuilders;
 

@@ -33,7 +33,7 @@ import li.selman.jpbe.dsl.DslElement;
  * @author Hasan Selman Kara
  * @see TokenSequenceBuilder
  */
-public class TokenSequence implements DslElement, Iterable<Token> {
+public final class TokenSequence implements DslElement, Iterable<Token> {
 
     private final List<Token> tokens;
     private final Pattern mergedPattern;

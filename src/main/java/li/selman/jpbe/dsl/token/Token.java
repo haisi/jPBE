@@ -200,8 +200,8 @@ public abstract class Token {
         }
 
         private static boolean isPositiveNumeric(String str) {
-            for (char c : str.toCharArray()) {
-                if (!Character.isDigit(c)) return false;
+            for (int i = 0; i < str.length(); i++) {
+                if (!Character.isDigit(str.charAt(i))) return false;
             }
             return true;
         }

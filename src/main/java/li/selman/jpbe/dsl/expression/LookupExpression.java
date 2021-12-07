@@ -16,6 +16,7 @@
 package li.selman.jpbe.dsl.expression;
 
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 import li.selman.jpbe.dsl.Expression;
 
@@ -45,7 +46,7 @@ public class LookupExpression implements Expression {
         } else {
             // Use the more computationally expensive search
             String lookupValuesReplaced = null;
-            for (var item : lookupTable.entrySet()) {
+            for (Entry<String, String> item : lookupTable.entrySet()) {
                 String key = item.getKey();
                 String value = item.getValue();
                 if (input.contains(key)) {

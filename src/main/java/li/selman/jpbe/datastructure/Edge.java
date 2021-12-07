@@ -38,7 +38,9 @@ import li.selman.jpbe.dsl.Expression;
 // TODO(#api): turn into record
 public class Edge {
 
+    @SuppressWarnings("checkstyle:VisibilityModifier")
     public final int from;
+    @SuppressWarnings("checkstyle:VisibilityModifier")
     public final int to;
     private final Set<Expression> expressions;
 

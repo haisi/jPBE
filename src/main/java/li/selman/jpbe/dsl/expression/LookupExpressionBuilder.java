@@ -58,7 +58,7 @@ public class LookupExpressionBuilder implements ExpressionBuilder {
                     continue;
                 }
                 List<String> inputColumn = columns.get(inputColIdx);
-                var element = inputColumn.get(outputRowIdx);
+                String element = inputColumn.get(outputRowIdx);
                 // Unlike with the substr, the element in the column must only be contained in the input
                 if (input.contains(element)) {
                     Map<String, String> lookupTable = combineListsIntoOrderedMap(inputColumn, outputColumn);
@@ -75,7 +75,7 @@ public class LookupExpressionBuilder implements ExpressionBuilder {
         if (keys.size() != values.size()) {
             throw new IllegalArgumentException("Cannot combine lists with dissimilar sizes");
         }
-        var map = new LinkedHashMap<String, String>();
+        Map<String, String> map = new LinkedHashMap<>();
         for (int i = 0; i < keys.size(); i++) {
             map.put(keys.get(i), values.get(i));
         }

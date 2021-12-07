@@ -29,19 +29,25 @@ public class TokenSequenceBuilder {
     private final BiFunction<Character, Token, Optional<Token>> computeTokenForCharHook;
     private final Tokens tokens;
 
-    private static final BiFunction<Character, Token, Optional<Token>> defaultHook =
-            (character, token) -> Optional.empty();
+    private static Optional<Token> defaultHook(Character character, Token token) {
+        return Optional.empty();
+    }
 
     public TokenSequenceBuilder(int maxLength, Tokens tokens) {
-        this(maxLength, defaultHook, tokens);
+        this(maxLength, TokenSequenceBuilder::defaultHook, tokens);
     }
 
     public TokenSequenceBuilder(int maxLength, BiFunction<Character, Token, Optional<Token>> computeTokenForCharHook,
                                 Tokens tokens) {
-        if (maxLength <= 0) throw new IllegalArgumentException("MaxLength cannot be smaller than 1");
-        if (computeTokenForCharHook == null)
+        if (maxLength <= 0) {
+            throw new IllegalArgumentException("MaxLength cannot be smaller than 1");
+        }
+        if (computeTokenForCharHook == null) {
             throw new IllegalArgumentException("Hook cannot be null. Use default hook!");
-        if (tokens == null) throw new IllegalArgumentException("Tokens cannot be null");
+        }
+        if (tokens == null) {
+            throw new IllegalArgumentException("Tokens cannot be null");
+        }
 
         this.maxLength = maxLength;
         this.computeTokenForCharHook = computeTokenForCharHook;
@@ -68,14 +74,15 @@ public class TokenSequenceBuilder {
 
         String substr = input.substring(from, to);
         Token last = null;
-        for (char c : substr.toCharArray()) {
+        for (int i = 0; i < substr.length(); i++) {
+            char character = substr.charAt(i);
             if (last == null) {
                 // Handle first token
-                last = computeTokenForChar(c, getLastOrNull(tmpTokens));
+                last = computeTokenForChar(character, getLastOrNull(tmpTokens));
                 tmpTokens.add(last);
             }
 
-            Token next = computeTokenForChar(c, getLastOrNull(tmpTokens));
+            Token next = computeTokenForChar(character, getLastOrNull(tmpTokens));
             if (!last.equals(next)) {
                 last = next;
                 tmpTokens.add(last);
